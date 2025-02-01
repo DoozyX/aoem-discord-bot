@@ -1,23 +1,21 @@
 import djs, { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
-import { createRequire } from 'node:module';
 import os from 'node:os';
 import typescript from 'typescript';
 
 import { Command, CommandDeferType } from '..';
+import Config from '../../../config/config.json';
+import TsConfig from '../../../tsconfig.json';
 import { DevCommandName as DevelopmentCommandName } from '../../enums';
 import { Language } from '../../models/enum-helpers';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services';
 import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils';
 
-const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
-let TsConfig = require('../../../tsconfig.json');
-
 export class DevelopmentCommand implements Command {
     public names = [Lang.getRef('chatCommands.dev', Language.Default)];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         if (!Config.developers.includes(intr.user.id)) {
             await InteractionUtils.send(intr, Lang.getEmbed('validationEmbeds.devOnly', data.lang));
