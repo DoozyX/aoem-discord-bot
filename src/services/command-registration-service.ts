@@ -19,7 +19,7 @@ export class CommandRegistrationService {
 
     public async process(
         localCmds: RESTPostAPIApplicationCommandsJSONBody[],
-        args: string[]
+        arguments_: string[]
     ): Promise<void> {
         let remoteCmds = (await this.rest.get(
             Routes.applicationCommands(Config.client.id)
@@ -35,7 +35,7 @@ export class CommandRegistrationService {
             remoteCmd => !localCmds.some(localCmd => localCmd.name === remoteCmd.name)
         );
 
-        switch (args[3]) {
+        switch (arguments_[3]) {
             case 'view': {
                 Logger.info(
                     Logs.info.commandActionView
@@ -82,8 +82,8 @@ export class CommandRegistrationService {
                 return;
             }
             case 'rename': {
-                let oldName = args[4];
-                let newName = args[5];
+                let oldName = arguments_[4];
+                let newName = arguments_[5];
                 if (!(oldName && newName)) {
                     Logger.error(Logs.error.commandActionRenameMissingArg);
                     return;
@@ -112,7 +112,7 @@ export class CommandRegistrationService {
                 return;
             }
             case 'delete': {
-                let name = args[4];
+                let name = arguments_[4];
                 if (!name) {
                     Logger.error(Logs.error.commandActionDeleteMissingArg);
                     return;

@@ -7,7 +7,7 @@ export class StringUtils {
             return input;
         }
 
-        let output = input.substring(0, addEllipsis ? length - 3 : length);
+        let output = input.slice(0, Math.max(0, addEllipsis ? length - 3 : length));
         if (addEllipsis) {
             output += '...';
         }
@@ -24,7 +24,7 @@ export class StringUtils {
                 .replaceAll(
                     /<(a?):(\S+):(\d{17,20})>/g,
                     (_match, animatedPrefix, emojiName, emojiId) => {
-                        let emojiNameUnescaped = emojiName.replaceAll(/\\/g, '');
+                        let emojiNameUnescaped = emojiName.replaceAll('\\', '');
                         return `<${animatedPrefix}:${emojiNameUnescaped}:${emojiId}>`;
                     }
                 )

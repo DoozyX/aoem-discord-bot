@@ -1,10 +1,10 @@
 import { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from 'discord.js';
 
-import { DevCommandName, HelpOption, InfoOption } from '../enums/index.js';
-import { Language } from '../models/enum-helpers/index.js';
-import { Lang } from '../services/index.js';
+import { DevCommandName as DevelopmentCommandName, HelpOption, InfoOption } from '../enums';
+import { Language } from '../models/enum-helpers';
+import { Lang } from '../services';
 
-export class Args {
+export class Arguments {
     public static readonly DEV_COMMAND: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.command', Language.Default),
         name_localizations: Lang.getRefLocalizationMap('arguments.command'),
@@ -15,7 +15,7 @@ export class Args {
             {
                 name: Lang.getRef('devCommandNames.info', Language.Default),
                 name_localizations: Lang.getRefLocalizationMap('devCommandNames.info'),
-                value: DevCommandName.INFO,
+                value: DevelopmentCommandName.INFO,
             },
         ],
     };

@@ -61,51 +61,41 @@ export class Language {
         let found = new Set<Locale>();
         // Exact match
         if (found.size < limit)
-            langCodes
-                .filter(langCode => langCode.toLowerCase() === search)
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => langCode.toLowerCase() === search)) found.add(langCode);
         if (found.size < limit)
-            langCodes
-                .filter(langCode => this.Data[langCode].nativeName.toLowerCase() === search)
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => this.Data[langCode].nativeName.toLowerCase() === search)) found.add(langCode);
         if (found.size < limit)
-            langCodes
-                .filter(langCode => this.Data[langCode].nativeName.toLowerCase() === search)
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => this.Data[langCode].nativeName.toLowerCase() === search)) found.add(langCode);
         if (found.size < limit)
-            langCodes
-                .filter(langCode => this.Data[langCode].englishName.toLowerCase() === search)
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => this.Data[langCode].englishName.toLowerCase() === search)) found.add(langCode);
         // Starts with search term
         if (found.size < limit)
-            langCodes
-                .filter(langCode => langCode.toLowerCase().startsWith(search))
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => langCode.toLowerCase().startsWith(search))) found.add(langCode);
         if (found.size < limit)
-            langCodes
-                .filter(langCode => this.Data[langCode].nativeName.toLowerCase().startsWith(search))
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => this.Data[langCode].nativeName.toLowerCase().startsWith(search))) found.add(langCode);
         if (found.size < limit)
-            langCodes
+            for (const langCode of langCodes
                 .filter(langCode =>
                     this.Data[langCode].englishName.toLowerCase().startsWith(search)
-                )
-                .forEach(langCode => found.add(langCode));
+                )) found.add(langCode);
         // Includes search term
         if (found.size < limit)
-            langCodes
-                .filter(langCode => langCode.toLowerCase().startsWith(search))
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => langCode.toLowerCase().startsWith(search))) found.add(langCode);
         if (found.size < limit)
-            langCodes
-                .filter(langCode => this.Data[langCode].nativeName.toLowerCase().startsWith(search))
-                .forEach(langCode => found.add(langCode));
+            for (const langCode of langCodes
+                .filter(langCode => this.Data[langCode].nativeName.toLowerCase().startsWith(search))) found.add(langCode);
         if (found.size < limit)
-            langCodes
+            for (const langCode of langCodes
                 .filter(langCode =>
                     this.Data[langCode].englishName.toLowerCase().startsWith(search)
-                )
-                .forEach(langCode => found.add(langCode));
+                )) found.add(langCode);
         return [...found];
     }
 }

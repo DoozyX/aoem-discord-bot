@@ -8,7 +8,7 @@ export class MathUtils {
     }
 
     public static range(start: number, size: number): number[] {
-        return [...Array(size).keys()].map(i => i + start);
+        return [...Array.from({length: size}).keys()].map(index => index + start);
     }
 
     public static ceilToMultiple(input: number, multiple: number): number {

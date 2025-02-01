@@ -1,13 +1,13 @@
 import { EmbedBuilder, Locale, LocalizationMap, resolveColor } from 'discord.js';
 import { Linguini, TypeMapper, TypeMappers, Utils } from 'linguini';
-import path, { dirname } from 'node:path';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { Language } from '../models/enum-helpers/index.js';
+import { Language } from '../models/enum-helpers';
 
 export class Lang {
     private static linguini = new Linguini(
-        path.resolve(dirname(fileURLToPath(import.meta.url)), '../../lang'),
+        path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../lang'),
         'lang'
     );
 
@@ -44,11 +44,11 @@ export class Lang {
         location: string,
         variables?: { [name: string]: string }
     ): LocalizationMap {
-        let obj = {};
+        let object = {};
         for (let langCode of Language.Enabled) {
-            obj[langCode] = this.getRef(location, langCode, variables);
+            object[langCode] = this.getRef(location, langCode, variables);
         }
-        return obj;
+        return object;
     }
 
     public static getCom(location: string, variables?: { [name: string]: string }): string {
@@ -67,7 +67,7 @@ export class Lang {
             fields: jsonValue.fields?.map(field => ({
                 name: Utils.join(field.name, '\n'),
                 value: Utils.join(field.value, '\n'),
-                inline: field.inline ? field.inline : false,
+                inline: field.inline ?? false,
             })),
             image: {
                 url: jsonValue.image,

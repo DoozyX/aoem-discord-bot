@@ -14,7 +14,7 @@ import {
     WebhookMessageEditOptions,
 } from 'discord.js';
 
-const IGNORED_ERRORS = [
+const IGNORED_ERRORS = new Set([
     DiscordApiErrors.UnknownMessage,
     DiscordApiErrors.UnknownChannel,
     DiscordApiErrors.UnknownGuild,
@@ -23,7 +23,7 @@ const IGNORED_ERRORS = [
     DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
     DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
     DiscordApiErrors.MaximumActiveThreads,
-];
+]);
 
 export class InteractionUtils {
     public static async deferReply(
@@ -38,7 +38,7 @@ export class InteractionUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -56,7 +56,7 @@ export class InteractionUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -74,26 +74,22 @@ export class InteractionUtils {
             let options: InteractionReplyOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
-            if (intr.deferred || intr.replied) {
-                return await intr.followUp({
+                      : content);
+            return await (intr.deferred || intr.replied ? intr.followUp({
                     ...options,
                     ephemeral: hidden,
-                });
-            } else {
-                return await intr.reply({
+                }) : intr.reply({
                     ...options,
                     ephemeral: hidden,
                     fetchReply: true,
-                });
-            }
+                }));
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -112,7 +108,7 @@ export class InteractionUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -129,15 +125,15 @@ export class InteractionUtils {
             let options: WebhookMessageEditOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
+                      : content);
             return await intr.editReply(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -154,9 +150,9 @@ export class InteractionUtils {
             let options: InteractionUpdateOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
+                      : content);
             return await intr.update({
                 ...options,
                 fetchReply: true,
@@ -165,7 +161,7 @@ export class InteractionUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {

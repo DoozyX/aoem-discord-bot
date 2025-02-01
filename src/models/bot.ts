@@ -23,9 +23,9 @@ import {
     GuildLeaveHandler,
     MessageHandler,
     ReactionHandler,
-} from '../events/index.js';
-import { JobService, Logger } from '../services/index.js';
-import { PartialUtils } from '../utils/index.js';
+} from '../events';
+import { JobService, Logger } from '../services';
+import { PartialUtils } from '../utils';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -59,7 +59,7 @@ export class Bot {
         );
         this.client.on(Events.GuildCreate, (guild: Guild) => this.onGuildJoin(guild));
         this.client.on(Events.GuildDelete, (guild: Guild) => this.onGuildLeave(guild));
-        this.client.on(Events.MessageCreate, (msg: Message) => this.onMessage(msg));
+        this.client.on(Events.MessageCreate, (message: Message) => this.onMessage(message));
         this.client.on(Events.InteractionCreate, (intr: Interaction) => this.onInteraction(intr));
         this.client.on(
             Events.MessageReactionAdd,
@@ -120,21 +120,21 @@ export class Bot {
         }
     }
 
-    private async onMessage(msg: Message): Promise<void> {
+    private async onMessage(message: Message): Promise<void> {
         if (
             !this.ready ||
-            (Debug.dummyMode.enabled && !Debug.dummyMode.whitelist.includes(msg.author.id))
+            (Debug.dummyMode.enabled && !Debug.dummyMode.whitelist.includes(message.author.id))
         ) {
             return;
         }
 
         try {
-            msg = await PartialUtils.fillMessage(msg);
-            if (!msg) {
+            message = await PartialUtils.fillMessage(message);
+            if (!message) {
                 return;
             }
 
-            await this.messageHandler.process(msg);
+            await this.messageHandler.process(message);
         } catch (error) {
             Logger.error(Logs.error.message, error);
         }
@@ -164,7 +164,7 @@ export class Bot {
     }
 
     private async onReaction(
-        msgReaction: MessageReaction | PartialMessageReaction,
+        messageReaction: MessageReaction | PartialMessageReaction,
         reactor: User | PartialUser
     ): Promise<void> {
         if (
@@ -175,8 +175,8 @@ export class Bot {
         }
 
         try {
-            msgReaction = await PartialUtils.fillReaction(msgReaction);
-            if (!msgReaction) {
+            messageReaction = await PartialUtils.fillReaction(messageReaction);
+            if (!messageReaction) {
                 return;
             }
 
@@ -186,8 +186,8 @@ export class Bot {
             }
 
             await this.reactionHandler.process(
-                msgReaction,
-                msgReaction.message as Message,
+                messageReaction,
+                messageReaction.message as Message,
                 reactor
             );
         } catch (error) {

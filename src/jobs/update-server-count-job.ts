@@ -1,11 +1,11 @@
 import { ActivityType, ShardingManager } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Job } from './index.js';
-import { CustomClient } from '../extensions/index.js';
+import { Job } from '.';
+import { CustomClient } from '../extensions';
 import { BotSite } from '../models/config-models.js';
-import { HttpService, Lang, Logger } from '../services/index.js';
-import { ShardUtils } from '../utils/index.js';
+import { HttpService, Lang, Logger } from '../services';
+import { ShardUtils } from '../utils';
 
 const require = createRequire(import.meta.url);
 let BotSites: BotSite[] = require('../../config/bot-sites.json');
@@ -56,10 +56,10 @@ export class UpdateServerCountJob extends Job {
                         .replaceAll('{{SERVER_COUNT}}', serverCount.toString())
                         .replaceAll('{{SHARD_COUNT}}', shardCount)
                 );
-                let res = await this.httpService.post(botSite.url, botSite.authorization, body);
+                let response = await this.httpService.post(botSite.url, botSite.authorization, body);
 
-                if (!res.ok) {
-                    throw res;
+                if (!response.ok) {
+                    throw response;
                 }
             } catch (error) {
                 Logger.error(

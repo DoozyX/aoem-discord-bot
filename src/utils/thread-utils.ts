@@ -1,6 +1,6 @@
 import { DiscordAPIError, RESTJSONErrorCodes as DiscordApiErrors, ThreadChannel } from 'discord.js';
 
-const IGNORED_ERRORS = [
+const IGNORED_ERRORS = new Set([
     DiscordApiErrors.UnknownMessage,
     DiscordApiErrors.UnknownChannel,
     DiscordApiErrors.UnknownGuild,
@@ -9,7 +9,7 @@ const IGNORED_ERRORS = [
     DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
     DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
     DiscordApiErrors.MaximumActiveThreads,
-];
+]);
 
 export class ThreadUtils {
     public static async archive(
@@ -22,7 +22,7 @@ export class ThreadUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -41,7 +41,7 @@ export class ThreadUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {

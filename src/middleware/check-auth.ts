@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 
 export function checkAuth(token: string): RequestHandler {
-    return (req, res, next) => {
-        if (req.headers.authorization !== token) {
-            res.sendStatus(401);
+    return (request, response, next) => {
+        if (request.headers.authorization !== token) {
+            response.sendStatus(401);
             return;
         }
         next();

@@ -3,16 +3,16 @@ import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
 import { createRequire } from 'node:module';
 
-import { Controller } from './index.js';
-import { CustomClient } from '../extensions/index.js';
-import { mapClass } from '../middleware/index.js';
+import { Controller } from '.';
+import { CustomClient } from '../extensions';
+import { mapClass } from '../middleware';
 import {
     GetShardsResponse,
     SetShardPresencesRequest,
     ShardInfo,
     ShardStats,
-} from '../models/cluster-api/index.js';
-import { Logger } from '../services/index.js';
+} from '../models/cluster-api';
+import { Logger } from '../services';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -26,13 +26,13 @@ export class ShardsController implements Controller {
     constructor(private shardManager: ShardingManager) {}
 
     public register(): void {
-        this.router.get('/', (req, res) => this.getShards(req, res));
-        this.router.put('/presence', mapClass(SetShardPresencesRequest), (req, res) =>
-            this.setShardPresences(req, res)
+        this.router.get('/', (request, response) => this.getShards(request, response));
+        this.router.put('/presence', mapClass(SetShardPresencesRequest), (request, response) =>
+            this.setShardPresences(request, response)
         );
     }
 
-    private async getShards(req: Request, res: Response): Promise<void> {
+    private async getShards(request: Request, response: Response): Promise<void> {
         let shardDatas = await Promise.all(
             this.shardManager.shards.map(async shard => {
                 let shardInfo: ShardInfo = {
@@ -58,24 +58,24 @@ export class ShardsController implements Controller {
             uptimeSecs: Math.floor(process.uptime()),
         };
 
-        let resBody: GetShardsResponse = {
+        let responseBody: GetShardsResponse = {
             shards: shardDatas,
             stats,
         };
-        res.status(200).json(resBody);
+        response.status(200).json(responseBody);
     }
 
-    private async setShardPresences(req: Request, res: Response): Promise<void> {
-        let reqBody: SetShardPresencesRequest = res.locals.input;
+    private async setShardPresences(request: Request, response: Response): Promise<void> {
+        let requestBody: SetShardPresencesRequest = response.locals.input;
 
         await this.shardManager.broadcastEval(
             (client, context) => {
                 let customClient = client as CustomClient;
                 return customClient.setPresence(context.type, context.name, context.url);
             },
-            { context: { type: ActivityType[reqBody.type], name: reqBody.name, url: reqBody.url } }
+            { context: { type: ActivityType[requestBody.type], name: requestBody.name, url: requestBody.url } }
         );
 
-        res.sendStatus(200);
+        response.sendStatus(200);
     }
 }

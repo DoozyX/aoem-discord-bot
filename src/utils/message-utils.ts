@@ -14,7 +14,7 @@ import {
     User,
 } from 'discord.js';
 
-const IGNORED_ERRORS = [
+const IGNORED_ERRORS = new Set([
     DiscordApiErrors.UnknownMessage,
     DiscordApiErrors.UnknownChannel,
     DiscordApiErrors.UnknownGuild,
@@ -23,7 +23,7 @@ const IGNORED_ERRORS = [
     DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
     DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
     DiscordApiErrors.MaximumActiveThreads,
-];
+]);
 
 export class MessageUtils {
     public static async send(
@@ -35,15 +35,15 @@ export class MessageUtils {
             let options: BaseMessageOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
+                      : content);
             return await target.send(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -53,22 +53,22 @@ export class MessageUtils {
     }
 
     public static async reply(
-        msg: Message,
+        message: Message,
         content: string | EmbedBuilder | BaseMessageOptions
     ): Promise<Message> {
         try {
             let options: BaseMessageOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
-            return await msg.reply(options);
+                      : content);
+            return await message.reply(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -78,22 +78,22 @@ export class MessageUtils {
     }
 
     public static async edit(
-        msg: Message,
+        message: Message,
         content: string | EmbedBuilder | MessageEditOptions
     ): Promise<Message> {
         try {
             let options: MessageEditOptions =
                 typeof content === 'string'
                     ? { content }
-                    : content instanceof EmbedBuilder
+                    : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content;
-            return await msg.edit(options);
+                      : content);
+            return await message.edit(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -102,14 +102,14 @@ export class MessageUtils {
         }
     }
 
-    public static async react(msg: Message, emoji: EmojiResolvable): Promise<MessageReaction> {
+    public static async react(message: Message, emoji: EmojiResolvable): Promise<MessageReaction> {
         try {
-            return await msg.react(emoji);
+            return await message.react(emoji);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -118,14 +118,14 @@ export class MessageUtils {
         }
     }
 
-    public static async pin(msg: Message, pinned: boolean = true): Promise<Message> {
+    public static async pin(message: Message, pinned: boolean = true): Promise<Message> {
         try {
-            return pinned ? await msg.pin() : await msg.unpin();
+            return pinned ? await message.pin() : await message.unpin();
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -135,16 +135,16 @@ export class MessageUtils {
     }
 
     public static async startThread(
-        msg: Message,
+        message: Message,
         options: StartThreadOptions
     ): Promise<ThreadChannel> {
         try {
-            return await msg.startThread(options);
+            return await message.startThread(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -153,14 +153,14 @@ export class MessageUtils {
         }
     }
 
-    public static async delete(msg: Message): Promise<Message> {
+    public static async delete(message: Message): Promise<Message> {
         try {
-            return await msg.delete();
+            return await message.delete();
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {

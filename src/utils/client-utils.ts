@@ -15,11 +15,11 @@ import {
     VoiceChannel,
 } from 'discord.js';
 
-import { PermissionUtils, RegexUtils } from './index.js';
-import { Lang } from '../services/index.js';
+import { PermissionUtils, RegexUtils } from '.';
+import { Lang } from '../services';
 
 const FETCH_MEMBER_LIMIT = 20;
-const IGNORED_ERRORS = [
+const IGNORED_ERRORS = new Set([
     DiscordApiErrors.UnknownMessage,
     DiscordApiErrors.UnknownChannel,
     DiscordApiErrors.UnknownGuild,
@@ -27,7 +27,7 @@ const IGNORED_ERRORS = [
     DiscordApiErrors.UnknownUser,
     DiscordApiErrors.UnknownInteraction,
     DiscordApiErrors.MissingAccess,
-];
+]);
 
 export class ClientUtils {
     public static async getGuild(client: Client, discordId: string): Promise<Guild> {
@@ -42,7 +42,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -63,7 +63,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -84,7 +84,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -107,17 +107,20 @@ export class ClientUtils {
 
             let tag = RegexUtils.tag(input);
             if (tag) {
-                return (
-                    await guild.members.fetch({ query: tag.username, limit: FETCH_MEMBER_LIMIT })
-                ).find(member => member.user.discriminator === tag.discriminator);
+                const members = await guild.members.fetch({
+                    query: tag.username,
+                    limit: FETCH_MEMBER_LIMIT,
+                });
+                return members.find(member => member.user.discriminator === tag.discriminator);
             }
 
-            return (await guild.members.fetch({ query: input, limit: 1 })).first();
+            const members = await guild.members.fetch({ query: input, limit: 1 });
+            return members.first();
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -143,7 +146,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -160,15 +163,14 @@ export class ClientUtils {
             let discordId = RegexUtils.discordId(input);
             if (discordId) {
                 let channel = await guild.channels.fetch(discordId);
-                if (channel instanceof NewsChannel || channel instanceof TextChannel) {
-                    return channel;
-                } else {
-                    return;
-                }
+                return channel instanceof NewsChannel || channel instanceof TextChannel
+                    ? channel
+                    : undefined;
             }
 
             let search = input.trim().toLowerCase().replace(/^#/, '').replaceAll(' ', '-');
-            let channels = [...(await guild.channels.fetch()).values()].filter(
+            let fetchedChannels = await guild.channels.fetch();
+            let channels = [...fetchedChannels.values()].filter(
                 channel => channel instanceof NewsChannel || channel instanceof TextChannel
             );
             return (
@@ -179,7 +181,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -196,15 +198,14 @@ export class ClientUtils {
             let discordId = RegexUtils.discordId(input);
             if (discordId) {
                 let channel = await guild.channels.fetch(discordId);
-                if (channel instanceof VoiceChannel || channel instanceof StageChannel) {
-                    return channel;
-                } else {
-                    return;
-                }
+                return channel instanceof VoiceChannel || channel instanceof StageChannel
+                    ? channel
+                    : undefined;
             }
 
             let search = input.trim().toLowerCase().replace(/^#/, '');
-            let channels = [...(await guild.channels.fetch()).values()].filter(
+            let fetchedChannels = await guild.channels.fetch();
+            let channels = [...fetchedChannels.values()].filter(
                 channel => channel instanceof VoiceChannel || channel instanceof StageChannel
             );
             return (
@@ -215,7 +216,7 @@ export class ClientUtils {
             if (
                 error instanceof DiscordAPIError &&
                 typeof error.code == 'number' &&
-                IGNORED_ERRORS.includes(error.code)
+                IGNORED_ERRORS.has(error.code)
             ) {
                 return;
             } else {
@@ -235,7 +236,8 @@ export class ClientUtils {
         }
 
         // Otherwise look for a bot channel
-        return (await guild.channels.fetch()).find(
+        const channels = await guild.channels.fetch();
+        return [...channels.values()].find(
             channel =>
                 (channel instanceof TextChannel || channel instanceof NewsChannel) &&
                 PermissionUtils.canSend(channel, true) &&

@@ -3,8 +3,8 @@ import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
 import { createRequire } from 'node:module';
 
-import { Controller } from './index.js';
-import { GetGuildsResponse } from '../models/cluster-api/index.js';
+import { Controller } from '.';
+import { GetGuildsResponse } from '../models/cluster-api';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -17,21 +17,16 @@ export class GuildsController implements Controller {
     constructor(private shardManager: ShardingManager) {}
 
     public register(): void {
-        this.router.get('/', (req, res) => this.getGuilds(req, res));
+        this.router.get('/', (request, response) => this.getGuilds(request, response));
     }
 
-    private async getGuilds(req: Request, res: Response): Promise<void> {
-        let guilds: string[] = [
-            ...new Set(
-                (
-                    await this.shardManager.broadcastEval(client => [...client.guilds.cache.keys()])
-                ).flat()
-            ),
-        ];
+    private async getGuilds(request: Request, response: Response): Promise<void> {
+         const result =    await this.shardManager.broadcastEval(client => [...client.guilds.cache.keys()])
+        let guilds: string[] = [...new Set(result.flat())];
 
-        let resBody: GetGuildsResponse = {
+        let guildsResponse: GetGuildsResponse = {
             guilds,
         };
-        res.status(200).json(resBody);
+        response.status(200).json(guildsResponse);
     }
 }

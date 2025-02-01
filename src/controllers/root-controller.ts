@@ -1,17 +1,17 @@
 import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
 
-import { Controller } from './index.js';
+import { Controller } from '.';
 
 export class RootController implements Controller {
     public path = '/';
     public router: Router = router();
 
     public register(): void {
-        this.router.get('/', (req, res) => this.get(req, res));
+        this.router.get('/', (request, response) => this.get(request, response));
     }
 
-    private async get(req: Request, res: Response): Promise<void> {
-        res.status(200).json({ name: 'Discord Bot Cluster API', author: 'Kevin Novak' });
+    private async get(request: Request, response: Response): Promise<void> {
+        response.status(200).json({ name: 'Discord Bot Cluster API', author: 'Kevin Novak' });
     }
 }

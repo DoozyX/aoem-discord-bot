@@ -4,9 +4,9 @@ export class RandomUtils {
     }
 
     public static shuffle(input: any[]): any[] {
-        for (let i = input.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [input[i], input[j]] = [input[j], input[i]];
+        for (let index = input.length - 1; index > 0; index--) {
+            const index_ = Math.floor(Math.random() * (index + 1));
+            [input[index], input[index_]] = [input[index_], input[index]];
         }
         return input;
     }

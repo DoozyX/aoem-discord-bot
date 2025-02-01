@@ -2,9 +2,9 @@ import { Message, MessageReaction, User } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 import { createRequire } from 'node:module';
 
-import { EventHandler } from './index.js';
-import { Reaction } from '../reactions/index.js';
-import { EventDataService } from '../services/index.js';
+import { EventHandler } from '.';
+import { Reaction } from '../reactions';
+import { EventDataService } from '../services';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -20,46 +20,46 @@ export class ReactionHandler implements EventHandler {
         private eventDataService: EventDataService
     ) {}
 
-    public async process(msgReaction: MessageReaction, msg: Message, reactor: User): Promise<void> {
+    public async process(messageReaction: MessageReaction, message: Message, reactor: User): Promise<void> {
         // Don't respond to self, or other bots
-        if (reactor.id === msgReaction.client.user?.id || reactor.bot) {
+        if (reactor.id === messageReaction.client.user?.id || reactor.bot) {
             return;
         }
 
         // Check if user is rate limited
-        let limited = this.rateLimiter.take(msg.author.id);
+        let limited = this.rateLimiter.take(message.author.id);
         if (limited) {
             return;
         }
 
         // Try to find the reaction the user wants
-        let reaction = this.findReaction(msgReaction.emoji.name);
+        let reaction = this.findReaction(messageReaction.emoji.name);
         if (!reaction) {
             return;
         }
 
-        if (reaction.requireGuild && !msg.guild) {
+        if (reaction.requireGuild && !message.guild) {
             return;
         }
 
-        if (reaction.requireSentByClient && msg.author.id !== msg.client.user?.id) {
+        if (reaction.requireSentByClient && message.author.id !== message.client.user?.id) {
             return;
         }
 
         // Check if the embeds author equals the reactors tag
-        if (reaction.requireEmbedAuthorTag && msg.embeds[0]?.author?.name !== reactor.tag) {
+        if (reaction.requireEmbedAuthorTag && message.embeds[0]?.author?.name !== reactor.tag) {
             return;
         }
 
         // Get data from database
         let data = await this.eventDataService.create({
             user: reactor,
-            channel: msg.channel,
-            guild: msg.guild,
+            channel: message.channel,
+            guild: message.guild,
         });
 
         // Execute the reaction
-        await reaction.execute(msgReaction, msg, reactor, data);
+        await reaction.execute(messageReaction, message, reactor, data);
     }
 
     private findReaction(emoji: string): Reaction {

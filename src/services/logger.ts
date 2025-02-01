@@ -29,65 +29,65 @@ let logger = pino(
 export class Logger {
     private static shardId: number;
 
-    public static info(message: string, obj?: any): void {
-        if (obj) {
-            logger.info(obj, message);
+    public static info(message: string, object?: any): void {
+        if (object) {
+            logger.info(object, message);
         } else {
             logger.info(message);
         }
     }
 
-    public static warn(message: string, obj?: any): void {
-        if (obj) {
-            logger.warn(obj, message);
+    public static warn(message: string, object?: any): void {
+        if (object) {
+            logger.warn(object, message);
         } else {
             logger.warn(message);
         }
     }
 
-    public static async error(message: string, obj?: any): Promise<void> {
+    public static async error(message: string, object?: any): Promise<void> {
         // Log just a message if no error object
-        if (!obj) {
+        if (!object) {
             logger.error(message);
             return;
         }
 
         // Otherwise log details about the error
-        if (typeof obj === 'string') {
+        if (typeof object === 'string') {
             logger
                 .child({
-                    message: obj,
+                    message: object,
                 })
                 .error(message);
-        } else if (obj instanceof Response) {
-            let resText: string;
+        } else if (object instanceof Response) {
+            let responseText: string;
             try {
-                resText = await obj.text();
+                responseText = await object.text();
             } catch {
                 // Ignore
             }
             logger
                 .child({
-                    path: obj.url,
-                    statusCode: obj.status,
-                    statusName: obj.statusText,
-                    headers: obj.headers.raw(),
-                    body: resText,
+                    path: object.url,
+                    statusCode: object.status,
+                    statusName: object.statusText,
+                    headers: object.headers.raw(),
+                    body: responseText,
                 })
                 .error(message);
-        } else if (obj instanceof DiscordAPIError) {
+        } else if (object instanceof DiscordAPIError) {
             logger
                 .child({
-                    message: obj.message,
-                    code: obj.code,
-                    statusCode: obj.status,
-                    method: obj.method,
-                    url: obj.url,
-                    stack: obj.stack,
+                    message: object.message,
+                    code: object.code,
+                    statusCode: object.status,
+                    method: object.method,
+                    url: object.url,
+                    stack: object.stack,
                 })
                 .error(message);
         } else {
-            logger.error(obj, message);
+            logger.error(object, message);
         }
     }
 

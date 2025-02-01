@@ -3,18 +3,18 @@ import { createRequire } from 'node:module';
 import os from 'node:os';
 import typescript from 'typescript';
 
-import { DevCommandName } from '../../enums/index.js';
-import { Language } from '../../models/enum-helpers/index.js';
+import { Command, CommandDeferType } from '..';
+import { DevCommandName as DevelopmentCommandName } from '../../enums';
+import { Language } from '../../models/enum-helpers';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
-import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils/index.js';
-import { Command, CommandDeferType } from '../index.js';
+import { Lang } from '../../services';
+import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../../config/config.json');
 let TsConfig = require('../../../tsconfig.json');
 
-export class DevCommand implements Command {
+export class DevelopmentCommand implements Command {
     public names = [Lang.getRef('chatCommands.dev', Language.Default)];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
@@ -24,14 +24,14 @@ export class DevCommand implements Command {
             return;
         }
 
-        let args = {
+        let arguments_ = {
             command: intr.options.getString(
                 Lang.getRef('arguments.command', Language.Default)
-            ) as DevCommandName,
+            ) as DevelopmentCommandName,
         };
 
-        switch (args.command) {
-            case DevCommandName.INFO: {
+        switch (arguments_.command) {
+            case DevelopmentCommandName.INFO: {
                 let shardCount = intr.client.shard?.count ?? 1;
                 let serverCount: number;
                 if (intr.client.shard) {

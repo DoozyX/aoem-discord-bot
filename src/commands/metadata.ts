@@ -6,9 +6,9 @@ import {
     RESTPostAPIContextMenuApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { Args } from './index.js';
-import { Language } from '../models/enum-helpers/index.js';
-import { Lang } from '../services/index.js';
+import { Arguments as Arguments } from '.';
+import { Language } from '../models/enum-helpers';
+import { Lang } from '../services';
 
 export const ChatCommandMetadata: {
     [command: string]: RESTPostAPIChatInputApplicationCommandsJSONBody;
@@ -25,7 +25,7 @@ export const ChatCommandMetadata: {
         ]).toString(),
         options: [
             {
-                ...Args.DEV_COMMAND,
+                ...Arguments.DEV_COMMAND,
                 required: true,
             },
         ],
@@ -40,7 +40,7 @@ export const ChatCommandMetadata: {
         default_member_permissions: undefined,
         options: [
             {
-                ...Args.HELP_OPTION,
+                ...Arguments.HELP_OPTION,
                 required: true,
             },
         ],
@@ -55,7 +55,7 @@ export const ChatCommandMetadata: {
         default_member_permissions: undefined,
         options: [
             {
-                ...Args.INFO_OPTION,
+                ...Arguments.INFO_OPTION,
                 required: true,
             },
         ],

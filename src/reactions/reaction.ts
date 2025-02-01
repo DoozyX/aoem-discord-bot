@@ -8,8 +8,8 @@ export interface Reaction {
     requireSentByClient: boolean;
     requireEmbedAuthorTag: boolean;
     execute(
-        msgReaction: MessageReaction,
-        msg: Message,
+        messageReaction: MessageReaction,
+        message: Message,
         reactor: User,
         data: EventData
     ): Promise<void>;

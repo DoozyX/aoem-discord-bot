@@ -2,16 +2,16 @@ import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button } from './buttons/index.js';
-import { DevCommand, HelpCommand, InfoCommand, TestCommand } from './commands/chat/index.js';
+import { Button } from './buttons';
 import {
     ChatCommandMetadata,
     Command,
     MessageCommandMetadata,
     UserCommandMetadata,
-} from './commands/index.js';
-import { ViewDateSent } from './commands/message/index.js';
-import { ViewDateJoined } from './commands/user/index.js';
+} from './commands';
+import { DevelopmentCommand as DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from './commands/chat';
+import { ViewDateSent } from './commands/message';
+import { ViewDateJoined } from './commands/user';
 import {
     ButtonHandler,
     CommandHandler,
@@ -20,18 +20,18 @@ import {
     MessageHandler,
     ReactionHandler,
     TriggerHandler,
-} from './events/index.js';
-import { CustomClient } from './extensions/index.js';
-import { Job } from './jobs/index.js';
+} from './events';
+import { CustomClient } from './extensions';
+import { Job } from './jobs';
 import { Bot } from './models/bot.js';
-import { Reaction } from './reactions/index.js';
+import { Reaction } from './reactions';
 import {
     CommandRegistrationService,
     EventDataService,
     JobService,
     Logger,
-} from './services/index.js';
-import { Trigger } from './triggers/index.js';
+} from './services';
+import { Trigger } from './triggers';
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
@@ -56,7 +56,7 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        new DevCommand(),
+        new DevelopmentCommand(),
         new HelpCommand(),
         new InfoCommand(),
         new TestCommand(),
@@ -128,6 +128,8 @@ async function start(): Promise<void> {
         }
         // Wait for any final logs to be written.
         await new Promise(resolve => setTimeout(resolve, 1000));
+        // it is as cli
+        // eslint-disable-next-line unicorn/no-process-exit
         process.exit();
     }
 
@@ -138,6 +140,8 @@ process.on('unhandledRejection', (reason, _promise) => {
     Logger.error(Logs.error.unhandledRejection, reason);
 });
 
-start().catch(error => {
+try {
+    await start();
+} catch (error) {
     Logger.error(Logs.error.unspecified, error);
-});
+}

@@ -2,12 +2,12 @@ import { ShardingManager } from 'discord.js';
 import { createRequire } from 'node:module';
 import 'reflect-metadata';
 
-import { GuildsController, RootController, ShardsController } from './controllers/index.js';
-import { Job, UpdateServerCountJob } from './jobs/index.js';
+import { GuildsController, RootController, ShardsController } from './controllers';
+import { Job, UpdateServerCountJob } from './jobs';
 import { Api } from './models/api.js';
 import { Manager } from './models/manager.js';
-import { HttpService, JobService, Logger, MasterApiService } from './services/index.js';
-import { MathUtils, ShardUtils } from './utils/index.js';
+import { HttpService, JobService, Logger, MasterApiService } from './services';
+import { MathUtils, ShardUtils } from './utils';
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
@@ -29,10 +29,10 @@ async function start(): Promise<void> {
     let totalShards: number;
     try {
         if (Config.clustering.enabled) {
-            let resBody = await masterApiService.login();
-            shardList = resBody.shardList;
+            let responseBody = await masterApiService.login();
+            shardList = responseBody.shardList;
             let requiredShards = await ShardUtils.requiredShardCount(Config.client.token);
-            totalShards = Math.max(requiredShards, resBody.totalShards);
+            totalShards = Math.max(requiredShards, responseBody.totalShards);
         } else {
             let recommendedShards = await ShardUtils.recommendedShardCount(
                 Config.client.token,
@@ -42,7 +42,7 @@ async function start(): Promise<void> {
             totalShards = recommendedShards;
         }
     } catch (error) {
-        Logger.error(Logs.error.retrieveShards, error);
+        await Logger.error(Logs.error.retrieveShards, error);
         return;
     }
 
@@ -85,6 +85,8 @@ process.on('unhandledRejection', (reason, _promise) => {
     Logger.error(Logs.error.unhandledRejection, reason);
 });
 
-start().catch(error => {
+try {
+    await start();
+} catch (error) {
     Logger.error(Logs.error.unspecified, error);
-});
+}
