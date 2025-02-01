@@ -3,17 +3,17 @@ FROM node:16
 # Create app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock ./
 
-# Install packages
-RUN npm install
+# Install dependencies using Yarn
+RUN yarn install
 
 # Copy the app code
 COPY . .
 
 # Build the project
-RUN npm run build
+RUN yarn build
 
 # Expose ports
 EXPOSE 3001
