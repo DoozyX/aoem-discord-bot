@@ -1,43 +1,35 @@
 import { EmbedBuilder, Locale, LocalizationMap, resolveColor } from 'discord.js';
 import { Linguini, TypeMapper, TypeMappers, Utils } from 'linguini';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-import { Language } from '../models/enum-helpers';
+import { Language } from '@app/models/enum-helpers';
 
-export class Lang {
+export class Intl {
     private static linguini = new Linguini(
-        path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../lang'),
+        // TODO: check
+        // eslint-disable-next-line unicorn/prefer-module
+        path.resolve(__dirname, '../../lang'),
         'lang'
     );
 
     public static getEmbed(
         location: string,
-        langCode: Locale,
+        langCode: Locale = Language.Default,
         variables?: { [name: string]: string }
     ): EmbedBuilder {
-        return (
-            this.linguini.get(location, langCode, this.embedTm, variables) ??
-            this.linguini.get(location, Language.Default, this.embedTm, variables)
-        );
+        return this.linguini.get(location, langCode, this.embedTm, variables);
     }
 
-    public static getRegex(location: string, langCode: Locale): RegExp {
-        return (
-            this.linguini.get(location, langCode, TypeMappers.RegExp) ??
-            this.linguini.get(location, Language.Default, TypeMappers.RegExp)
-        );
+    public static getRegex(location: string, langCode: Locale = Language.Default): RegExp {
+        return this.linguini.get(location, langCode, TypeMappers.RegExp);
     }
 
-    public static getRef(
+    public static tr(
         location: string,
-        langCode: Locale,
+        langCode: Locale = Language.Default,
         variables?: { [name: string]: string }
     ): string {
-        return (
-            this.linguini.getRef(location, langCode, variables) ??
-            this.linguini.getRef(location, Language.Default, variables)
-        );
+        return this.linguini.getRef(location, langCode, variables);
     }
 
     public static getRefLocalizationMap(
@@ -46,7 +38,7 @@ export class Lang {
     ): LocalizationMap {
         let object = {};
         for (let langCode of Language.Enabled) {
-            object[langCode] = this.getRef(location, langCode, variables);
+            object[langCode] = this.tr(location, langCode, variables);
         }
         return object;
     }
@@ -77,7 +69,7 @@ export class Lang {
                 iconURL: jsonValue.footer?.icon,
             },
             timestamp: jsonValue.timestamp ? Date.now() : undefined,
-            color: resolveColor(jsonValue.color ?? Lang.getCom('colors.default')),
+            color: resolveColor(jsonValue.color ?? Intl.getCom('colors.default')),
         });
     };
 }

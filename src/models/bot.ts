@@ -14,8 +14,8 @@ import {
     RESTEvents,
     User,
 } from 'discord.js';
-import { createRequire } from 'node:module';
 
+import { Config, Debug } from '@app/config';
 import {
     ButtonHandler,
     CommandHandler,
@@ -23,14 +23,10 @@ import {
     GuildLeaveHandler,
     MessageHandler,
     ReactionHandler,
-} from '../events';
-import { JobService, Logger } from '../services';
-import { PartialUtils } from '../utils';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Debug = require('../../config/debug.json');
-let Logs = require('../../lang/logs.json');
+} from '@app/events';
+import { Logs } from '@app/intl';
+import { JobService, Logger } from '@app/services';
+import { PartialUtils } from '@app/utils';
 
 export class Bot {
     private ready = false;

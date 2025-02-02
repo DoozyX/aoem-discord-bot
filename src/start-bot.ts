@@ -1,15 +1,17 @@
 import { REST } from '@discordjs/rest';
-import { Options, Partials } from 'discord.js';
-import { createRequire } from 'node:module';
+import { GatewayIntentBits, Options, Partials } from 'discord.js';
 
-import { Button } from './buttons';
+import { Button } from '@app/buttons';
 import {
     ChatCommandMetadata,
     Command,
     MessageCommandMetadata,
     UserCommandMetadata,
-} from './commands';
-import { DevelopmentCommand as DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from './commands/chat';
+} from '@app/commands';
+import { DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from '@app/commands/chat';
+import { Config } from '@app/config';
+import { Logs } from '@app/intl';
+
 import { ViewDateSent } from './commands/message';
 import { ViewDateJoined } from './commands/user';
 import {
@@ -23,19 +25,10 @@ import {
 } from './events';
 import { CustomClient } from './extensions';
 import { Job } from './jobs';
-import { Bot } from './models/bot.js';
+import { Bot } from './models/bot';
 import { Reaction } from './reactions';
-import {
-    CommandRegistrationService,
-    EventDataService,
-    JobService,
-    Logger,
-} from './services';
+import { CommandRegistrationService, EventDataService, JobService, Logger } from './services';
 import { Trigger } from './triggers';
-
-const require = createRequire(import.meta.url);
-let Config = require('../config/config.json');
-let Logs = require('../lang/logs.json');
 
 async function start(): Promise<void> {
     // Services
@@ -43,8 +36,8 @@ async function start(): Promise<void> {
 
     // Client
     let client = new CustomClient({
-        intents: Config.client.intents,
-        partials: (Config.client.partials as string[]).map(partial => Partials[partial]),
+        intents: Config.client.intents.map(intent => GatewayIntentBits[intent]),
+        partials: Config.client.partials.map(partial => Partials[partial]),
         makeCache: Options.cacheWithLimits({
             // Keep default caching behavior
             ...Options.DefaultMakeCacheSettings,
@@ -140,8 +133,6 @@ process.on('unhandledRejection', (reason, _promise) => {
     Logger.error(Logs.error.unhandledRejection, reason);
 });
 
-try {
-    await start();
-} catch (error) {
+start().catch((error: Error) => {
     Logger.error(Logs.error.unspecified, error);
-}
+});

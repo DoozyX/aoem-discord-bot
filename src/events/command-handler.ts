@@ -7,18 +7,16 @@ import {
     ThreadChannel,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
-import { createRequire } from 'node:module';
+
+import { Command, CommandDeferType } from '@app/commands';
+import { Config } from '@app/config';
+import { DiscordLimits } from '@app/constants';
+import { Logs } from '@app/intl';
+import { EventData } from '@app/models/internal-models';
+import { EventDataService, Intl, Logger } from '@app/services';
+import { CommandUtils, InteractionUtils } from '@app/utils';
 
 import { EventHandler } from '.';
-import { Command, CommandDeferType } from '../commands';
-import { DiscordLimits } from '../constants';
-import { EventData } from '../models/internal-models.js';
-import { EventDataService, Lang, Logger } from '../services';
-import { CommandUtils, InteractionUtils } from '../utils';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
 
 export class CommandHandler implements EventHandler {
     private rateLimiter = new RateLimiter(
@@ -172,9 +170,9 @@ export class CommandHandler implements EventHandler {
         try {
             await InteractionUtils.send(
                 intr,
-                Lang.getEmbed('errorEmbeds.command', data.lang, {
+                Intl.getEmbed('errorEmbeds.command', data.lang, {
                     ERROR_CODE: intr.id,
-                    GUILD_ID: intr.guild?.id ?? Lang.getRef('other.na', data.lang),
+                    GUILD_ID: intr.guild?.id ?? Intl.tr('other.na', data.lang),
                     SHARD_ID: (intr.guild?.shardId ?? 0).toString(),
                 })
             );

@@ -6,11 +6,12 @@ import {
     ThreadChannel,
 } from 'discord.js';
 
+import { Command } from '@app/commands';
+import { Permission } from '@app/models/enum-helpers';
+import { EventData } from '@app/models/internal-models';
+import { Intl } from '@app/services';
+
 import { FormatUtils, InteractionUtils } from '.';
-import { Command } from '../commands';
-import { Permission } from '../models/enum-helpers';
-import { EventData } from '../models/internal-models.js';
-import { Lang } from '../services';
 
 export class CommandUtils {
     public static findCommand(commands: Command[], commandParts: string[]): Command {
@@ -44,7 +45,7 @@ export class CommandUtils {
             if (limited) {
                 await InteractionUtils.send(
                     intr,
-                    Lang.getEmbed('validationEmbeds.cooldownHit', data.lang, {
+                    Intl.getEmbed('validationEmbeds.cooldownHit', data.lang, {
                         AMOUNT: command.cooldown.amount.toLocaleString(data.lang),
                         INTERVAL: FormatUtils.duration(command.cooldown.interval, data.lang),
                     })
@@ -59,7 +60,7 @@ export class CommandUtils {
         ) {
             await InteractionUtils.send(
                 intr,
-                Lang.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
+                Intl.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
                     PERMISSIONS: command.requireClientPerms
                         .map(perm => `**${Permission.Data[perm].displayName(data.lang)}**`)
                         .join(', '),

@@ -1,18 +1,16 @@
-import { ShardingManager } from 'discord.js';
-import { createRequire } from 'node:module';
+import { ShardingManager, ShardingManagerMode } from 'discord.js';
+
 import 'reflect-metadata';
+
+import { Config, Debug } from '@app/config';
+import { Logs } from '@app/intl';
 
 import { GuildsController, RootController, ShardsController } from './controllers';
 import { Job, UpdateServerCountJob } from './jobs';
-import { Api } from './models/api.js';
-import { Manager } from './models/manager.js';
+import { Api } from './models/api';
+import { Manager } from './models/manager';
 import { HttpService, JobService, Logger, MasterApiService } from './services';
 import { MathUtils, ShardUtils } from './utils';
-
-const require = createRequire(import.meta.url);
-let Config = require('../config/config.json');
-let Debug = require('../config/debug.json');
-let Logs = require('../lang/logs.json');
 
 async function start(): Promise<void> {
     Logger.info(Logs.info.appStarted);
@@ -51,9 +49,11 @@ async function start(): Promise<void> {
         return;
     }
 
-    let shardManager = new ShardingManager('dist/start-bot.js', {
+    let shardManager = new ShardingManager('dist/start-bot', {
         token: Config.client.token,
-        mode: Debug.override.shardMode.enabled ? Debug.override.shardMode.value : 'process',
+        mode: Debug.override.shardMode.enabled
+            ? (Debug.override.shardMode.value as ShardingManagerMode)
+            : 'process',
         respawn: true,
         totalShards,
         shardList,
@@ -85,8 +85,6 @@ process.on('unhandledRejection', (reason, _promise) => {
     Logger.error(Logs.error.unhandledRejection, reason);
 });
 
-try {
-    await start();
-} catch (error) {
+start().catch((error: Error) => {
     Logger.error(Logs.error.unspecified, error);
-}
+});

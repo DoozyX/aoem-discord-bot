@@ -6,19 +6,19 @@ import {
     RESTPostAPIContextMenuApplicationCommandsJSONBody,
 } from 'discord.js';
 
+import { Intl } from '@app/services';
+
 import { Arguments as Arguments } from '.';
-import { Language } from '../models/enum-helpers';
-import { Lang } from '../services';
 
 export const ChatCommandMetadata: {
     [command: string]: RESTPostAPIChatInputApplicationCommandsJSONBody;
 } = {
     DEV: {
         type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.dev', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('chatCommands.dev'),
-        description: Lang.getRef('commandDescs.dev', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('commandDescs.dev'),
+        name: Intl.tr('chatCommands.dev'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.dev'),
+        description: Intl.tr('commandDescs.dev'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.dev'),
         dm_permission: true,
         default_member_permissions: PermissionsBitField.resolve([
             PermissionFlagsBits.Administrator,
@@ -32,10 +32,10 @@ export const ChatCommandMetadata: {
     },
     HELP: {
         type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.help', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('chatCommands.help'),
-        description: Lang.getRef('commandDescs.help', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('commandDescs.help'),
+        name: Intl.tr('chatCommands.help'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.help'),
+        description: Intl.tr('commandDescs.help'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.help'),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
@@ -47,10 +47,10 @@ export const ChatCommandMetadata: {
     },
     INFO: {
         type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.info', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('chatCommands.info'),
-        description: Lang.getRef('commandDescs.info', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('commandDescs.info'),
+        name: Intl.tr('chatCommands.info'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.info'),
+        description: Intl.tr('commandDescs.info'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.info'),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
@@ -62,10 +62,10 @@ export const ChatCommandMetadata: {
     },
     TEST: {
         type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.test', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('chatCommands.test'),
-        description: Lang.getRef('commandDescs.test', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('commandDescs.test'),
+        name: Intl.tr('chatCommands.test'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.test'),
+        description: Intl.tr('commandDescs.test'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.test'),
         dm_permission: true,
         default_member_permissions: undefined,
     },
@@ -76,8 +76,8 @@ export const MessageCommandMetadata: {
 } = {
     VIEW_DATE_SENT: {
         type: ApplicationCommandType.Message,
-        name: Lang.getRef('messageCommands.viewDateSent', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('messageCommands.viewDateSent'),
+        name: Intl.tr('messageCommands.viewDateSent'),
+        name_localizations: Intl.getRefLocalizationMap('messageCommands.viewDateSent'),
         default_member_permissions: undefined,
         dm_permission: true,
     },
@@ -88,8 +88,8 @@ export const UserCommandMetadata: {
 } = {
     VIEW_DATE_JOINED: {
         type: ApplicationCommandType.User,
-        name: Lang.getRef('userCommands.viewDateJoined', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('userCommands.viewDateJoined'),
+        name: Intl.tr('userCommands.viewDateJoined'),
+        name_localizations: Intl.getRefLocalizationMap('userCommands.viewDateJoined'),
         default_member_permissions: undefined,
         dm_permission: true,
     },

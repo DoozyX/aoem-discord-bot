@@ -83,14 +83,7 @@ export default tseslint.config(
                 },
             ],
 
-            'import/extensions': [
-                'error',
-                'ignorePackages',
-                {
-                    ts: 'never',
-                    js: 'never',
-                },
-            ],
+            'import/extensions': ['error', 'never'],
 
             'import/no-useless-path-segments': [
                 'error',
@@ -98,6 +91,7 @@ export default tseslint.config(
                     noUselessIndex: true,
                 },
             ],
+            'import/no-relative-parent-imports': 'error',
 
             'import/no-extraneous-dependencies': 'error',
             'import/no-unresolved': 'off',
@@ -109,10 +103,26 @@ export default tseslint.config(
                         caseInsensitive: true,
                         order: 'asc',
                     },
+                    pathGroups: [
+                        {
+                            pattern: '@app/**',
+                            group: 'internal',
+                            position: 'before',
+                        },
+                        {
+                            pattern: '@config/**',
+                            group: 'internal',
+                        },
+                        {
+                            pattern: '@lang/**',
+                            group: 'internal',
+                        },
+                    ],
+                    pathGroupsExcludedImportTypes: ['builtin', 'object'],
 
                     groups: [
                         ['builtin', 'external', 'object', 'type'],
-                        ['internal', 'parent', 'sibling', 'index'],
+                        ['internal', 'unknown', 'parent', 'sibling', 'index'],
                     ],
 
                     'newlines-between': 'always',
@@ -143,6 +153,7 @@ export default tseslint.config(
             ],
 
             'unicorn/prefer-node-protocol': 'error',
+            'unicorn/prefer-top-level-await': 'off',
         },
     }
 );

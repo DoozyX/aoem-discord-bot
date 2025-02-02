@@ -1,11 +1,9 @@
 import { Guild } from 'discord.js';
-import { createRequire } from 'node:module';
+
+import { Logs } from '@app/intl';
+import { Logger } from '@app/services';
 
 import { EventHandler } from '.';
-import { Logger } from '../services';
-
-const require = createRequire(import.meta.url);
-let Logs = require('../../lang/logs.json');
 
 export class GuildLeaveHandler implements EventHandler {
     public async process(guild: Guild): Promise<void> {

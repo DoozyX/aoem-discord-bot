@@ -1,12 +1,9 @@
 import { Message } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
-import { createRequire } from 'node:module';
 
-import { EventDataService } from '../services';
-import { Trigger } from '../triggers';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+import { Config } from '@app/config';
+import { EventDataService } from '@app/services';
+import { Trigger } from '@app/triggers';
 
 export class TriggerHandler {
     private rateLimiter = new RateLimiter(
@@ -32,11 +29,7 @@ export class TriggerHandler {
                 return false;
             }
 
-            if (!trigger.triggered(message)) {
-                return false;
-            }
-
-            return true;
+            return trigger.triggered(message);
         });
 
         // If this message causes no triggers then return

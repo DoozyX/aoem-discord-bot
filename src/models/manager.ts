@@ -1,12 +1,8 @@
 import { Shard, ShardingManager } from 'discord.js';
-import { createRequire } from 'node:module';
 
-import { JobService, Logger } from '../services';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Debug = require('../../config/debug.json');
-let Logs = require('../../lang/logs.json');
+import { Config, Debug } from '@app/config';
+import { Logs } from '@app/intl';
+import { JobService, Logger } from '@app/services';
 
 export class Manager {
     constructor(

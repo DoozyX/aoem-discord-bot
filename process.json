@@ -2,8 +2,9 @@
     "apps": [
         {
             "name": "my-bot",
-            "script": "dist/start-manager.js",
-            "node_args": ["--enable-source-maps"],
+            "script": "src/start-manager.ts",
+            "interpreter": "ts-node",
+            "node_args": ["--require", "tsconfig-paths/register", "--enable-source-maps"],
             "restart_delay": 10000
         }
     ]

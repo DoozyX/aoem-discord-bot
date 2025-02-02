@@ -1,22 +1,20 @@
 import { ActivityType, ShardingManager } from 'discord.js';
 import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
-import { createRequire } from 'node:module';
 
-import { Controller } from '.';
-import { CustomClient } from '../extensions';
-import { mapClass } from '../middleware';
+import { Config } from '@app/config';
+import { CustomClient } from '@app/extensions';
+import { Logs } from '@app/intl';
+import { mapClass } from '@app/middleware';
 import {
     GetShardsResponse,
     SetShardPresencesRequest,
     ShardInfo,
     ShardStats,
-} from '../models/cluster-api';
-import { Logger } from '../services';
+} from '@app/models/cluster-api';
+import { Logger } from '@app/services';
 
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+import { Controller } from '.';
 
 export class ShardsController implements Controller {
     public path = '/shards';
@@ -73,7 +71,13 @@ export class ShardsController implements Controller {
                 let customClient = client as CustomClient;
                 return customClient.setPresence(context.type, context.name, context.url);
             },
-            { context: { type: ActivityType[requestBody.type], name: requestBody.name, url: requestBody.url } }
+            {
+                context: {
+                    type: ActivityType[requestBody.type],
+                    name: requestBody.name,
+                    url: requestBody.url,
+                },
+            }
         );
 
         response.sendStatus(200);

@@ -2,30 +2,26 @@ import djs, { ChatInputCommandInteraction, PermissionsString } from 'discord.js'
 import os from 'node:os';
 import typescript from 'typescript';
 
-import { Command, CommandDeferType } from '..';
-import Config from '../../../config/config.json';
-import TsConfig from '../../../tsconfig.json';
-import { DevCommandName as DevelopmentCommandName } from '../../enums';
-import { Language } from '../../models/enum-helpers';
-import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services';
-import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils';
+import { Command, CommandDeferType } from '@app/commands';
+import { Config } from '@app/config';
+import { DevelopmentCommandName } from '@app/enums';
+import { EventData } from '@app/models/internal-models';
+import { Intl } from '@app/services';
+import { FormatUtils, InteractionUtils, ShardUtils } from '@app/utils';
 
 export class DevelopmentCommand implements Command {
-    public names = [Lang.getRef('chatCommands.dev', Language.Default)];
+    public names = [Intl.tr('chatCommands.dev')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         if (!Config.developers.includes(intr.user.id)) {
-            await InteractionUtils.send(intr, Lang.getEmbed('validationEmbeds.devOnly', data.lang));
+            await InteractionUtils.send(intr, Intl.getEmbed('validationEmbeds.devOnly', data.lang));
             return;
         }
 
         let arguments_ = {
-            command: intr.options.getString(
-                Lang.getRef('arguments.command', Language.Default)
-            ) as DevelopmentCommandName,
+            command: intr.options.getString(Intl.tr('arguments.command')) as DevelopmentCommandName,
         };
 
         switch (arguments_.command) {
@@ -39,7 +35,7 @@ export class DevelopmentCommand implements Command {
                         if (error.name.includes('ShardingInProcess')) {
                             await InteractionUtils.send(
                                 intr,
-                                Lang.getEmbed('errorEmbeds.startupInProcess', data.lang)
+                                Intl.getEmbed('errorEmbeds.startupInProcess', data.lang)
                             );
                             return;
                         } else {
@@ -54,10 +50,10 @@ export class DevelopmentCommand implements Command {
 
                 await InteractionUtils.send(
                     intr,
-                    Lang.getEmbed('displayEmbeds.devInfo', data.lang, {
+                    Intl.getEmbed('displayEmbeds.devInfo', data.lang, {
                         NODE_VERSION: process.version,
                         TS_VERSION: `v${typescript.version}`,
-                        ES_VERSION: TsConfig.compilerOptions.target,
+                        // ES_VERSION: TsConfig.compilerOptions.target,
                         DJS_VERSION: `v${djs.version}`,
                         SHARD_COUNT: shardCount.toLocaleString(data.lang),
                         SERVER_COUNT: serverCount.toLocaleString(data.lang),
@@ -68,20 +64,20 @@ export class DevelopmentCommand implements Command {
                         RSS_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.rss / serverCount)
-                                : Lang.getRef('other.na', data.lang),
+                                : Intl.tr('other.na', data.lang),
                         HEAP_TOTAL_SIZE: FormatUtils.fileSize(memory.heapTotal),
                         HEAP_TOTAL_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.heapTotal / serverCount)
-                                : Lang.getRef('other.na', data.lang),
+                                : Intl.tr('other.na', data.lang),
                         HEAP_USED_SIZE: FormatUtils.fileSize(memory.heapUsed),
                         HEAP_USED_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.heapUsed / serverCount)
-                                : Lang.getRef('other.na', data.lang),
+                                : Intl.tr('other.na', data.lang),
                         HOSTNAME: os.hostname(),
                         SHARD_ID: (intr.guild?.shardId ?? 0).toString(),
-                        SERVER_ID: intr.guild?.id ?? Lang.getRef('other.na', data.lang),
+                        SERVER_ID: intr.guild?.id ?? Intl.tr('other.na', data.lang),
                         BOT_ID: intr.client.user?.id,
                         USER_ID: intr.user.id,
                     })

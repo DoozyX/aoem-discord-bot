@@ -1,13 +1,11 @@
 import { ShardingManager } from 'discord.js';
 import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
-import { createRequire } from 'node:module';
+
+import { Config } from '@app/config';
+import { GetGuildsResponse } from '@app/models/cluster-api';
 
 import { Controller } from '.';
-import { GetGuildsResponse } from '../models/cluster-api';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
 
 export class GuildsController implements Controller {
     public path = '/guilds';
@@ -21,7 +19,9 @@ export class GuildsController implements Controller {
     }
 
     private async getGuilds(request: Request, response: Response): Promise<void> {
-         const result =    await this.shardManager.broadcastEval(client => [...client.guilds.cache.keys()])
+        const result = await this.shardManager.broadcastEval(client => [
+            ...client.guilds.cache.keys(),
+        ]);
         let guilds: string[] = [...new Set(result.flat())];
 
         let guildsResponse: GetGuildsResponse = {

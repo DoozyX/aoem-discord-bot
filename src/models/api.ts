@@ -1,17 +1,14 @@
 import express, { Express } from 'express';
-import { createRequire } from 'node:module';
 import { promisify } from 'node:util';
 
-import { Controller } from '../controllers';
-import { checkAuth, handleError } from '../middleware';
-import { Logger } from '../services';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+import { Config } from '@app/config';
+import { Controller } from '@app/controllers';
+import { Logs } from '@app/intl';
+import { checkAuth, handleError } from '@app/middleware';
+import { Logger } from '@app/services';
 
 export class Api {
-    private app: Express;
+    private readonly app: Express;
 
     constructor(public controllers: Controller[]) {
         this.app = express();
@@ -23,7 +20,7 @@ export class Api {
     public async start(): Promise<void> {
         let listen = promisify(this.app.listen.bind(this.app));
         await listen(Config.api.port);
-        Logger.info(Logs.info.apiStarted.replaceAll('{PORT}', Config.api.port));
+        Logger.info(Logs.info.apiStarted.replaceAll('{PORT}', Config.api.port.toString()));
     }
 
     private setupControllers(): void {

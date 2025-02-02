@@ -77,14 +77,16 @@ export class InteractionUtils {
                     : (content instanceof EmbedBuilder
                       ? { embeds: [content] }
                       : content);
-            return await (intr.deferred || intr.replied ? intr.followUp({
-                    ...options,
-                    ephemeral: hidden,
-                }) : intr.reply({
-                    ...options,
-                    ephemeral: hidden,
-                    fetchReply: true,
-                }));
+            return await (intr.deferred || intr.replied
+                ? intr.followUp({
+                      ...options,
+                      ephemeral: hidden,
+                  })
+                : intr.reply({
+                      ...options,
+                      ephemeral: hidden,
+                      fetchReply: true,
+                  }));
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&

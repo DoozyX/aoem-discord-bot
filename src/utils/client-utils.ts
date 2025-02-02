@@ -3,11 +3,11 @@ import {
     Channel,
     Client,
     DiscordAPIError,
-    RESTJSONErrorCodes as DiscordApiErrors,
     Guild,
     GuildMember,
     Locale,
     NewsChannel,
+    RESTJSONErrorCodes as DiscordApiErrors,
     Role,
     StageChannel,
     TextChannel,
@@ -15,8 +15,9 @@ import {
     VoiceChannel,
 } from 'discord.js';
 
+import { Intl } from '@app/services';
+
 import { PermissionUtils, RegexUtils } from '.';
-import { Lang } from '../services';
 
 const FETCH_MEMBER_LIMIT = 20;
 const IGNORED_ERRORS = new Set([
@@ -136,7 +137,7 @@ export class ClientUtils {
                 return await guild.roles.fetch(discordId);
             }
 
-            let search = input.trim().toLowerCase().replace(/^@/, '');
+            let search = input.trim().toLowerCase().replace(/^@app/, '');
             let roles = await guild.roles.fetch();
             return (
                 roles.find(role => role.name.toLowerCase() === search) ??
@@ -238,10 +239,10 @@ export class ClientUtils {
         // Otherwise look for a bot channel
         const channels = await guild.channels.fetch();
         return [...channels.values()].find(
-            channel =>
+            (channel): channel is TextChannel | NewsChannel =>
                 (channel instanceof TextChannel || channel instanceof NewsChannel) &&
                 PermissionUtils.canSend(channel, true) &&
-                Lang.getRegex('channelRegexes.bot', langCode).test(channel.name)
-        ) as TextChannel | NewsChannel;
+                Intl.getRegex('channelRegexes.bot', langCode).test(channel.name)
+        );
     }
 }

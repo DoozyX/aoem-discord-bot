@@ -1,13 +1,10 @@
 import { Guild } from 'discord.js';
-import { createRequire } from 'node:module';
+
+import { Logs } from '@app/intl';
+import { EventDataService, Intl, Logger } from '@app/services';
+import { ClientUtils, FormatUtils, MessageUtils } from '@app/utils';
 
 import { EventHandler } from '.';
-import { Language } from '../models/enum-helpers';
-import { EventDataService, Lang, Logger } from '../services';
-import { ClientUtils, FormatUtils, MessageUtils } from '../utils';
-
-const require = createRequire(import.meta.url);
-let Logs = require('../../lang/logs.json');
 
 export class GuildJoinHandler implements EventHandler {
     constructor(private eventDataService: EventDataService) {}
@@ -32,12 +29,9 @@ export class GuildJoinHandler implements EventHandler {
         if (notifyChannel) {
             await MessageUtils.send(
                 notifyChannel,
-                Lang.getEmbed('displayEmbeds.welcome', data.langGuild, {
+                Intl.getEmbed('displayEmbeds.welcome', data.langGuild, {
                     CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            guild.client,
-                            Lang.getRef('chatCommands.help', Language.Default)
-                        )
+                        await ClientUtils.findAppCommand(guild.client, Intl.tr('chatCommands.help'))
                     ),
                 }).setAuthor({
                     name: guild.name,
@@ -50,12 +44,9 @@ export class GuildJoinHandler implements EventHandler {
         if (owner) {
             await MessageUtils.send(
                 owner.user,
-                Lang.getEmbed('displayEmbeds.welcome', data.lang, {
+                Intl.getEmbed('displayEmbeds.welcome', data.lang, {
                     CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            guild.client,
-                            Lang.getRef('chatCommands.help', Language.Default)
-                        )
+                        await ClientUtils.findAppCommand(guild.client, Intl.tr('chatCommands.help'))
                     ),
                 }).setAuthor({
                     name: guild.name,

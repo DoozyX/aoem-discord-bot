@@ -1,13 +1,11 @@
 import { Message, MessageReaction, User } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
-import { createRequire } from 'node:module';
+
+import { Config } from '@app/config';
+import { Reaction } from '@app/reactions';
+import { EventDataService } from '@app/services';
 
 import { EventHandler } from '.';
-import { Reaction } from '../reactions';
-import { EventDataService } from '../services';
-
-const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
 
 export class ReactionHandler implements EventHandler {
     private rateLimiter = new RateLimiter(
@@ -20,7 +18,11 @@ export class ReactionHandler implements EventHandler {
         private eventDataService: EventDataService
     ) {}
 
-    public async process(messageReaction: MessageReaction, message: Message, reactor: User): Promise<void> {
+    public async process(
+        messageReaction: MessageReaction,
+        message: Message,
+        reactor: User
+    ): Promise<void> {
         // Don't respond to self, or other bots
         if (reactor.id === messageReaction.client.user?.id || reactor.bot) {
             return;
