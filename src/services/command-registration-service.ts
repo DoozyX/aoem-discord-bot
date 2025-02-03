@@ -1,4 +1,4 @@
-import { REST } from '@discordjs/rest';
+import { REST, RouteLike } from '@discordjs/rest';
 import {
     APIApplicationCommand,
     RESTGetAPIApplicationCommandsResult,
@@ -13,6 +13,7 @@ import { Logs } from '@app/intl';
 import { Logger } from './logger';
 
 export class CommandRegistrationService {
+    private applicationCommandsRoute: RouteLike;
     constructor(private rest: REST) {}
 
     public async process(
@@ -32,6 +33,11 @@ export class CommandRegistrationService {
         let remoteCmdsOnly = remoteCmds.filter(
             remoteCmd => !localCmds.some(localCmd => localCmd.name === remoteCmd.name)
         );
+
+        let guildOnly = arguments_[4];
+        this.applicationCommandsRoute = guildOnly
+            ? Routes.applicationGuildCommands(Config.client.id, Config.guildId)
+            : Routes.applicationCommands(Config.client.id);
 
         switch (arguments_[3]) {
             case 'view': {
@@ -55,7 +61,7 @@ export class CommandRegistrationService {
                         )
                     );
                     for (let localCmd of localCmdsOnly) {
-                        await this.rest.post(Routes.applicationCommands(Config.client.id), {
+                        await this.rest.post(this.applicationCommandsRoute, {
                             body: localCmd,
                         });
                     }
@@ -70,7 +76,7 @@ export class CommandRegistrationService {
                         )
                     );
                     for (let localCmd of localCmdsOnRemote) {
-                        await this.rest.post(Routes.applicationCommands(Config.client.id), {
+                        await this.rest.post(this.applicationCommandsRoute, {
                             body: localCmd,
                         });
                     }
