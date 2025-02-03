@@ -3,12 +3,14 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import importPlugin from 'eslint-plugin-import';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
     eslint.configs.recommended,
     importPlugin.flatConfigs.recommended,
     eslintPluginUnicorn.configs['flat/recommended'],
     tseslint.configs.recommendedTypeChecked,
+    eslintConfigPrettier,
     {
         languageOptions: {
             parserOptions: {
@@ -154,6 +156,7 @@ export default tseslint.config(
 
             'unicorn/prefer-node-protocol': 'error',
             'unicorn/prefer-top-level-await': 'off',
+            'unicorn/no-null': 'off',
         },
     }
 );
