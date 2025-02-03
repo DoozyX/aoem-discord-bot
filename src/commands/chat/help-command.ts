@@ -1,13 +1,12 @@
 import {
     ApplicationCommandOptionType,
-    ApplicationCommandType,
     ChatInputCommandInteraction,
     EmbedBuilder,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { CommandDeferType } from '@app/commands';
+import { CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { ChatCommand } from '@app/commands/command';
 import { HelpOption } from '@app/enums';
 import { IntlService } from '@app/intl';
@@ -18,12 +17,9 @@ export class HelpCommand implements ChatCommand {
     public names = [IntlService.tr('chatCommands.help')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    public readonly name = 'help';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        type: ApplicationCommandType.ChatInput,
-        name: IntlService.tr('chatCommands.help'),
-        name_localizations: IntlService.getRefLocalizationMap('chatCommands.help'),
-        description: IntlService.tr('commandDescs.help'),
-        description_localizations: IntlService.getRefLocalizationMap('commandDescs.help'),
+        ...getBaseChatCommandMetadata(this.name),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
@@ -66,19 +62,23 @@ export class HelpCommand implements ChatCommand {
                 break;
             }
             case HelpOption.COMMANDS: {
+                const testCommand = await ClientUtils.findAppCommand(
+                    intr.client,
+                    IntlService.tr('chatCommands.test')
+                );
+                if (!testCommand) {
+                    return;
+                }
+                const infoCommand = await ClientUtils.findAppCommand(
+                    intr.client,
+                    IntlService.tr('chatCommands.info')
+                );
+                if (!infoCommand) {
+                    return;
+                }
                 embed = IntlService.getEmbed('displayEmbeds.helpCommands', data.lang, {
-                    CMD_LINK_TEST: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            intr.client,
-                            IntlService.tr('chatCommands.test')
-                        )
-                    ),
-                    CMD_LINK_INFO: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            intr.client,
-                            IntlService.tr('chatCommands.info')
-                        )
-                    ),
+                    CMD_LINK_TEST: FormatUtils.commandMention(testCommand),
+                    CMD_LINK_INFO: FormatUtils.commandMention(infoCommand),
                 });
                 break;
             }

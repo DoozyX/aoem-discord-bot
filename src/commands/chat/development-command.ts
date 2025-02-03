@@ -1,7 +1,5 @@
 import djs, {
-    APIApplicationCommandBasicOption,
     ApplicationCommandOptionType,
-    ApplicationCommandType,
     ChatInputCommandInteraction,
     PermissionFlagsBits,
     PermissionsBitField,
@@ -11,7 +9,7 @@ import djs, {
 import os from 'node:os';
 import typescript from 'typescript';
 
-import { CommandDeferType } from '@app/commands';
+import { CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { ChatCommand } from '@app/commands/command';
 import { Config } from '@app/config';
 import { DevelopmentCommandName } from '@app/enums';
@@ -23,12 +21,9 @@ export class DevelopmentCommand implements ChatCommand {
     public names = [IntlService.tr('chatCommands.dev')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    public readonly name = 'dev';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        type: ApplicationCommandType.ChatInput,
-        name: IntlService.tr('chatCommands.dev'),
-        name_localizations: IntlService.getRefLocalizationMap('chatCommands.dev'),
-        description: IntlService.tr('commandDescs.dev'),
-        description_localizations: IntlService.getRefLocalizationMap('commandDescs.dev'),
+        ...getBaseChatCommandMetadata(this.name),
         dm_permission: true,
         default_member_permissions: PermissionsBitField.resolve([
             PermissionFlagsBits.Administrator,
@@ -76,7 +71,7 @@ export class DevelopmentCommand implements ChatCommand {
                     try {
                         serverCount = await ShardUtils.serverCount(intr.client.shard);
                     } catch (error) {
-                        if (error.name.includes('ShardingInProcess')) {
+                        if (error instanceof Error && error.name.includes('ShardingInProcess')) {
                             await InteractionUtils.send(
                                 intr,
                                 IntlService.getEmbed('errorEmbeds.startupInProcess', data.lang)

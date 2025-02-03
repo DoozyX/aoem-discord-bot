@@ -1,13 +1,12 @@
 import {
     ApplicationCommandOptionType,
-    ApplicationCommandType,
     ChatInputCommandInteraction,
     EmbedBuilder,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { CommandDeferType } from '@app/commands';
+import { CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { ChatCommand } from '@app/commands/command';
 import { InfoOption } from '@app/enums';
 import { IntlService } from '@app/intl';
@@ -19,12 +18,9 @@ export class InfoCommand implements ChatCommand {
     public names = [IntlService.tr('chatCommands.info')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    public readonly name = 'info';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        type: ApplicationCommandType.ChatInput,
-        name: IntlService.tr('chatCommands.info'),
-        name_localizations: IntlService.getRefLocalizationMap('chatCommands.info'),
-        description: IntlService.tr('commandDescs.info'),
-        description_localizations: IntlService.getRefLocalizationMap('commandDescs.info'),
+        ...getBaseChatCommandMetadata(this.name),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
