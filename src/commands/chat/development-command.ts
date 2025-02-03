@@ -91,7 +91,6 @@ export class DevelopmentCommand implements ChatCommand {
                     Intl.getEmbed('displayEmbeds.devInfo', data.lang, {
                         NODE_VERSION: process.version,
                         TS_VERSION: `v${typescript.version}`,
-                        // ES_VERSION: TsConfig.compilerOptions.target,
                         DJS_VERSION: `v${djs.version}`,
                         SHARD_COUNT: shardCount.toLocaleString(data.lang),
                         SERVER_COUNT: serverCount.toLocaleString(data.lang),
