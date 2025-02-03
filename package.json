@@ -9,8 +9,8 @@
     "node": ">=18.0.0"
   },
   "exports": [
-    "./dist/start-bot.js",
-    "./dist/start-manager.js"
+    "./src/start-bot.ts",
+    "./src/start-manager.js"
   ],
   "scripts": {
     "lint": "eslint . --cache",
@@ -20,14 +20,15 @@
     "clean": "git clean -xdf --exclude=\"/config/**/*\"",
     "clean:dry": "git clean -xdf --exclude=\"/config/**/*\" --dry-run",
     "build": "tsc --project tsconfig.json",
-    "commands:view": "tsnode -r tsconfig-paths/register  --enable-source-maps dist/start-bot.js commands view",
-    "commands:register": "tsnode -r tsconfig-paths/register  --enable-source-maps dist/start-bot.js commands register",
-    "commands:rename": "tsnode -r tsconfig-paths/register  --enable-source-maps dist/start-bot.js commands rename",
-    "commands:delete": "tsnode -r tsconfig-paths/register  --enable-source-maps dist/start-bot.js commands delete",
-    "commands:clear": "tsnode -r tsconfig-paths/register  --enable-source-maps dist/start-bot.js commands clear",
+    "commands:view": "ts-node -r tsconfig-paths/register src/start-bot.ts commands view",
+    "commands:register": "ts-node -r tsconfig-paths/register src/start-bot.ts commands register",
+    "commands:rename": "ts-node -r tsconfig-paths/register src/start-bot.ts commands rename",
+    "commands:delete": "ts-node -r tsconfig-paths/register src/start-bot.ts commands delete",
+    "commands:clear": "ts-node -r tsconfig-paths/register src/start-bot.ts commands clear",
     "start": "yarn run start:bot",
-    "start:bot": "tsnode -r tsconfig-paths/register --enable-source-maps src/start-bot.ts",
-    "start:manager": "tsnode --enable-source-maps src/start-manager.ts",
+    "start:bot": "ts-node -r tsconfig-paths/register src/start-bot.ts",
+    "start:manager": "ts-node src/start-manager.ts",
+    "dev:bot": "ts-node-dev -r tsconfig-paths/register src/start-bot.ts",
     "start:pm2": "yarn run pm2:start",
     "pm2:start": "pm2 start process.json",
     "pm2:stop": "pm2 stop process.json",
@@ -70,6 +71,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-unicorn": "^56.0.1",
     "prettier": "^3.4.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0",
     "typescript-transform-paths": "^3.5.3"
