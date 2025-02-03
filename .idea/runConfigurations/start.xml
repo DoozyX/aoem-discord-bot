@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="start" type="js.build_tools.npm" nameIsGenerated="true">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="start" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="PATH" value="$USER_HOME$/go/bin:$USER_HOME$/vcpkg:$USER_HOME$/.pyenv/shims:$USER_HOME$/Library/pnpm:$USER_HOME$/.yarn/bin:$USER_HOME$/.config/yarn/global/node_modules/.bin:$USER_HOME$/.nvm/versions/node/v22.3.0/bin:/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/openssl@3/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion Tech Preview.app/Contents/Public:$PROJECT_DIR$/node_modules/.bin:$USER_HOME$/Library/Application Support/JetBrains/Toolbox/scripts:$USER_HOME$/.yarn/bin:$USER_HOME$/fvm/default/bin:/opt/homebrew/opt/llvm/bin:$USER_HOME$/Library/Android/sdk/tools:$USER_HOME$/Library/Android/sdk/platform-tools:$USER_HOME$/tizen-studio/tools/ide/bin/:$USER_HOME$/tizen-studio/tools/:$USER_HOME$/webOS_TV_SDK/CLI/bin:$USER_HOME$/.pub-cache/bin:$USER_HOME$/UniqCast/backend_deployment/scripts:$USER_HOME$/UniqCast/backend_deployment/scripts/core-test:$USER_HOME$/UniqCast/backend_deployment/scripts/gss:$USER_HOME$/UniqCast/backend_deployment/scripts/core:$USER_HOME$/UniqCast/backend_deployment/scripts/dispatcher:$USER_HOME$/UniqCast/backend_deployment/scripts/cm:$USER_HOME$/UniqCast/backend_deployment/scripts/utility:$USER_HOME$/UniqCast/backend_deployment/scripts/utility/open_in_browser" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
