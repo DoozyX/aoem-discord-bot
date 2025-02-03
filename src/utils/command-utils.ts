@@ -8,34 +8,13 @@ import {
 
 import { Command } from '@app/commands';
 import { IntlService } from '@app/intl';
-import { Permission } from '@app/models/enum-helpers';
 import { EventData } from '@app/models/internal-models';
 
 import { FormatUtils, InteractionUtils } from '.';
 
 export class CommandUtils {
-    public static findCommand(commands: Command[], commandParts: string[]): Command | undefined {
-        let found = [...commands];
-        let closestMatch: Command | undefined;
-        for (let [index, commandPart] of commandParts.entries()) {
-            found = found.filter(command => command.names[index] === commandPart);
-            if (found.length === 0) {
-                return closestMatch;
-            }
-
-            if (found.length === 1) {
-                return found[0];
-            }
-
-            let exactMatch = found.find(command => command.names.length === index + 1);
-            if (exactMatch) {
-                closestMatch = exactMatch;
-            }
-        }
-        return closestMatch;
-    }
-
     public static async runChecks(
+        intlService: IntlService,
         command: Command,
         intr: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction,
         data: EventData
@@ -45,7 +24,7 @@ export class CommandUtils {
             if (limited) {
                 await InteractionUtils.send(
                     intr,
-                    IntlService.getEmbed('validationEmbeds.cooldownHit', data.lang, {
+                    intlService.getEmbed('validationEmbeds.cooldownHit', data.lang, {
                         AMOUNT: command.cooldown.amount.toLocaleString(data.lang),
                         INTERVAL: FormatUtils.duration(command.cooldown.interval, data.lang),
                     })
@@ -63,9 +42,9 @@ export class CommandUtils {
         ) {
             await InteractionUtils.send(
                 intr,
-                IntlService.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
+                intlService.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
                     PERMISSIONS: command.requireClientPerms
-                        .map(perm => `**${Permission.Data[perm].displayName(data.lang)}**`)
+                        .map(perm => `**${intlService.tr(`permissions.${perm}`)}**`)
                         .join(', '),
                 })
             );

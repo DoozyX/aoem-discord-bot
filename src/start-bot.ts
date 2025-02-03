@@ -6,7 +6,7 @@ import { Button } from '@app/buttons';
 import { Command } from '@app/commands';
 import { DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from '@app/commands/chat';
 import { Config } from '@app/config';
-import { Logs } from '@app/intl';
+import { IntlService, Logs } from '@app/intl';
 
 import { ViewDateSent } from './commands/message';
 import { ViewDateJoined } from './commands/user';
@@ -44,19 +44,22 @@ async function start(): Promise<void> {
         }),
     });
 
+    const i18nService = new IntlService();
+    i18nService.init();
+
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        new DevelopmentCommand(),
-        new HelpCommand(),
-        new InfoCommand(),
-        new TestCommand(),
+        new DevelopmentCommand(i18nService),
+        new HelpCommand(i18nService),
+        new InfoCommand(i18nService),
+        new TestCommand(i18nService),
 
         // Message Context Commands
-        new ViewDateSent(),
+        new ViewDateSent(i18nService),
 
         // User Context Commands
-        new ViewDateJoined(),
+        new ViewDateJoined(i18nService),
 
         // TODO: Add new commands here
         new RegisterChannelCommand(),
@@ -79,9 +82,9 @@ async function start(): Promise<void> {
     ];
 
     // Event handlers
-    let guildJoinHandler = new GuildJoinHandler(eventDataService);
+    let guildJoinHandler = new GuildJoinHandler(eventDataService, i18nService);
     let guildLeaveHandler = new GuildLeaveHandler();
-    let commandHandler = new CommandHandler(commands, eventDataService);
+    let commandHandler = new CommandHandler(commands, eventDataService, i18nService);
     let buttonHandler = new ButtonHandler(buttons, eventDataService);
     let triggerHandler = new TriggerHandler(triggers, eventDataService);
     let messageHandler = new MessageHandler(triggerHandler);

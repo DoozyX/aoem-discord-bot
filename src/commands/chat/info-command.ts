@@ -15,31 +15,32 @@ import { EventData } from '@app/models/internal-models';
 import { InteractionUtils } from '@app/utils';
 
 export class InfoCommand implements ChatCommand {
-    public names = [IntlService.tr('chatCommands.info')];
+    public name = 'info';
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
-    public readonly name = 'info';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        ...getBaseChatCommandMetadata(this.name),
+        ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
             {
-                name: IntlService.tr('arguments.option'),
-                name_localizations: IntlService.getRefLocalizationMap('arguments.option'),
-                description: IntlService.tr('argDescs.helpOption'),
-                description_localizations: IntlService.getRefLocalizationMap('argDescs.helpOption'),
+                name: this.intlService.tr('arguments.option'),
+                name_localizations: this.intlService.getRefLocalizationMap('arguments.option'),
+                description: this.intlService.tr('argDescs.helpOption'),
+                description_localizations:
+                    this.intlService.getRefLocalizationMap('argDescs.helpOption'),
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
-                        name: IntlService.tr('infoOptions.about'),
-                        name_localizations: IntlService.getRefLocalizationMap('infoOptions.about'),
+                        name: this.intlService.tr('infoOptions.about'),
+                        name_localizations:
+                            this.intlService.getRefLocalizationMap('infoOptions.about'),
                         value: InfoOption.ABOUT,
                     },
                     {
-                        name: IntlService.tr('infoOptions.translate'),
+                        name: this.intlService.tr('infoOptions.translate'),
                         name_localizations:
-                            IntlService.getRefLocalizationMap('infoOptions.translate'),
+                            this.intlService.getRefLocalizationMap('infoOptions.translate'),
                         value: InfoOption.TRANSLATE,
                     },
                 ],
@@ -48,24 +49,26 @@ export class InfoCommand implements ChatCommand {
         ],
     };
 
+    constructor(private intlService: IntlService) {}
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let arguments_ = {
-            option: intr.options.getString(IntlService.tr('arguments.option')) as InfoOption,
+            option: intr.options.getString(this.intlService.tr('arguments.option')) as InfoOption,
         };
 
         let embed: EmbedBuilder;
         switch (arguments_.option) {
             case InfoOption.ABOUT: {
-                embed = IntlService.getEmbed('displayEmbeds.about', data.lang);
+                embed = this.intlService.getEmbed('displayEmbeds.about', data.lang);
                 break;
             }
             case InfoOption.TRANSLATE: {
-                embed = IntlService.getEmbed('displayEmbeds.translate', data.lang);
+                embed = this.intlService.getEmbed('displayEmbeds.translate', data.lang);
                 for (let langCode of Language.Enabled) {
                     embed.addFields([
                         {
                             name: Language.Data[langCode].nativeName,
-                            value: IntlService.tr('meta.translators', langCode),
+                            value: this.intlService.tr('meta.translators', langCode),
                         },
                     ]);
                 }

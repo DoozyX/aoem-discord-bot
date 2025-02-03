@@ -27,8 +27,8 @@
       "@config/*": [
         "config/*"
       ],
-      "@lang/*": [
-        "lang/*"
+      "@locales/*": [
+        "locales/*"
       ],
       "@misc/*": [
         "misc/*"
@@ -39,5 +39,9 @@
     "dist",
     "node_modules",
     "tests"
+  ],
+  "typeRoots": [
+    "./node_modules/@types",
+    "./src/types"
   ]
 }

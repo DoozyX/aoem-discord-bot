@@ -1,43 +1,96 @@
+import enRefs from '@locales/en/refs.json';
+import enCommon from '@locales/en/common.json';
+import enData from '@locales/en/data.json';
+
 import { EmbedBuilder, Locale, LocalizationMap, resolveColor } from 'discord.js';
-import { Linguini, TypeMapper, TypeMappers, Utils } from 'linguini';
-import path from 'node:path';
+import i18next, { i18n, TFunction } from 'i18next';
 
 import { Language } from '@app/models/enum-helpers';
+import { StringUtils } from '@app/utils/string-utils';
+import { Logger } from '@app/services';
 
 export class IntlService {
-    private static linguini = new Linguini(
-        // TODO: check
-        // eslint-disable-next-line unicorn/prefer-module
-        path.resolve(__dirname, '../../lang'),
-        'lang'
-    );
+    private i18nextInstance: i18n;
 
-    public static getEmbed(
+    constructor() {
+        this.i18nextInstance = i18next.createInstance(
+            {
+                debug: true,
+                fallbackLng: 'en',
+                defaultNS: 'data',
+                resources: {
+                    en: {
+                        data: enData,
+                        refs: enRefs,
+                        common: enCommon,
+                    },
+                },
+            },
+            (err: Error, _t: TFunction) => {
+                if (!!err) {
+                    Logger.error(err.message);
+                }
+            }
+        );
+    }
+    public init(): void {}
+
+    public getEmbed(
         location: string,
         langCode: Locale = Language.Default,
         variables?: { [name: string]: string }
     ): EmbedBuilder {
-        return this.linguini.get(location, langCode, this.embedTm, variables);
+        const jsonValue = this.i18nextInstance.t(location as any, {
+            returnObjects: true,
+            lng: langCode,
+            ns: 'data',
+            ...variables,
+        }) as any;
+        if (!jsonValue) {
+            return new EmbedBuilder();
+        }
+        return new EmbedBuilder({
+            author: jsonValue.author,
+            title: StringUtils.Join(jsonValue.title, '\n'),
+            url: jsonValue.url,
+            thumbnail: {
+                url: jsonValue.thumbnail,
+            },
+            description: StringUtils.Join(jsonValue.description, '\n'),
+            fields: jsonValue.fields?.map((field: any) => ({
+                name: StringUtils.Join(field.name, '\n'),
+                value: StringUtils.Join(field.value, '\n'),
+                inline: field.inline ?? false,
+            })),
+            image: {
+                url: jsonValue.image,
+            },
+            footer: {
+                text: StringUtils.Join(jsonValue.footer?.text, '\n'),
+                iconURL: jsonValue.footer?.icon,
+            },
+            timestamp: jsonValue.timestamp ? Date.now() : undefined,
+            color: resolveColor(jsonValue.color ?? this.getCom('colors.default')),
+        });
     }
 
-    public static getRegex(location: string, langCode: Locale = Language.Default): RegExp {
-        return this.linguini.get(location, langCode, TypeMappers.RegExp);
+    public getRegex(location: string, langCode: Locale = Language.Default): RegExp {
+        return new RegExp(this.i18nextInstance.t(location as any, { lng: langCode, ns: 'data' }));
     }
 
-    public static tr(
+    public tr(
         location: string,
         langCode: Locale = Language.Default,
         variables?: { [name: string]: string }
     ): string {
-        console.log(
-            'path.resolve(__dirname, \'../../lang\'),',
-            // eslint-disable-next-line unicorn/prefer-module
-            path.resolve(__dirname, '../../lang')
-        );
-        return this.linguini.getRef(location, langCode, variables);
+        return this.i18nextInstance.t(location as any, {
+            lng: langCode,
+            ns: 'refs',
+            ...variables,
+        });
     }
 
-    public static getRefLocalizationMap(
+    public getRefLocalizationMap(
         location: string,
         variables?: { [name: string]: string }
     ): LocalizationMap {
@@ -48,33 +101,11 @@ export class IntlService {
         return object;
     }
 
-    public static getCom(location: string, variables?: { [name: string]: string }): string {
-        return this.linguini.getCom(location, variables);
-    }
-
-    private static embedTm: TypeMapper<EmbedBuilder> = (jsonValue: any) => {
-        return new EmbedBuilder({
-            author: jsonValue.author,
-            title: Utils.join(jsonValue.title, '\n'),
-            url: jsonValue.url,
-            thumbnail: {
-                url: jsonValue.thumbnail,
-            },
-            description: Utils.join(jsonValue.description, '\n'),
-            fields: jsonValue.fields?.map((field: any) => ({
-                name: Utils.join(field.name, '\n'),
-                value: Utils.join(field.value, '\n'),
-                inline: field.inline ?? false,
-            })),
-            image: {
-                url: jsonValue.image,
-            },
-            footer: {
-                text: Utils.join(jsonValue.footer?.text, '\n'),
-                iconURL: jsonValue.footer?.icon,
-            },
-            timestamp: jsonValue.timestamp ? Date.now() : undefined,
-            color: resolveColor(jsonValue.color ?? IntlService.getCom('colors.default')),
+    public getCom(location: string, variables?: { [name: string]: string }): string {
+        return this.i18nextInstance.t(location, {
+            ...variables,
+            defaultValue: '',
+            ns: 'common',
         });
-    };
+    }
 }

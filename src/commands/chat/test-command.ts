@@ -11,18 +11,22 @@ import { EventData } from '@app/models/internal-models';
 import { InteractionUtils } from '@app/utils';
 
 export class TestCommand implements Command {
-    public names = [IntlService.tr('chatCommands.test')];
+    public readonly name = 'test';
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
-    public readonly name = 'test';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        ...getBaseChatCommandMetadata(this.name),
+        ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
     };
 
+    constructor(private readonly intlService: IntlService) {}
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        await InteractionUtils.send(intr, IntlService.getEmbed('displayEmbeds.test', data.lang));
+        await InteractionUtils.send(
+            intr,
+            this.intlService.getEmbed('displayEmbeds.test', data.lang)
+        );
     }
 }

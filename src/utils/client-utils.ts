@@ -231,6 +231,7 @@ export class ClientUtils {
     }
 
     public static async findNotifyChannel(
+        i18nService: IntlService,
         guild: Guild,
         langCode: Locale
     ): Promise<TextChannel | NewsChannel | undefined> {
@@ -246,7 +247,7 @@ export class ClientUtils {
             (channel): channel is TextChannel | NewsChannel =>
                 (channel instanceof TextChannel || channel instanceof NewsChannel) &&
                 PermissionUtils.canSend(channel, true) &&
-                IntlService.getRegex('channelRegexes.bot', langCode).test(channel.name)
+                i18nService.getRegex('channelRegexes.bot', langCode).test(channel.name)
         );
     }
 }

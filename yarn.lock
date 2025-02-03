@@ -2412,11 +2412,6 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
-linguini@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/linguini/-/linguini-1.3.1.tgz#8202eb2a6d2c0c66107f904fd5a0616bba3ddcb5"
-  integrity sha512-nGg/+fMQ4zQyEqDLaniETT31y1NQs8JhlCkbRhwuxTk8fKiUDFzflie58H0cHFObd2OMHKNncYSXf7HqWOgxxw==
-
 locate-path@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-5.0.0.tgz#1afba396afd676a6d42504d0a67a3a7eb9f62aa0"

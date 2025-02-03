@@ -85,7 +85,16 @@ export default tseslint.config(
                 },
             ],
 
-            'import/extensions': ['error', 'never'],
+            'import/extensions': [
+                'error',
+                'never',
+                {
+                    ignorePackages: true | false,
+                    pattern: {
+                        '.json': 'always',
+                    },
+                },
+            ],
 
             'import/no-useless-path-segments': [
                 'error',
@@ -156,7 +165,7 @@ export default tseslint.config(
 
             'unicorn/prefer-node-protocol': 'error',
             'unicorn/prefer-top-level-await': 'off',
-            'unicorn/no-null': 'off',
+            'unicorn/ no-null': 'o',
         },
     }
 );

@@ -15,17 +15,19 @@ import { EventData } from '@app/models/internal-models';
 import { InteractionUtils } from '@app/utils';
 
 export class ViewDateJoined implements UserCommand {
-    public names = [IntlService.tr('userCommands.viewDateJoined')];
+    public name = 'viewDateJoined';
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     public metadata: RESTPostAPIContextMenuApplicationCommandsJSONBody = {
         type: ApplicationCommandType.User,
-        name: IntlService.tr('userCommands.viewDateJoined'),
-        name_localizations: IntlService.getRefLocalizationMap('userCommands.viewDateJoined'),
+        name: this.intlService.tr('userCommands.viewDateJoined'),
+        name_localizations: this.intlService.getRefLocalizationMap('userCommands.viewDateJoined'),
         default_member_permissions: undefined,
         dm_permission: true,
     };
+
+    constructor(private readonly intlService: IntlService) {}
 
     public async execute(intr: UserContextMenuCommandInteraction, data: EventData): Promise<void> {
         let joinDate: Date | null;
@@ -42,7 +44,7 @@ export class ViewDateJoined implements UserCommand {
 
         await InteractionUtils.send(
             intr,
-            IntlService.getEmbed('displayEmbeds.viewDateJoined', data.lang, {
+            this.intlService.getEmbed('displayEmbeds.viewDateJoined', data.lang, {
                 TARGET: intr.targetUser.toString(),
                 DATE: DateTime.fromJSDate(joinDate).toLocaleString(DateTime.DATE_HUGE),
             })

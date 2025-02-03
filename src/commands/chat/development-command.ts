@@ -18,28 +18,28 @@ import { EventData } from '@app/models/internal-models';
 import { FormatUtils, InteractionUtils, ShardUtils } from '@app/utils';
 
 export class DevelopmentCommand implements ChatCommand {
-    public names = [IntlService.tr('chatCommands.dev')];
+    public name = 'dev';
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
-    public readonly name = 'dev';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        ...getBaseChatCommandMetadata(this.name),
+        ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: PermissionsBitField.resolve([
             PermissionFlagsBits.Administrator,
         ]).toString(),
         options: [
             {
-                name: IntlService.tr('arguments.command'),
-                name_localizations: IntlService.getRefLocalizationMap('arguments.command'),
-                description: IntlService.tr('argDescs.devCommand'),
-                description_localizations: IntlService.getRefLocalizationMap('argDescs.devCommand'),
+                name: this.intlService.tr('arguments.command'),
+                name_localizations: this.intlService.getRefLocalizationMap('arguments.command'),
+                description: this.intlService.tr('argDescs.devCommand'),
+                description_localizations:
+                    this.intlService.getRefLocalizationMap('argDescs.devCommand'),
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
-                        name: IntlService.tr('devCommandNames.info'),
+                        name: this.intlService.tr('devCommandNames.info'),
                         name_localizations:
-                            IntlService.getRefLocalizationMap('devCommandNames.info'),
+                            this.intlService.getRefLocalizationMap('devCommandNames.info'),
                         value: DevelopmentCommandName.INFO,
                     },
                 ],
@@ -48,18 +48,20 @@ export class DevelopmentCommand implements ChatCommand {
         ],
     };
 
+    constructor(private intlService: IntlService) {}
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         if (!Config.developers.includes(intr.user.id)) {
             await InteractionUtils.send(
                 intr,
-                IntlService.getEmbed('validationEmbeds.devOnly', data.lang)
+                this.intlService.getEmbed('validationEmbeds.devOnly', data.lang)
             );
             return;
         }
 
         let arguments_ = {
             command: intr.options.getString(
-                IntlService.tr('arguments.command')
+                this.intlService.tr('arguments.command')
             ) as DevelopmentCommandName,
         };
 
@@ -74,7 +76,7 @@ export class DevelopmentCommand implements ChatCommand {
                         if (error instanceof Error && error.name.includes('ShardingInProcess')) {
                             await InteractionUtils.send(
                                 intr,
-                                IntlService.getEmbed('errorEmbeds.startupInProcess', data.lang)
+                                this.intlService.getEmbed('errorEmbeds.startupInProcess', data.lang)
                             );
                             return;
                         } else {
@@ -89,7 +91,7 @@ export class DevelopmentCommand implements ChatCommand {
 
                 await InteractionUtils.send(
                     intr,
-                    IntlService.getEmbed('displayEmbeds.devInfo', data.lang, {
+                    this.intlService.getEmbed('displayEmbeds.devInfo', data.lang, {
                         NODE_VERSION: process.version,
                         TS_VERSION: `v${typescript.version}`,
                         DJS_VERSION: `v${djs.version}`,
@@ -102,20 +104,20 @@ export class DevelopmentCommand implements ChatCommand {
                         RSS_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.rss / serverCount)
-                                : IntlService.tr('other.na', data.lang),
+                                : this.intlService.tr('other.na', data.lang),
                         HEAP_TOTAL_SIZE: FormatUtils.fileSize(memory.heapTotal),
                         HEAP_TOTAL_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.heapTotal / serverCount)
-                                : IntlService.tr('other.na', data.lang),
+                                : this.intlService.tr('other.na', data.lang),
                         HEAP_USED_SIZE: FormatUtils.fileSize(memory.heapUsed),
                         HEAP_USED_SIZE_PER_SERVER:
                             serverCount > 0
                                 ? FormatUtils.fileSize(memory.heapUsed / serverCount)
-                                : IntlService.tr('other.na', data.lang),
+                                : this.intlService.tr('other.na', data.lang),
                         HOSTNAME: os.hostname(),
                         SHARD_ID: (intr.guild?.shardId ?? 0).toString(),
-                        SERVER_ID: intr.guild?.id ?? IntlService.tr('other.na', data.lang),
+                        SERVER_ID: intr.guild?.id ?? this.intlService.tr('other.na', data.lang),
                         BOT_ID: intr.client.user?.id,
                         USER_ID: intr.user.id,
                     })

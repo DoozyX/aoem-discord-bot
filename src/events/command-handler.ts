@@ -26,7 +26,8 @@ export class CommandHandler implements EventHandler {
 
     constructor(
         public commands: Command[],
-        private eventDataService: EventDataService
+        private eventDataService: EventDataService,
+        private readonly intlService: IntlService
     ) {}
 
     public async process(intr: CommandInteraction | AutocompleteInteraction): Promise<void> {
@@ -35,20 +36,10 @@ export class CommandHandler implements EventHandler {
             return;
         }
 
-        let commandParts =
-            intr instanceof ChatInputCommandInteraction || intr instanceof AutocompleteInteraction
-                ? [
-                      intr.commandName,
-                      intr.options.getSubcommandGroup(false),
-                      intr.options.getSubcommand(false),
-                  ]
-                      .filter(Boolean)
-                      .filter((part): part is string => part !== null && part !== undefined)
-                : [intr.commandName];
-        let commandName = commandParts.join(' ');
+        const commandName = intr.commandName;
 
         // Try to find the command the user wants
-        let command = CommandUtils.findCommand(this.commands, commandParts);
+        let command = this.commands.find(command => command.name === commandName);
         if (!command) {
             Logger.error(
                 Logs.error.commandNotFound
@@ -136,9 +127,10 @@ export class CommandHandler implements EventHandler {
 
         try {
             // Check if interaction passes command checks
-            let passesChecks = await CommandUtils.runChecks(command, intr, data);
+            let passesChecks = await CommandUtils.runChecks(this.intlService, command, intr, data);
             if (passesChecks) {
                 // Execute the command
+                Logger.info(`Executing command ${command.name}`);
                 await command.execute(intr, data);
             }
         } catch (error) {
@@ -172,9 +164,9 @@ export class CommandHandler implements EventHandler {
         try {
             await InteractionUtils.send(
                 intr,
-                IntlService.getEmbed('errorEmbeds.command', data.lang, {
+                this.intlService.getEmbed('errorEmbeds.command', data.lang, {
                     ERROR_CODE: intr.id,
-                    GUILD_ID: intr.guild?.id ?? IntlService.tr('other.na', data.lang),
+                    GUILD_ID: intr.guild?.id ?? this.intlService.tr('other.na', data.lang),
                     SHARD_ID: (intr.guild?.shardId ?? 0).toString(),
                 })
             );

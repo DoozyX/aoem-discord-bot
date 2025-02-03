@@ -34,4 +34,11 @@ export class StringUtils {
     public static stripMarkdown(input: string): string {
         return removeMarkdown(input);
     }
+
+    public static Join(string: string | string[], separator: string): string {
+        if (Array.isArray(string)) {
+            return string.join(separator);
+        }
+        return string;
+    }
 }

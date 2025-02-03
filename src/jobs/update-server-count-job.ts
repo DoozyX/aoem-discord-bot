@@ -4,7 +4,7 @@ import { BotSites, Config } from '@app/config';
 import { CustomClient } from '@app/extensions';
 import { Logs } from '@app/intl';
 import { BotSite } from '@app/models/config-models';
-import { HttpService, IntlService, Logger } from '@app/services';
+import { HttpService, Logger } from '@app/services';
 import { ShardUtils } from '@app/utils';
 
 import { Job } from '.';
@@ -28,18 +28,17 @@ export class UpdateServerCountJob extends Job {
 
     public async run(): Promise<void> {
         let serverCount = await ShardUtils.serverCount(this.shardManager);
-        let shardCount = ShardUtils.shardIds(this.shardManager).length.toString();
+        let shardCount = ShardUtils.shardIds(this.shardManager)?.length.toString() ?? '0';
 
         let type = ActivityType.Streaming;
         let name = `to ${serverCount.toLocaleString()} servers`;
-        let url = IntlService.getCom('links.stream');
 
         await this.shardManager.broadcastEval(
             (client, context) => {
                 let customClient = client as CustomClient;
                 return customClient.setPresence(context.type, context.name, context.url);
             },
-            { context: { type, name, url } }
+            { context: { type, name, url: 'TODO' } }
         );
 
         Logger.info(

@@ -14,32 +14,32 @@ import { EventData } from '@app/models/internal-models';
 import { ClientUtils, FormatUtils, InteractionUtils } from '@app/utils';
 
 export class HelpCommand implements ChatCommand {
-    public names = [IntlService.tr('chatCommands.help')];
+    public name = 'help';
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
-    public readonly name = 'help';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-        ...getBaseChatCommandMetadata(this.name),
+        ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
         options: [
             {
-                name: IntlService.tr('arguments.option'),
-                name_localizations: IntlService.getRefLocalizationMap('arguments.option'),
-                description: IntlService.tr('argDescs.helpOption'),
-                description_localizations: IntlService.getRefLocalizationMap('argDescs.helpOption'),
+                name: this.intlService.tr('arguments.option'),
+                name_localizations: this.intlService.getRefLocalizationMap('arguments.option'),
+                description: this.intlService.tr('argDescs.helpOption'),
+                description_localizations:
+                    this.intlService.getRefLocalizationMap('argDescs.helpOption'),
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
-                        name: IntlService.tr('helpOptionDescs.contactSupport'),
-                        name_localizations: IntlService.getRefLocalizationMap(
+                        name: this.intlService.tr('helpOptionDescs.contactSupport'),
+                        name_localizations: this.intlService.getRefLocalizationMap(
                             'helpOptionDescs.contactSupport'
                         ),
                         value: HelpOption.CONTACT_SUPPORT,
                     },
                     {
-                        name: IntlService.tr('helpOptionDescs.commands'),
-                        name_localizations: IntlService.getRefLocalizationMap(
+                        name: this.intlService.tr('helpOptionDescs.commands'),
+                        name_localizations: this.intlService.getRefLocalizationMap(
                             'helpOptionDescs.commands'
                         ),
                         value: HelpOption.COMMANDS,
@@ -50,33 +50,35 @@ export class HelpCommand implements ChatCommand {
         ],
     };
 
+    constructor(private intlService: IntlService) {}
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let arguments_ = {
-            option: intr.options.getString(IntlService.tr('arguments.option')) as HelpOption,
+            option: intr.options.getString(this.intlService.tr('arguments.option')) as HelpOption,
         };
 
         let embed: EmbedBuilder;
         switch (arguments_.option) {
             case HelpOption.CONTACT_SUPPORT: {
-                embed = IntlService.getEmbed('displayEmbeds.helpContactSupport', data.lang);
+                embed = this.intlService.getEmbed('displayEmbeds.helpContactSupport', data.lang);
                 break;
             }
             case HelpOption.COMMANDS: {
                 const testCommand = await ClientUtils.findAppCommand(
                     intr.client,
-                    IntlService.tr('chatCommands.test')
+                    this.intlService.tr('chatCommands.test.name')
                 );
                 if (!testCommand) {
                     return;
                 }
                 const infoCommand = await ClientUtils.findAppCommand(
                     intr.client,
-                    IntlService.tr('chatCommands.info')
+                    this.intlService.tr('chatCommands.info.name')
                 );
                 if (!infoCommand) {
                     return;
                 }
-                embed = IntlService.getEmbed('displayEmbeds.helpCommands', data.lang, {
+                embed = this.intlService.getEmbed('displayEmbeds.helpCommands', data.lang, {
                     CMD_LINK_TEST: FormatUtils.commandMention(testCommand),
                     CMD_LINK_INFO: FormatUtils.commandMention(infoCommand),
                 });
