@@ -29,6 +29,11 @@ export class IntlService {
         langCode: Locale = Language.Default,
         variables?: { [name: string]: string }
     ): string {
+        console.log(
+            'path.resolve(__dirname, \'../../lang\'),',
+            // eslint-disable-next-line unicorn/prefer-module
+            path.resolve(__dirname, '../../lang')
+        );
         return this.linguini.getRef(location, langCode, variables);
     }
 
@@ -36,7 +41,7 @@ export class IntlService {
         location: string,
         variables?: { [name: string]: string }
     ): LocalizationMap {
-        let object = {};
+        let object: Partial<LocalizationMap> = {};
         for (let langCode of Language.Enabled) {
             object[langCode] = this.tr(location, langCode, variables);
         }
@@ -56,7 +61,7 @@ export class IntlService {
                 url: jsonValue.thumbnail,
             },
             description: Utils.join(jsonValue.description, '\n'),
-            fields: jsonValue.fields?.map(field => ({
+            fields: jsonValue.fields?.map((field: any) => ({
                 name: Utils.join(field.name, '\n'),
                 value: Utils.join(field.value, '\n'),
                 inline: field.inline ?? false,

@@ -29,7 +29,7 @@ export class InteractionUtils {
     public static async deferReply(
         intr: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction,
         hidden: boolean = false
-    ): Promise<InteractionResponse> {
+    ): Promise<InteractionResponse | undefined> {
         try {
             return await intr.deferReply({
                 ephemeral: hidden,
@@ -49,7 +49,7 @@ export class InteractionUtils {
 
     public static async deferUpdate(
         intr: MessageComponentInteraction | ModalSubmitInteraction
-    ): Promise<InteractionResponse> {
+    ): Promise<InteractionResponse | undefined> {
         try {
             return await intr.deferUpdate();
         } catch (error) {
@@ -69,14 +69,14 @@ export class InteractionUtils {
         intr: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction,
         content: string | EmbedBuilder | InteractionReplyOptions,
         hidden: boolean = false
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         try {
             let options: InteractionReplyOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await (intr.deferred || intr.replied
                 ? intr.followUp({
                       ...options,
@@ -122,14 +122,14 @@ export class InteractionUtils {
     public static async editReply(
         intr: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction,
         content: string | EmbedBuilder | WebhookMessageEditOptions
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         try {
             let options: WebhookMessageEditOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await intr.editReply(options);
         } catch (error) {
             if (
@@ -147,14 +147,14 @@ export class InteractionUtils {
     public static async update(
         intr: MessageComponentInteraction,
         content: string | EmbedBuilder | InteractionUpdateOptions
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         try {
             let options: InteractionUpdateOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await intr.update({
                 ...options,
                 fetchReply: true,

@@ -29,15 +29,15 @@ export class MessageUtils {
     public static async send(
         target: User | TextBasedChannel,
         content: string | EmbedBuilder | BaseMessageOptions
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         if (target instanceof PartialGroupDMChannel) return;
         try {
             let options: BaseMessageOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await target.send(options);
         } catch (error) {
             if (
@@ -55,14 +55,14 @@ export class MessageUtils {
     public static async reply(
         message: Message,
         content: string | EmbedBuilder | BaseMessageOptions
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         try {
             let options: BaseMessageOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await message.reply(options);
         } catch (error) {
             if (
@@ -80,14 +80,14 @@ export class MessageUtils {
     public static async edit(
         message: Message,
         content: string | EmbedBuilder | MessageEditOptions
-    ): Promise<Message> {
+    ): Promise<Message | undefined> {
         try {
             let options: MessageEditOptions =
                 typeof content === 'string'
                     ? { content }
-                    : (content instanceof EmbedBuilder
+                    : content instanceof EmbedBuilder
                       ? { embeds: [content] }
-                      : content);
+                      : content;
             return await message.edit(options);
         } catch (error) {
             if (
@@ -102,7 +102,10 @@ export class MessageUtils {
         }
     }
 
-    public static async react(message: Message, emoji: EmojiResolvable): Promise<MessageReaction> {
+    public static async react(
+        message: Message,
+        emoji: EmojiResolvable
+    ): Promise<MessageReaction | undefined> {
         try {
             return await message.react(emoji);
         } catch (error) {
@@ -118,7 +121,10 @@ export class MessageUtils {
         }
     }
 
-    public static async pin(message: Message, pinned: boolean = true): Promise<Message> {
+    public static async pin(
+        message: Message,
+        pinned: boolean = true
+    ): Promise<Message | undefined> {
         try {
             return pinned ? await message.pin() : await message.unpin();
         } catch (error) {
@@ -137,7 +143,7 @@ export class MessageUtils {
     public static async startThread(
         message: Message,
         options: StartThreadOptions
-    ): Promise<ThreadChannel> {
+    ): Promise<ThreadChannel | undefined> {
         try {
             return await message.startThread(options);
         } catch (error) {
@@ -153,7 +159,7 @@ export class MessageUtils {
         }
     }
 
-    public static async delete(message: Message): Promise<Message> {
+    public static async delete(message: Message): Promise<Message | undefined> {
         try {
             return await message.delete();
         } catch (error) {

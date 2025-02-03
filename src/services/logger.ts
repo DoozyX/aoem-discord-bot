@@ -63,6 +63,7 @@ export class Logger {
                 responseText = await object.text();
             } catch {
                 // Ignore
+                return;
             }
             logger
                 .child({

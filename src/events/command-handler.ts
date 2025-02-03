@@ -41,7 +41,9 @@ export class CommandHandler implements EventHandler {
                       intr.commandName,
                       intr.options.getSubcommandGroup(false),
                       intr.options.getSubcommand(false),
-                  ].filter(Boolean)
+                  ]
+                      .filter(Boolean)
+                      .filter((part): part is string => part !== null && part !== undefined)
                 : [intr.commandName];
         let commandName = commandParts.join(' ');
 
@@ -86,8 +88,8 @@ export class CommandHandler implements EventHandler {
                               .replaceAll('{USER_ID}', intr.user.id)
                               .replaceAll('{CHANNEL_NAME}', intr.channel.name)
                               .replaceAll('{CHANNEL_ID}', intr.channel.id)
-                              .replaceAll('{GUILD_NAME}', intr.guild?.name)
-                              .replaceAll('{GUILD_ID}', intr.guild?.id)
+                              .replaceAll('{GUILD_NAME}', intr.guild?.name ?? '')
+                              .replaceAll('{GUILD_ID}', intr.guild?.id ?? '')
                         : Logs.error.autocompleteOther
                               .replaceAll('{INTERACTION_ID}', intr.id)
                               .replaceAll('{OPTION_NAME}', commandName)
@@ -154,8 +156,8 @@ export class CommandHandler implements EventHandler {
                           .replaceAll('{USER_ID}', intr.user.id)
                           .replaceAll('{CHANNEL_NAME}', intr.channel.name)
                           .replaceAll('{CHANNEL_ID}', intr.channel.id)
-                          .replaceAll('{GUILD_NAME}', intr.guild?.name)
-                          .replaceAll('{GUILD_ID}', intr.guild?.id)
+                          .replaceAll('{GUILD_NAME}', intr.guild?.name ?? '')
+                          .replaceAll('{GUILD_ID}', intr.guild?.id ?? '')
                     : Logs.error.commandOther
                           .replaceAll('{INTERACTION_ID}', intr.id)
                           .replaceAll('{COMMAND_NAME}', commandName)

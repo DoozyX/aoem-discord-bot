@@ -14,9 +14,9 @@ import { EventData } from '@app/models/internal-models';
 import { FormatUtils, InteractionUtils } from '.';
 
 export class CommandUtils {
-    public static findCommand(commands: Command[], commandParts: string[]): Command {
+    public static findCommand(commands: Command[], commandParts: string[]): Command | undefined {
         let found = [...commands];
-        let closestMatch: Command;
+        let closestMatch: Command | undefined;
         for (let [index, commandPart] of commandParts.entries()) {
             found = found.filter(command => command.names[index] === commandPart);
             if (found.length === 0) {
@@ -56,7 +56,10 @@ export class CommandUtils {
 
         if (
             (intr.channel instanceof GuildChannel || intr.channel instanceof ThreadChannel) &&
-            !intr.channel.permissionsFor(intr.client.user).has(command.requireClientPerms)
+            !(
+                intr.client.user &&
+                intr.channel.permissionsFor(intr.client.user)?.has(command.requireClientPerms)
+            )
         ) {
             await InteractionUtils.send(
                 intr,

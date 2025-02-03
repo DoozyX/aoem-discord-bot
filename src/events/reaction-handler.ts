@@ -35,6 +35,9 @@ export class ReactionHandler implements EventHandler {
         }
 
         // Try to find the reaction the user wants
+        if (!messageReaction.emoji.name) {
+            return;
+        }
         let reaction = this.findReaction(messageReaction.emoji.name);
         if (!reaction) {
             return;
@@ -64,7 +67,7 @@ export class ReactionHandler implements EventHandler {
         await reaction.execute(messageReaction, message, reactor, data);
     }
 
-    private findReaction(emoji: string): Reaction {
+    private findReaction(emoji: string): Reaction | undefined {
         return this.reactions.find(reaction => reaction.emoji === emoji);
     }
 }

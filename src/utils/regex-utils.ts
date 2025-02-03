@@ -1,5 +1,5 @@
 export class RegexUtils {
-    public static regex(input: string): RegExp {
+    public static regex(input: string): RegExp | undefined {
         let match = input.match(/^\/(.*)\/([^/]*)$/);
         if (!match) {
             return;
@@ -12,11 +12,13 @@ export class RegexUtils {
         return input?.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, String.raw`\$&`);
     }
 
-    public static discordId(input: string): string {
+    public static discordId(input: string): string | undefined {
         return input?.match(/\b\d{17,20}\b/)?.[0];
     }
 
-    public static tag(input: string): { username: string; tag: string; discriminator: string } {
+    public static tag(
+        input: string
+    ): { username: string; tag: string; discriminator: string } | undefined {
         let match = input.match(/\b(.+)#([\d]{4})\b/);
         if (!match) {
             return;

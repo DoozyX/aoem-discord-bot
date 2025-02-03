@@ -1,6 +1,7 @@
 import { REST } from '@discordjs/rest';
 import { GatewayIntentBits, Options, Partials } from 'discord.js';
 
+import { RegisterChannelCommand, RequestBuffCommand } from '@app/buff-queue/commands';
 import { Button } from '@app/buttons';
 import { Command } from '@app/commands';
 import { DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from '@app/commands/chat';
@@ -31,8 +32,10 @@ async function start(): Promise<void> {
 
     // Client
     let client = new CustomClient({
-        intents: Config.client.intents.map(intent => GatewayIntentBits[intent]),
-        partials: Config.client.partials.map(partial => Partials[partial]),
+        intents: Config.client.intents.map(
+            intent => GatewayIntentBits[intent as keyof typeof GatewayIntentBits]
+        ),
+        partials: Config.client.partials.map(partial => Partials[partial as keyof typeof Partials]),
         makeCache: Options.cacheWithLimits({
             // Keep default caching behavior
             ...Options.DefaultMakeCacheSettings,
@@ -56,6 +59,8 @@ async function start(): Promise<void> {
         new ViewDateJoined(),
 
         // TODO: Add new commands here
+        new RegisterChannelCommand(),
+        new RequestBuffCommand(),
     ];
 
     // Buttons

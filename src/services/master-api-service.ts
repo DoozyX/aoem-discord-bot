@@ -10,7 +10,7 @@ import {
 import { HttpService } from '.';
 
 export class MasterApiService {
-    private clusterId: string;
+    private clusterId: string | undefined;
 
     constructor(private httpService: HttpService) {}
 

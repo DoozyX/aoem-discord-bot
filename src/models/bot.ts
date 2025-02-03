@@ -50,8 +50,10 @@ export class Bot {
 
     private registerListeners(): void {
         this.client.on(Events.ClientReady, () => this.onReady());
-        this.client.on(Events.ShardReady, (shardId: number, unavailableGuilds: Set<string>) =>
-            this.onShardReady(shardId, unavailableGuilds)
+        this.client.on(
+            Events.ShardReady,
+            (shardId: number, _unavailableGuilds: Set<string> | undefined) =>
+                this.onShardReady(shardId)
         );
         this.client.on(Events.GuildCreate, (guild: Guild) => this.onGuildJoin(guild));
         this.client.on(Events.GuildDelete, (guild: Guild) => this.onGuildLeave(guild));
@@ -78,7 +80,9 @@ export class Bot {
 
     private async onReady(): Promise<void> {
         let userTag = this.client.user?.tag;
-        Logger.info(Logs.info.clientLogin.replaceAll('{USER_TAG}', userTag));
+        if (userTag) {
+            Logger.info(Logs.info.clientLogin.replaceAll('{USER_TAG}', userTag));
+        }
 
         if (!Debug.dummyMode.enabled) {
             this.jobService.start();
@@ -88,7 +92,7 @@ export class Bot {
         Logger.info(Logs.info.clientReady);
     }
 
-    private onShardReady(shardId: number, _unavailableGuilds: Set<string>): void {
+    private onShardReady(shardId: number): void {
         Logger.setShardId(shardId);
     }
 
@@ -125,12 +129,12 @@ export class Bot {
         }
 
         try {
-            message = await PartialUtils.fillMessage(message);
-            if (!message) {
+            const filledMessage = await PartialUtils.fillMessage(message);
+            if (!filledMessage) {
                 return;
             }
 
-            await this.messageHandler.process(message);
+            await this.messageHandler.process(filledMessage);
         } catch (error) {
             Logger.error(Logs.error.message, error);
         }
@@ -171,20 +175,20 @@ export class Bot {
         }
 
         try {
-            messageReaction = await PartialUtils.fillReaction(messageReaction);
-            if (!messageReaction) {
+            const filledReaction = await PartialUtils.fillReaction(messageReaction);
+            if (!filledReaction) {
                 return;
             }
 
-            reactor = await PartialUtils.fillUser(reactor);
-            if (!reactor) {
+            const user = await PartialUtils.fillUser(reactor);
+            if (!user) {
                 return;
             }
 
             await this.reactionHandler.process(
-                messageReaction,
-                messageReaction.message as Message,
-                reactor
+                filledReaction,
+                filledReaction.message as Message,
+                user
             );
         } catch (error) {
             Logger.error(Logs.error.reaction, error);

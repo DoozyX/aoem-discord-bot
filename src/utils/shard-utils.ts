@@ -18,12 +18,14 @@ export class ShardUtils {
         );
     }
 
-    public static shardIds(shardInterface: ShardingManager | ShardClientUtil): number[] {
+    public static shardIds(
+        shardInterface: ShardingManager | ShardClientUtil
+    ): number[] | undefined {
         if (shardInterface instanceof ShardingManager) {
             return shardInterface.shards.map(shard => shard.id);
-        } else if (shardInterface instanceof ShardClientUtil) {
-            return shardInterface.ids;
         }
+
+        return shardInterface.ids;
     }
 
     public static shardId(guildId: number | string, shardCount: number): number {

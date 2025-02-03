@@ -27,36 +27,40 @@ export class GuildJoinHandler implements EventHandler {
         // Send welcome message to the server's notify channel
         let notifyChannel = await ClientUtils.findNotifyChannel(guild, data.langGuild);
         if (notifyChannel) {
+            const command = await ClientUtils.findAppCommand(
+                guild.client,
+                IntlService.tr('chatCommands.help')
+            );
+            if (!command) {
+                return;
+            }
             await MessageUtils.send(
                 notifyChannel,
                 IntlService.getEmbed('displayEmbeds.welcome', data.langGuild, {
-                    CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            guild.client,
-                            IntlService.tr('chatCommands.help')
-                        )
-                    ),
+                    CMD_LINK_HELP: FormatUtils.commandMention(command),
                 }).setAuthor({
                     name: guild.name,
-                    iconURL: guild.iconURL(),
+                    iconURL: guild.iconURL() ?? undefined,
                 })
             );
         }
 
         // Send welcome message to owner
         if (owner) {
+            const command = await ClientUtils.findAppCommand(
+                guild.client,
+                IntlService.tr('chatCommands.help')
+            );
+            if (!command) {
+                return;
+            }
             await MessageUtils.send(
                 owner.user,
                 IntlService.getEmbed('displayEmbeds.welcome', data.lang, {
-                    CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(
-                            guild.client,
-                            IntlService.tr('chatCommands.help')
-                        )
-                    ),
+                    CMD_LINK_HELP: FormatUtils.commandMention(command),
                 }).setAuthor({
                     name: guild.name,
-                    iconURL: guild.iconURL(),
+                    iconURL: guild.iconURL() ?? undefined,
                 })
             );
         }

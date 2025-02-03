@@ -13,7 +13,8 @@ import { Logs } from '@app/intl';
 import { Logger } from './logger';
 
 export class CommandRegistrationService {
-    private applicationCommandsRoute: RouteLike;
+    private applicationCommandsRoute: RouteLike | undefined;
+
     constructor(private rest: REST) {}
 
     public async process(
