@@ -2,12 +2,7 @@ import { REST } from '@discordjs/rest';
 import { GatewayIntentBits, Options, Partials } from 'discord.js';
 
 import { Button } from '@app/buttons';
-import {
-    ChatCommandMetadata,
-    Command,
-    MessageCommandMetadata,
-    UserCommandMetadata,
-} from '@app/commands';
+import { Command } from '@app/commands';
 import { DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from '@app/commands/chat';
 import { Config } from '@app/config';
 import { Logs } from '@app/intl';
@@ -110,11 +105,9 @@ async function start(): Promise<void> {
         try {
             let rest = new REST({ version: '10' }).setToken(Config.client.token);
             let commandRegistrationService = new CommandRegistrationService(rest);
-            let localCmds = [
-                ...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-                ...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-                ...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-            ];
+            let localCmds = Object.values(commands)
+                .sort((a, b) => (a.metadata.name > b.metadata.name ? 1 : -1))
+                .map(cmd => cmd.metadata);
             await commandRegistrationService.process(localCmds, process.argv);
         } catch (error) {
             Logger.error(Logs.error.commandAction, error);

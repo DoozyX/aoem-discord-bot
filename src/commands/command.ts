@@ -4,6 +4,8 @@ import {
     AutocompleteInteraction,
     CommandInteraction,
     PermissionsString,
+    RESTPostAPIChatInputApplicationCommandsJSONBody,
+    RESTPostAPIContextMenuApplicationCommandsJSONBody,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
@@ -14,6 +16,9 @@ export interface Command {
     cooldown?: RateLimiter;
     deferType: CommandDeferType;
     requireClientPerms: PermissionsString[];
+    metadata:
+        | RESTPostAPIChatInputApplicationCommandsJSONBody
+        | RESTPostAPIContextMenuApplicationCommandsJSONBody;
 
     autocomplete?(
         intr: AutocompleteInteraction,
@@ -27,4 +32,16 @@ export enum CommandDeferType {
     PUBLIC = 'PUBLIC',
     HIDDEN = 'HIDDEN',
     NONE = 'NONE',
+}
+
+export interface ChatCommand extends Command {
+    metadata: RESTPostAPIChatInputApplicationCommandsJSONBody;
+}
+
+export interface MessageCommand {
+    metadata: RESTPostAPIContextMenuApplicationCommandsJSONBody;
+}
+
+export interface UserCommand {
+    metadata: RESTPostAPIContextMenuApplicationCommandsJSONBody;
 }

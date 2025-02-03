@@ -1,18 +1,56 @@
-import djs, { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
+import djs, {
+    APIApplicationCommandBasicOption,
+    ApplicationCommandOptionType,
+    ApplicationCommandType,
+    ChatInputCommandInteraction,
+    PermissionFlagsBits,
+    PermissionsBitField,
+    PermissionsString,
+    RESTPostAPIChatInputApplicationCommandsJSONBody,
+} from 'discord.js';
 import os from 'node:os';
 import typescript from 'typescript';
 
-import { Command, CommandDeferType } from '@app/commands';
+import { CommandDeferType } from '@app/commands';
+import { ChatCommand } from '@app/commands/command';
 import { Config } from '@app/config';
 import { DevelopmentCommandName } from '@app/enums';
 import { EventData } from '@app/models/internal-models';
 import { Intl } from '@app/services';
 import { FormatUtils, InteractionUtils, ShardUtils } from '@app/utils';
 
-export class DevelopmentCommand implements Command {
+export class DevelopmentCommand implements ChatCommand {
     public names = [Intl.tr('chatCommands.dev')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+        type: ApplicationCommandType.ChatInput,
+        name: Intl.tr('chatCommands.dev'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.dev'),
+        description: Intl.tr('commandDescs.dev'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.dev'),
+        dm_permission: true,
+        default_member_permissions: PermissionsBitField.resolve([
+            PermissionFlagsBits.Administrator,
+        ]).toString(),
+        options: [
+            {
+                name: Intl.tr('arguments.command'),
+                name_localizations: Intl.getRefLocalizationMap('arguments.command'),
+                description: Intl.tr('argDescs.devCommand'),
+                description_localizations: Intl.getRefLocalizationMap('argDescs.devCommand'),
+                type: ApplicationCommandOptionType.String,
+                choices: [
+                    {
+                        name: Intl.tr('devCommandNames.info'),
+                        name_localizations: Intl.getRefLocalizationMap('devCommandNames.info'),
+                        value: DevelopmentCommandName.INFO,
+                    },
+                ],
+                required: true,
+            },
+        ],
+    };
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         if (!Config.developers.includes(intr.user.id)) {

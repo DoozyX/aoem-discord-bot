@@ -1,15 +1,56 @@
-import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
+import {
+    ApplicationCommandOptionType,
+    ApplicationCommandType,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    PermissionsString,
+    RESTPostAPIChatInputApplicationCommandsJSONBody,
+} from 'discord.js';
 
-import { Command, CommandDeferType } from '@app/commands';
+import { CommandDeferType } from '@app/commands';
+import { ChatCommand } from '@app/commands/command';
 import { HelpOption } from '@app/enums';
 import { EventData } from '@app/models/internal-models';
 import { Intl } from '@app/services';
 import { ClientUtils, FormatUtils, InteractionUtils } from '@app/utils';
 
-export class HelpCommand implements Command {
+export class HelpCommand implements ChatCommand {
     public names = [Intl.tr('chatCommands.help')];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+        type: ApplicationCommandType.ChatInput,
+        name: Intl.tr('chatCommands.help'),
+        name_localizations: Intl.getRefLocalizationMap('chatCommands.help'),
+        description: Intl.tr('commandDescs.help'),
+        description_localizations: Intl.getRefLocalizationMap('commandDescs.help'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                name: Intl.tr('arguments.option'),
+                name_localizations: Intl.getRefLocalizationMap('arguments.option'),
+                description: Intl.tr('argDescs.helpOption'),
+                description_localizations: Intl.getRefLocalizationMap('argDescs.helpOption'),
+                type: ApplicationCommandOptionType.String,
+                choices: [
+                    {
+                        name: Intl.tr('helpOptionDescs.contactSupport'),
+                        name_localizations: Intl.getRefLocalizationMap(
+                            'helpOptionDescs.contactSupport'
+                        ),
+                        value: HelpOption.CONTACT_SUPPORT,
+                    },
+                    {
+                        name: Intl.tr('helpOptionDescs.commands'),
+                        name_localizations: Intl.getRefLocalizationMap('helpOptionDescs.commands'),
+                        value: HelpOption.COMMANDS,
+                    },
+                ],
+                required: true,
+            },
+        ],
+    };
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let arguments_ = {
