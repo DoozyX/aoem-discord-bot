@@ -203,7 +203,8 @@
       "help": "help",
       "info": "info",
       "test": "test",
-      "register-buff-channel": "register-buff-channel"
+      "register-buff-channel": "register-buff-channel",
+      "request-buff": "request-buff"
     },
     "userCommands": {
       "viewDateJoined": "View Date Joined"

@@ -11,9 +11,9 @@ import { RateLimiter } from 'discord.js-rate-limiter';
 import { Command, CommandDeferType } from '@app/commands';
 import { Config } from '@app/config';
 import { DiscordLimits } from '@app/constants';
-import { Logs } from '@app/intl';
+import { IntlService, Logs } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
-import { EventDataService, Intl, Logger } from '@app/services';
+import { EventDataService, Logger } from '@app/services';
 import { CommandUtils, InteractionUtils } from '@app/utils';
 
 import { EventHandler } from '.';
@@ -170,9 +170,9 @@ export class CommandHandler implements EventHandler {
         try {
             await InteractionUtils.send(
                 intr,
-                Intl.getEmbed('errorEmbeds.command', data.lang, {
+                IntlService.getEmbed('errorEmbeds.command', data.lang, {
                     ERROR_CODE: intr.id,
-                    GUILD_ID: intr.guild?.id ?? Intl.tr('other.na', data.lang),
+                    GUILD_ID: intr.guild?.id ?? IntlService.tr('other.na', data.lang),
                     SHARD_ID: (intr.guild?.shardId ?? 0).toString(),
                 })
             );

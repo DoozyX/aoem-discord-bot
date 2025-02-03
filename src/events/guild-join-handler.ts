@@ -1,7 +1,7 @@
 import { Guild } from 'discord.js';
 
-import { Logs } from '@app/intl';
-import { EventDataService, Intl, Logger } from '@app/services';
+import { IntlService, Logs } from '@app/intl';
+import { EventDataService, Logger } from '@app/services';
 import { ClientUtils, FormatUtils, MessageUtils } from '@app/utils';
 
 import { EventHandler } from '.';
@@ -29,9 +29,12 @@ export class GuildJoinHandler implements EventHandler {
         if (notifyChannel) {
             await MessageUtils.send(
                 notifyChannel,
-                Intl.getEmbed('displayEmbeds.welcome', data.langGuild, {
+                IntlService.getEmbed('displayEmbeds.welcome', data.langGuild, {
                     CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(guild.client, Intl.tr('chatCommands.help'))
+                        await ClientUtils.findAppCommand(
+                            guild.client,
+                            IntlService.tr('chatCommands.help')
+                        )
                     ),
                 }).setAuthor({
                     name: guild.name,
@@ -44,9 +47,12 @@ export class GuildJoinHandler implements EventHandler {
         if (owner) {
             await MessageUtils.send(
                 owner.user,
-                Intl.getEmbed('displayEmbeds.welcome', data.lang, {
+                IntlService.getEmbed('displayEmbeds.welcome', data.lang, {
                     CMD_LINK_HELP: FormatUtils.commandMention(
-                        await ClientUtils.findAppCommand(guild.client, Intl.tr('chatCommands.help'))
+                        await ClientUtils.findAppCommand(
+                            guild.client,
+                            IntlService.tr('chatCommands.help')
+                        )
                     ),
                 }).setAuthor({
                     name: guild.name,

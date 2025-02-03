@@ -7,9 +7,9 @@ import {
 } from 'discord.js';
 
 import { Command } from '@app/commands';
+import { IntlService } from '@app/intl';
 import { Permission } from '@app/models/enum-helpers';
 import { EventData } from '@app/models/internal-models';
-import { Intl } from '@app/services';
 
 import { FormatUtils, InteractionUtils } from '.';
 
@@ -45,7 +45,7 @@ export class CommandUtils {
             if (limited) {
                 await InteractionUtils.send(
                     intr,
-                    Intl.getEmbed('validationEmbeds.cooldownHit', data.lang, {
+                    IntlService.getEmbed('validationEmbeds.cooldownHit', data.lang, {
                         AMOUNT: command.cooldown.amount.toLocaleString(data.lang),
                         INTERVAL: FormatUtils.duration(command.cooldown.interval, data.lang),
                     })
@@ -60,7 +60,7 @@ export class CommandUtils {
         ) {
             await InteractionUtils.send(
                 intr,
-                Intl.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
+                IntlService.getEmbed('validationEmbeds.missingClientPerms', data.lang, {
                     PERMISSIONS: command.requireClientPerms
                         .map(perm => `**${Permission.Data[perm].displayName(data.lang)}**`)
                         .join(', '),

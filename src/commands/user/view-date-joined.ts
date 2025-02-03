@@ -10,19 +10,19 @@ import { DateTime } from 'luxon';
 
 import { CommandDeferType } from '@app/commands';
 import { UserCommand } from '@app/commands/command';
+import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
-import { Intl } from '@app/services';
 import { InteractionUtils } from '@app/utils';
 
 export class ViewDateJoined implements UserCommand {
-    public names = [Intl.tr('userCommands.viewDateJoined')];
+    public names = [IntlService.tr('userCommands.viewDateJoined')];
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     public metadata: RESTPostAPIContextMenuApplicationCommandsJSONBody = {
         type: ApplicationCommandType.User,
-        name: Intl.tr('userCommands.viewDateJoined'),
-        name_localizations: Intl.getRefLocalizationMap('userCommands.viewDateJoined'),
+        name: IntlService.tr('userCommands.viewDateJoined'),
+        name_localizations: IntlService.getRefLocalizationMap('userCommands.viewDateJoined'),
         default_member_permissions: undefined,
         dm_permission: true,
     };
@@ -38,7 +38,7 @@ export class ViewDateJoined implements UserCommand {
 
         await InteractionUtils.send(
             intr,
-            Intl.getEmbed('displayEmbeds.viewDateJoined', data.lang, {
+            IntlService.getEmbed('displayEmbeds.viewDateJoined', data.lang, {
                 TARGET: intr.targetUser.toString(),
                 DATE: DateTime.fromJSDate(joinDate).toLocaleString(DateTime.DATE_HUGE),
             })

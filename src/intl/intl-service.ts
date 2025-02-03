@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { Language } from '@app/models/enum-helpers';
 
-export class Intl {
+export class IntlService {
     private static linguini = new Linguini(
         // TODO: check
         // eslint-disable-next-line unicorn/prefer-module
@@ -69,7 +69,7 @@ export class Intl {
                 iconURL: jsonValue.footer?.icon,
             },
             timestamp: jsonValue.timestamp ? Date.now() : undefined,
-            color: resolveColor(jsonValue.color ?? Intl.getCom('colors.default')),
+            color: resolveColor(jsonValue.color ?? IntlService.getCom('colors.default')),
         });
     };
 }

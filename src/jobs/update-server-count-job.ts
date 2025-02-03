@@ -4,7 +4,7 @@ import { BotSites, Config } from '@app/config';
 import { CustomClient } from '@app/extensions';
 import { Logs } from '@app/intl';
 import { BotSite } from '@app/models/config-models';
-import { HttpService, Intl, Logger } from '@app/services';
+import { HttpService, IntlService, Logger } from '@app/services';
 import { ShardUtils } from '@app/utils';
 
 import { Job } from '.';
@@ -32,7 +32,7 @@ export class UpdateServerCountJob extends Job {
 
         let type = ActivityType.Streaming;
         let name = `to ${serverCount.toLocaleString()} servers`;
-        let url = Intl.getCom('links.stream');
+        let url = IntlService.getCom('links.stream');
 
         await this.shardManager.broadcastEval(
             (client, context) => {

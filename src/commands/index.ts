@@ -1,1 +1,1 @@
-export { Command, CommandDeferType } from './command';
+export * from './command';

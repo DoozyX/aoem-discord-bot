@@ -3,11 +3,11 @@ import {
     Channel,
     Client,
     DiscordAPIError,
+    RESTJSONErrorCodes as DiscordApiErrors,
     Guild,
     GuildMember,
     Locale,
     NewsChannel,
-    RESTJSONErrorCodes as DiscordApiErrors,
     Role,
     StageChannel,
     TextChannel,
@@ -15,7 +15,7 @@ import {
     VoiceChannel,
 } from 'discord.js';
 
-import { Intl } from '@app/services';
+import { IntlService } from '@app/intl';
 
 import { PermissionUtils, RegexUtils } from '.';
 
@@ -242,7 +242,7 @@ export class ClientUtils {
             (channel): channel is TextChannel | NewsChannel =>
                 (channel instanceof TextChannel || channel instanceof NewsChannel) &&
                 PermissionUtils.canSend(channel, true) &&
-                Intl.getRegex('channelRegexes.bot', langCode).test(channel.name)
+                IntlService.getRegex('channelRegexes.bot', langCode).test(channel.name)
         );
     }
 }

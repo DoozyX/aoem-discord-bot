@@ -1,6 +1,6 @@
 import { Locale, PermissionsString } from 'discord.js';
 
-import { Intl } from '@app/services';
+import { IntlService } from '@app/intl';
 
 interface PermissionData {
     displayName(langCode: Locale): string;
@@ -12,252 +12,252 @@ export class Permission {
     } = {
         AddReactions: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.AddReactions', langCode);
+                return IntlService.tr('permissions.AddReactions', langCode);
             },
         },
         Administrator: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.Administrator', langCode);
+                return IntlService.tr('permissions.Administrator', langCode);
             },
         },
         AttachFiles: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.AttachFiles', langCode);
+                return IntlService.tr('permissions.AttachFiles', langCode);
             },
         },
         BanMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.BanMembers', langCode);
+                return IntlService.tr('permissions.BanMembers', langCode);
             },
         },
         ChangeNickname: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ChangeNickname', langCode);
+                return IntlService.tr('permissions.ChangeNickname', langCode);
             },
         },
         Connect: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.Connect', langCode);
+                return IntlService.tr('permissions.Connect', langCode);
             },
         },
         CreateEvents: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.CreateEvents', langCode);
+                return IntlService.tr('permissions.CreateEvents', langCode);
             },
         },
         CreateGuildExpressions: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.CreateGuildExpressions', langCode);
+                return IntlService.tr('permissions.CreateGuildExpressions', langCode);
             },
         },
         CreateInstantInvite: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.CreateInstantInvite', langCode);
+                return IntlService.tr('permissions.CreateInstantInvite', langCode);
             },
         },
         CreatePrivateThreads: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.CreatePrivateThreads', langCode);
+                return IntlService.tr('permissions.CreatePrivateThreads', langCode);
             },
         },
         CreatePublicThreads: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.CreatePublicThreads', langCode);
+                return IntlService.tr('permissions.CreatePublicThreads', langCode);
             },
         },
         DeafenMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.DeafenMembers', langCode);
+                return IntlService.tr('permissions.DeafenMembers', langCode);
             },
         },
         EmbedLinks: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.EmbedLinks', langCode);
+                return IntlService.tr('permissions.EmbedLinks', langCode);
             },
         },
         KickMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.KickMembers', langCode);
+                return IntlService.tr('permissions.KickMembers', langCode);
             },
         },
         ManageChannels: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageChannels', langCode);
+                return IntlService.tr('permissions.ManageChannels', langCode);
             },
         },
         ManageEmojisAndStickers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageEmojisAndStickers', langCode);
+                return IntlService.tr('permissions.ManageEmojisAndStickers', langCode);
             },
         },
         ManageEvents: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageEvents', langCode);
+                return IntlService.tr('permissions.ManageEvents', langCode);
             },
         },
         ManageGuild: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageGuild', langCode);
+                return IntlService.tr('permissions.ManageGuild', langCode);
             },
         },
         ManageGuildExpressions: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageGuildExpressions', langCode);
+                return IntlService.tr('permissions.ManageGuildExpressions', langCode);
             },
         },
         ManageMessages: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageMessages', langCode);
+                return IntlService.tr('permissions.ManageMessages', langCode);
             },
         },
         ManageNicknames: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageNicknames', langCode);
+                return IntlService.tr('permissions.ManageNicknames', langCode);
             },
         },
         ManageRoles: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageRoles', langCode);
+                return IntlService.tr('permissions.ManageRoles', langCode);
             },
         },
         ManageThreads: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageThreads', langCode);
+                return IntlService.tr('permissions.ManageThreads', langCode);
             },
         },
         ManageWebhooks: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ManageWebhooks', langCode);
+                return IntlService.tr('permissions.ManageWebhooks', langCode);
             },
         },
         MentionEveryone: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.MentionEveryone', langCode);
+                return IntlService.tr('permissions.MentionEveryone', langCode);
             },
         },
         ModerateMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ModerateMembers', langCode);
+                return IntlService.tr('permissions.ModerateMembers', langCode);
             },
         },
         MoveMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.MoveMembers', langCode);
+                return IntlService.tr('permissions.MoveMembers', langCode);
             },
         },
         MuteMembers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.MuteMembers', langCode);
+                return IntlService.tr('permissions.MuteMembers', langCode);
             },
         },
         PrioritySpeaker: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.PrioritySpeaker', langCode);
+                return IntlService.tr('permissions.PrioritySpeaker', langCode);
             },
         },
         ReadMessageHistory: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ReadMessageHistory', langCode);
+                return IntlService.tr('permissions.ReadMessageHistory', langCode);
             },
         },
         RequestToSpeak: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.RequestToSpeak', langCode);
+                return IntlService.tr('permissions.RequestToSpeak', langCode);
             },
         },
         SendMessages: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.SendMessages', langCode);
+                return IntlService.tr('permissions.SendMessages', langCode);
             },
         },
         SendMessagesInThreads: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.SendMessagesInThreads', langCode);
+                return IntlService.tr('permissions.SendMessagesInThreads', langCode);
             },
         },
         SendPolls: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.SendPolls', langCode);
+                return IntlService.tr('permissions.SendPolls', langCode);
             },
         },
         SendTTSMessages: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.SendTTSMessages', langCode);
+                return IntlService.tr('permissions.SendTTSMessages', langCode);
             },
         },
         SendVoiceMessages: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.SendVoiceMessages', langCode);
+                return IntlService.tr('permissions.SendVoiceMessages', langCode);
             },
         },
         Speak: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.Speak', langCode);
+                return IntlService.tr('permissions.Speak', langCode);
             },
         },
         Stream: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.Stream', langCode);
+                return IntlService.tr('permissions.Stream', langCode);
             },
         },
         UseApplicationCommands: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseApplicationCommands', langCode);
+                return IntlService.tr('permissions.UseApplicationCommands', langCode);
             },
         },
         UseEmbeddedActivities: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseEmbeddedActivities', langCode);
+                return IntlService.tr('permissions.UseEmbeddedActivities', langCode);
             },
         },
         UseExternalApps: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseExternalApps', langCode);
+                return IntlService.tr('permissions.UseExternalApps', langCode);
             },
         },
         UseExternalEmojis: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseExternalEmojis', langCode);
+                return IntlService.tr('permissions.UseExternalEmojis', langCode);
             },
         },
         UseExternalSounds: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseExternalSounds', langCode);
+                return IntlService.tr('permissions.UseExternalSounds', langCode);
             },
         },
         UseExternalStickers: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseExternalStickers', langCode);
+                return IntlService.tr('permissions.UseExternalStickers', langCode);
             },
         },
         UseSoundboard: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseSoundboard', langCode);
+                return IntlService.tr('permissions.UseSoundboard', langCode);
             },
         },
         UseVAD: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.UseVAD', langCode);
+                return IntlService.tr('permissions.UseVAD', langCode);
             },
         },
         ViewAuditLog: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ViewAuditLog', langCode);
+                return IntlService.tr('permissions.ViewAuditLog', langCode);
             },
         },
         ViewChannel: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ViewChannel', langCode);
+                return IntlService.tr('permissions.ViewChannel', langCode);
             },
         },
         ViewCreatorMonetizationAnalytics: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ViewCreatorMonetizationAnalytics', langCode);
+                return IntlService.tr('permissions.ViewCreatorMonetizationAnalytics', langCode);
             },
         },
         ViewGuildInsights: {
             displayName(langCode: Locale): string {
-                return Intl.tr('permissions.ViewGuildInsights', langCode);
+                return IntlService.tr('permissions.ViewGuildInsights', langCode);
             },
         },
     };
