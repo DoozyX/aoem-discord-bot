@@ -1,12 +1,13 @@
 import {
-    ApplicationCommandOptionType,
     ChatInputCommandInteraction,
+    PermissionsBitField,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
 import { BuffService, BuffType } from '@app/buff-queue';
+import { buffTypeOption } from '@app/buff-queue/commands/common';
 import { ChatCommand, CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
@@ -22,41 +23,7 @@ export class RegisterChannelCommand implements ChatCommand {
         ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
-        options: [
-            {
-                name: this.optionName,
-                name_localizations: this.intlService.getRefLocalizationMap('buffTypeOption.name'),
-                description: this.intlService.tr('buffTypeOption.description'),
-                description_localizations: this.intlService.getRefLocalizationMap(
-                    'buffTypeOption.description'
-                ),
-                type: ApplicationCommandOptionType.String,
-                choices: [
-                    {
-                        name: this.intlService.tr('buffTypeOption.valueConstruction'),
-                        name_localizations: this.intlService.getRefLocalizationMap(
-                            'buffTypeOption.valueConstruction'
-                        ),
-                        value: BuffType.CONSTRUCTION,
-                    },
-                    {
-                        name: this.intlService.tr('buffTypeOption.valueResearch'),
-                        name_localizations: this.intlService.getRefLocalizationMap(
-                            'buffTypeOption.valueResearch'
-                        ),
-                        value: BuffType.RESEARCH,
-                    },
-                    {
-                        name: this.intlService.tr('buffTypeOption.valueTraining'),
-                        name_localizations: this.intlService.getRefLocalizationMap(
-                            'buffTypeOption.valueTraining'
-                        ),
-                        value: BuffType.TRAINING,
-                    },
-                ],
-                required: true,
-            },
-        ],
+        options: [buffTypeOption(this.intlService, this.optionName)],
     };
 
     constructor(
