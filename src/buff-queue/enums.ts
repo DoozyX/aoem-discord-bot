@@ -1,5 +1,5 @@
 export enum BuffType {
-    CONSTRUCTION = 'CONSTRUCTION',
-    RESEARCH = 'RESEARCH',
-    TRAINING = 'TRAINING',
+    CONSTRUCTION = 'construction',
+    RESEARCH = 'research',
+    TRAINING = 'training',
 }

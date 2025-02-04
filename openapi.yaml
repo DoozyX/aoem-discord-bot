@@ -564,6 +564,25 @@ paths:
                   $ref: '#/components/schemas/Guild'
       tags:
         - Guilds
+  /api/v1/channels:
+    post:
+      operationId: ChannelsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChannelDto'
+      responses:
+        '201':
+          description: Create a channel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+      tags:
+        - Channels
 info:
   title: MOEPP CITES API
   description: MOEPP CITES API docs
@@ -1042,3 +1061,57 @@ components:
         - id
         - uid
         - name
+    CreateChannelDto:
+      type: object
+      properties:
+        uid:
+          type: string
+        guildUid:
+          type: string
+        type:
+          enum:
+            - construction
+            - research
+            - training
+          type: string
+      required:
+        - uid
+        - guildUid
+        - type
+    Channel:
+      type: object
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+          nullable: true
+        deletedAt:
+          format: date-time
+          type: string
+          nullable: true
+        id:
+          type: number
+        uid:
+          type: string
+        guild:
+          $ref: '#/components/schemas/Guild'
+        guildId:
+          type: number
+        type:
+          type: string
+          enum:
+            - construction
+            - research
+            - training
+      required:
+        - createdAt
+        - updatedAt
+        - deletedAt
+        - id
+        - uid
+        - guild
+        - guildId
+        - type

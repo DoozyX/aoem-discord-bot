@@ -5,6 +5,8 @@ export * from '../models/AuthForgotPasswordDto';
 export * from '../models/AuthRegisterLoginDto';
 export * from '../models/AuthResetPasswordDto';
 export * from '../models/AuthUpdateDto';
+export * from '../models/Channel';
+export * from '../models/CreateChannelDto';
 export * from '../models/CreateGuildDto';
 export * from '../models/CreateIndividualUserDto';
 export * from '../models/CreateUserDto';
@@ -33,6 +35,8 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto  , AuthRegisterLoginDtoLanguageEnum   } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Channel       , ChannelTypeEnum   } from '../models/Channel';
+import { CreateChannelDto  , CreateChannelDtoTypeEnum   } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto  , CreateIndividualUserDtoRoleEnum  , CreateIndividualUserDtoStatusEnum  , CreateIndividualUserDtoLanguageEnum   } from '../models/CreateIndividualUserDto';
 import { CreateUserDto  , CreateUserDtoRoleEnum  , CreateUserDtoStatusEnum  , CreateUserDtoLanguageEnum   } from '../models/CreateUserDto';
@@ -69,6 +73,8 @@ let primitives = [
 let enumsMap: Set<string> = new Set<string>([
     "ActivateUserDtoStatusEnum",
     "AuthRegisterLoginDtoLanguageEnum",
+    "ChannelTypeEnum",
+    "CreateChannelDtoTypeEnum",
     "CreateIndividualUserDtoRoleEnum",
     "CreateIndividualUserDtoStatusEnum",
     "CreateIndividualUserDtoLanguageEnum",
@@ -95,6 +101,8 @@ let typeMap: {[index: string]: any} = {
     "AuthRegisterLoginDto": AuthRegisterLoginDto,
     "AuthResetPasswordDto": AuthResetPasswordDto,
     "AuthUpdateDto": AuthUpdateDto,
+    "Channel": Channel,
+    "CreateChannelDto": CreateChannelDto,
     "CreateGuildDto": CreateGuildDto,
     "CreateIndividualUserDto": CreateIndividualUserDto,
     "CreateUserDto": CreateUserDto,

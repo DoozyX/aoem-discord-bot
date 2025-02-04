@@ -8,6 +8,8 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Channel } from '../models/Channel';
+import { CreateChannelDto } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto } from '../models/CreateIndividualUserDto';
 import { CreateUserDto } from '../models/CreateUserDto';
@@ -243,6 +245,41 @@ export class ObjectAuthApi {
      */
     public authControllerUpdate(param: AuthApiAuthControllerUpdateRequest, options?: Configuration): Promise<User> {
         return this.api.authControllerUpdate(param.authUpdateDto,  options).toPromise();
+    }
+
+}
+
+import { ObservableChannelsApi } from "./ObservableAPI";
+import { ChannelsApiRequestFactory, ChannelsApiResponseProcessor} from "../apis/ChannelsApi";
+
+export interface ChannelsApiChannelsControllerCreateRequest {
+    /**
+     * 
+     * @type CreateChannelDto
+     * @memberof ChannelsApichannelsControllerCreate
+     */
+    createChannelDto: CreateChannelDto
+}
+
+export class ObjectChannelsApi {
+    private api: ObservableChannelsApi
+
+    public constructor(configuration: Configuration, requestFactory?: ChannelsApiRequestFactory, responseProcessor?: ChannelsApiResponseProcessor) {
+        this.api = new ObservableChannelsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public channelsControllerCreateWithHttpInfo(param: ChannelsApiChannelsControllerCreateRequest, options?: Configuration): Promise<HttpInfo<Channel>> {
+        return this.api.channelsControllerCreateWithHttpInfo(param.createChannelDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public channelsControllerCreate(param: ChannelsApiChannelsControllerCreateRequest, options?: Configuration): Promise<Channel> {
+        return this.api.channelsControllerCreate(param.createChannelDto,  options).toPromise();
     }
 
 }

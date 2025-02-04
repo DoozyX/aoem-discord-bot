@@ -1,15 +1,23 @@
 import { Api } from '@app/api';
-import { CreateGuildDto } from '@app/api_gen/models/CreateGuildDto';
+import { CreateChannelDtoTypeEnum } from '@app/api_gen/models/CreateChannelDto';
 import { BuffType } from '@app/buff-queue/enums';
 
 export class BuffService {
     constructor(private api: Api) {}
+
     public async registerGuild(id: string, name: string): Promise<void> {
-        const dto = new CreateGuildDto();
-        dto.uid = id;
-        dto.name = name;
-        await this.api.guilds.guildsControllerCreate(dto);
+        await this.api.guilds.guildsControllerCreate({ uid: id, name });
     }
 
-    public registerChannel(_guildId: string, _buffType: BuffType, _channelId: string): void {}
+    public async registerChannel(
+        guildId: string,
+        buffType: BuffType,
+        channelId: string
+    ): Promise<void> {
+        await this.api.channels.channelsControllerCreate({
+            guildUid: guildId,
+            type: buffType as unknown as CreateChannelDtoTypeEnum,
+            uid: channelId,
+        });
+    }
 }

@@ -1,5 +1,6 @@
 import {
     AuthApi,
+    ChannelsApi,
     Configuration,
     createConfiguration,
     FilesApi,
@@ -21,6 +22,7 @@ export class Api {
     public files!: FilesApi;
     public users!: UsersApi;
     public guilds!: GuildsApi;
+    public channels!: ChannelsApi;
 
     public loginUser: LoginResponseType | undefined;
 
@@ -51,11 +53,12 @@ export class Api {
         this.setupApis(authConfig);
     }
 
-    private setupApis(authConfig: Configuration): void {
-        this.files = new FilesApi(authConfig);
-        this.users = new UsersApi(authConfig);
-        this.auth = new AuthApi(authConfig);
-        this.guilds = new GuildsApi(authConfig);
+    private setupApis(config: Configuration): void {
+        this.files = new FilesApi(config);
+        this.users = new UsersApi(config);
+        this.auth = new AuthApi(config);
+        this.guilds = new GuildsApi(config);
+        this.channels = new ChannelsApi(config);
     }
 
     public getBearerConfig(token: string): Configuration {

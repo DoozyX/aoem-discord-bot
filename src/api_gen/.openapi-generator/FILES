@@ -1,6 +1,7 @@
 .gitattributes
 .gitignore
 AuthApi.md
+ChannelsApi.md
 FilesApi.md
 GuildsApi.md
 HealthApi.md
@@ -8,6 +9,7 @@ HomeApi.md
 README.md
 UsersApi.md
 apis/AuthApi.ts
+apis/ChannelsApi.ts
 apis/FilesApi.ts
 apis/GuildsApi.ts
 apis/HealthApi.ts
@@ -29,6 +31,8 @@ models/AuthForgotPasswordDto.ts
 models/AuthRegisterLoginDto.ts
 models/AuthResetPasswordDto.ts
 models/AuthUpdateDto.ts
+models/Channel.ts
+models/CreateChannelDto.ts
 models/CreateGuildDto.ts
 models/CreateIndividualUserDto.ts
 models/CreateUserDto.ts

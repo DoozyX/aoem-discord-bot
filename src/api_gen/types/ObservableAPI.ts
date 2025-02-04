@@ -9,6 +9,8 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Channel } from '../models/Channel';
+import { CreateChannelDto } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto } from '../models/CreateIndividualUserDto';
 import { CreateUserDto } from '../models/CreateUserDto';
@@ -326,6 +328,53 @@ export class ObservableAuthApi {
      */
     public authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Observable<User> {
         return this.authControllerUpdateWithHttpInfo(authUpdateDto, _options).pipe(map((apiResponse: HttpInfo<User>) => apiResponse.data));
+    }
+
+}
+
+import { ChannelsApiRequestFactory, ChannelsApiResponseProcessor} from "../apis/ChannelsApi";
+export class ObservableChannelsApi {
+    private requestFactory: ChannelsApiRequestFactory;
+    private responseProcessor: ChannelsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ChannelsApiRequestFactory,
+        responseProcessor?: ChannelsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ChannelsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ChannelsApiResponseProcessor();
+    }
+
+    /**
+     * @param createChannelDto
+     */
+    public channelsControllerCreateWithHttpInfo(createChannelDto: CreateChannelDto, _options?: Configuration): Observable<HttpInfo<Channel>> {
+        const requestContextPromise = this.requestFactory.channelsControllerCreate(createChannelDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.channelsControllerCreateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param createChannelDto
+     */
+    public channelsControllerCreate(createChannelDto: CreateChannelDto, _options?: Configuration): Observable<Channel> {
+        return this.channelsControllerCreateWithHttpInfo(createChannelDto, _options).pipe(map((apiResponse: HttpInfo<Channel>) => apiResponse.data));
     }
 
 }

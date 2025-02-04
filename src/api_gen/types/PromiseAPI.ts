@@ -8,6 +8,8 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Channel } from '../models/Channel';
+import { CreateChannelDto } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto } from '../models/CreateIndividualUserDto';
 import { CreateUserDto } from '../models/CreateUserDto';
@@ -191,6 +193,41 @@ export class PromiseAuthApi {
      */
     public authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<User> {
         const result = this.api.authControllerUpdate(authUpdateDto, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableChannelsApi } from './ObservableAPI';
+
+import { ChannelsApiRequestFactory, ChannelsApiResponseProcessor} from "../apis/ChannelsApi";
+export class PromiseChannelsApi {
+    private api: ObservableChannelsApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ChannelsApiRequestFactory,
+        responseProcessor?: ChannelsApiResponseProcessor
+    ) {
+        this.api = new ObservableChannelsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param createChannelDto
+     */
+    public channelsControllerCreateWithHttpInfo(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<HttpInfo<Channel>> {
+        const result = this.api.channelsControllerCreateWithHttpInfo(createChannelDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param createChannelDto
+     */
+    public channelsControllerCreate(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<Channel> {
+        const result = this.api.channelsControllerCreate(createChannelDto, _options);
         return result.toPromise();
     }
 
