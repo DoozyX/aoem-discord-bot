@@ -5,6 +5,7 @@ import {
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
+import { buffTypeOption } from '@app/buff-queue/commands/common';
 import { Command, CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
@@ -15,10 +16,12 @@ export class RequestBuffCommand implements Command {
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
+    private optionName = this.intlService.tr('buffTypeOption.name');
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
         ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
+        options: [buffTypeOption(this.intlService, this.optionName)],
     };
 
     constructor(private readonly intlService: IntlService) {}
