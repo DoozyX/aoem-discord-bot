@@ -32,6 +32,17 @@ export class RegisterChannelCommand implements ChatCommand {
     ) {}
 
     public async execute(intr: ChatInputCommandInteraction, _data: EventData): Promise<void> {
+        const isAdministrator = intr.memberPermissions?.has(
+            PermissionsBitField.Flags.Administrator
+        );
+        if (!isAdministrator) {
+            await InteractionUtils.send(
+                intr,
+                'You need administrator privileges to use this command.'
+            );
+            return;
+        }
+
         const channelId = intr.channelId;
         const guildId = intr.guildId;
 
