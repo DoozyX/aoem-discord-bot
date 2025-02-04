@@ -9,7 +9,7 @@
           {
             "name": "Important $t(refs:fields.commands)",
             "value": [
-              "{{CMD_LINK_HELP}} - $t(refs:commandDescs.help)"
+              "{{CMD_LINK_HELP}} - $t(refs:chatCommands.help.description)"
             ]
           },
           {
@@ -43,8 +43,8 @@
             "value": [
               "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
               "",
-              "{{CMD_LINK_TEST}} - $t(refs:commandDescs.test)",
-              "{{CMD_LINK_INFO}} - $t(refs:commandDescs.info)"
+              "{{CMD_LINK_TEST}} - $t(refs:chatCommands.test.description)",
+              "{{CMD_LINK_INFO}} - $t(refs:chatCommands.info.description)"
             ]
           },
           {

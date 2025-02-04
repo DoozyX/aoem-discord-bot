@@ -11,3 +11,4 @@ export { RegexUtils } from './regex-utils';
 export { ShardUtils } from './shard-utils';
 export { StringUtils } from './string-utils';
 export { ThreadUtils } from './thread-utils';
+export * from './enum-utils';

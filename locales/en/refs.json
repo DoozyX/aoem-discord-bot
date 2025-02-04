@@ -31,6 +31,13 @@
       "description": "Request buff "
     }
   },
+  "buffTypeOption": {
+    "name": "buff_type",
+    "description": "Buff type",
+    "valueConstruction": "construction",
+    "valueResearch": "research",
+    "valueTraining": "training"
+  },
   "userCommands": {
     "viewDateJoined": "View Date Joined"
   },
@@ -127,5 +134,15 @@
   },
   "other": {
     "na": "N/A"
+  },
+  "links": {
+    "authorEmbed": "[$t(common:bot.author)]($t(common:links.author))",
+    "docsEmbed": "[View Documentation]($t(common:links.docs))",
+    "donateEmbed": "[Donate via PayPal]($t(common:links.donate))",
+    "inviteEmbed": "[Invite $t(common:bot.name) to a Server!]($t(common:links.invite))",
+    "sourceEmbed": "[View Source Code]($t(common:links.source))",
+    "supportEmbed": "[Join Support Server]($t(common:links.support))",
+    "termsEmbed": "[View Terms of Service]($t(common:links.terms))",
+    "voteEmbed": "[Vote for $t(common:bot.name)!]($t(common:links.vote))"
   }
 }

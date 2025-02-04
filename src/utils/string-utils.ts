@@ -35,7 +35,10 @@ export class StringUtils {
         return removeMarkdown(input);
     }
 
-    public static Join(string: string | string[], separator: string): string {
+    public static Join(
+        string: string | string[] | undefined,
+        separator: string
+    ): string | undefined {
         if (Array.isArray(string)) {
             return string.join(separator);
         }

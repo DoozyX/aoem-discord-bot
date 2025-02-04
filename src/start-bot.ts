@@ -1,6 +1,7 @@
 import { REST } from '@discordjs/rest';
 import { GatewayIntentBits, Options, Partials } from 'discord.js';
 
+import { BuffService } from '@app/buff-queue';
 import { RegisterChannelCommand, RequestBuffCommand } from '@app/buff-queue/commands';
 import { Button } from '@app/buttons';
 import { Command } from '@app/commands';
@@ -46,6 +47,7 @@ async function start(): Promise<void> {
 
     const i18nService = new IntlService();
     i18nService.init();
+    const buffService = new BuffService();
 
     // Commands
     let commands: Command[] = [
@@ -54,16 +56,14 @@ async function start(): Promise<void> {
         new HelpCommand(i18nService),
         new InfoCommand(i18nService),
         new TestCommand(i18nService),
+        new RegisterChannelCommand(i18nService, buffService),
+        new RequestBuffCommand(i18nService),
 
         // Message Context Commands
         new ViewDateSent(i18nService),
 
         // User Context Commands
         new ViewDateJoined(i18nService),
-
-        // TODO: Add new commands here
-        new RegisterChannelCommand(),
-        new RequestBuffCommand(),
     ];
 
     // Buttons
@@ -82,7 +82,7 @@ async function start(): Promise<void> {
     ];
 
     // Event handlers
-    let guildJoinHandler = new GuildJoinHandler(eventDataService, i18nService);
+    let guildJoinHandler = new GuildJoinHandler(eventDataService, i18nService, buffService);
     let guildLeaveHandler = new GuildLeaveHandler();
     let commandHandler = new CommandHandler(commands, eventDataService, i18nService);
     let buttonHandler = new ButtonHandler(buttons, eventDataService);

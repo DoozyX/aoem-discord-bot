@@ -1,5 +1,6 @@
 import { Guild } from 'discord.js';
 
+import { BuffService } from '@app/buff-queue';
 import { IntlService, Logs } from '@app/intl';
 import { EventDataService, Logger } from '@app/services';
 import { ClientUtils, FormatUtils, MessageUtils } from '@app/utils';
@@ -9,7 +10,8 @@ import { EventHandler } from '.';
 export class GuildJoinHandler implements EventHandler {
     constructor(
         private eventDataService: EventDataService,
-        private readonly intlService: IntlService
+        private readonly intlService: IntlService,
+        private readonly buffService: BuffService
     ) {}
 
     public async process(guild: Guild): Promise<void> {
@@ -36,9 +38,12 @@ export class GuildJoinHandler implements EventHandler {
         if (notifyChannel) {
             const command = await ClientUtils.findAppCommand(
                 guild.client,
-                this.intlService.tr('chatCommands.help')
+                this.intlService.tr('chatCommands.help.name')
             );
             if (!command) {
+                Logger.error(
+                    `Help command not found, ${this.intlService.tr('chatCommands.help.name')} `
+                );
                 return;
             }
             await MessageUtils.send(
@@ -58,9 +63,12 @@ export class GuildJoinHandler implements EventHandler {
         if (owner) {
             const command = await ClientUtils.findAppCommand(
                 guild.client,
-                this.intlService.tr('chatCommands.help')
+                this.intlService.tr('chatCommands.help.name')
             );
             if (!command) {
+                Logger.error(
+                    `Help command not found, ${this.intlService.tr('chatCommands.help.name')} `
+                );
                 return;
             }
             await MessageUtils.send(
@@ -75,5 +83,7 @@ export class GuildJoinHandler implements EventHandler {
                     })
             );
         }
+
+        this.buffService.registerGuild(guild.id);
     }
 }

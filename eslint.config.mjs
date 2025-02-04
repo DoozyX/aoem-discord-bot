@@ -89,9 +89,9 @@ export default tseslint.config(
                 'error',
                 'never',
                 {
-                    ignorePackages: true | false,
+                    ignorePackages: true,
                     pattern: {
-                        '.json': 'always',
+                        json: 'always',
                     },
                 },
             ],
@@ -165,7 +165,7 @@ export default tseslint.config(
 
             'unicorn/prefer-node-protocol': 'error',
             'unicorn/prefer-top-level-await': 'off',
-            'unicorn/ no-null': 'o',
+            'unicorn/no-null': 'off',
         },
     }
 );
