@@ -84,6 +84,6 @@ export class GuildJoinHandler implements EventHandler {
             );
         }
 
-        this.buffService.registerGuild(guild.id);
+        await this.buffService.registerGuild(guild.id, guild.name);
     }
 }

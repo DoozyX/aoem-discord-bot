@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../aoem-backend/aoem-backend.iml" filepath="$PROJECT_DIR$/../aoem-backend/aoem-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/aoem-discord-bot.iml" filepath="$PROJECT_DIR$/.idea/aoem-discord-bot.iml" />
     </modules>
   </component>

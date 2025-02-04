@@ -29,6 +29,7 @@ export default tseslint.config(
             'node_modules',
             'temp',
             'eslint.config.mjs',
+            'src/api_gen/**',
         ],
     },
     {

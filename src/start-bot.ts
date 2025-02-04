@@ -1,6 +1,7 @@
 import { REST } from '@discordjs/rest';
 import { GatewayIntentBits, Options, Partials } from 'discord.js';
 
+import { Api } from '@app/api';
 import { BuffService } from '@app/buff-queue';
 import { RegisterChannelCommand, RequestBuffCommand } from '@app/buff-queue/commands';
 import { Button } from '@app/buttons';
@@ -45,9 +46,11 @@ async function start(): Promise<void> {
         }),
     });
 
+    const api = new Api();
+
     const i18nService = new IntlService();
     i18nService.init();
-    const buffService = new BuffService();
+    const buffService = new BuffService(api);
 
     // Commands
     let commands: Command[] = [

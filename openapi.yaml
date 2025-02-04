@@ -1,0 +1,1044 @@
+openapi: 3.0.0
+paths:
+  /api/v1/users:
+    post:
+      operationId: UsersController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '201':
+          description: The record has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/users/individual:
+    post:
+      operationId: UsersController_createIndividual
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIndividualUserDto'
+      responses:
+        '201':
+          description: The record has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/users/{id}:
+    patch:
+      operationId: UsersController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: The record has been successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Users
+      security:
+        - bearer: []
+    get:
+      operationId: UsersController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the user if exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/users/{id}/activate:
+    patch:
+      operationId: UsersController_activate
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateUserDto'
+      responses:
+        '200':
+          description: The record has been successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/users/statistics:
+    get:
+      operationId: UsersController_statistics
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStatistics'
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/users/all:
+    post:
+      operationId: UsersController_findAll
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryUserDto'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PageDto'
+                  - properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/User'
+      tags:
+        - Users
+      security:
+        - bearer: []
+  /api/v1/auth/email/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthEmailLoginDto'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseType'
+        '401':
+          description: Invalid password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Invalid email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+  /api/v1/auth/email/register:
+    post:
+      operationId: AuthController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRegisterLoginDto'
+      responses:
+        '201':
+          description: User registered successfully
+        '422':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+  /api/v1/auth/email/resend-verify-mail:
+    post:
+      operationId: AuthController_resendVerifyMail
+      parameters: []
+      responses:
+        '200':
+          description: Email sent successfully
+        '422':
+          description: Invalid State
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+      security:
+        - bearer: []
+  /api/v1/auth/email/confirm:
+    post:
+      operationId: AuthController_confirmEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthConfirmEmailDto'
+      responses:
+        '204':
+          description: User confirmed successfully
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Invalid user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+  /api/v1/auth/forgot/password:
+    post:
+      operationId: AuthController_forgotPassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthForgotPasswordDto'
+      responses:
+        '204':
+          description: Forgot request sent successfully
+        '404':
+          description: Invalid user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+  /api/v1/auth/reset/password:
+    post:
+      operationId: AuthController_resetPassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthResetPasswordDto'
+      responses:
+        '204':
+          description: Password reset successfully
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Invalid user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+  /api/v1/auth/me:
+    get:
+      operationId: AuthController_me
+      parameters: []
+      responses:
+        '200':
+          description: Current user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - Auth
+      security:
+        - bearer: []
+    patch:
+      operationId: AuthController_update
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthUpdateDto'
+      responses:
+        '200':
+          description: User information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+      security:
+        - bearer: []
+  /api/v1/auth/refresh:
+    post:
+      operationId: AuthController_refresh
+      parameters: []
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshResponseType'
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Auth
+      security:
+        - bearer: []
+  /api/v1/auth/logout:
+    post:
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        '204':
+          description: Logout successful
+      tags:
+        - Auth
+      security:
+        - bearer: []
+  /api/v1/files/upload:
+    post:
+      operationId: FilesLocalController_uploadFile
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileType'
+        '422':
+          description: Missing file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Files
+      security:
+        - bearer: []
+  /:
+    get:
+      operationId: HomeController_appInfo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Home
+  /api/v1/health:
+    get:
+      operationId: HealthController_check
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      tags:
+        - Health
+  /api/v1/guilds:
+    post:
+      operationId: GuildsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGuildDto'
+      responses:
+        '201':
+          description: Create a guild
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guild'
+      tags:
+        - Guilds
+    get:
+      operationId: GuildsController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: List of guild
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Guild'
+      tags:
+        - Guilds
+info:
+  title: MOEPP CITES API
+  description: MOEPP CITES API docs
+  version: '1.0'
+  contact: {}
+tags: []
+servers:
+  - url: https://aoem-api.doozyx.com
+    description: Testing server
+  - url: http://localhost:8000
+    description: Local server
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    CreateUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          enum:
+            - user
+            - admin
+            - approver
+            - director
+            - superAdmin
+            - archiver
+          type: string
+        status:
+          enum:
+            - inactive
+            - verified
+            - pending
+            - approved
+            - rejected
+            - expired
+          type: string
+        language:
+          enum:
+            - en
+            - mk
+          type: string
+      required:
+        - email
+        - password
+        - role
+        - status
+        - language
+    User:
+      type: object
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+          nullable: true
+        deletedAt:
+          format: date-time
+          type: string
+          nullable: true
+        id:
+          type: number
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+            - approver
+            - director
+            - superAdmin
+            - archiver
+        status:
+          type: string
+          enum:
+            - inactive
+            - verified
+            - pending
+            - approved
+            - rejected
+            - expired
+        statusReason:
+          type: string
+          nullable: true
+        language:
+          type: string
+          enum:
+            - en
+            - mk
+      required:
+        - createdAt
+        - updatedAt
+        - deletedAt
+        - id
+        - email
+        - role
+        - status
+        - statusReason
+        - language
+    CreateIndividualUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          enum:
+            - user
+            - admin
+            - approver
+            - director
+            - superAdmin
+            - archiver
+          type: string
+        status:
+          enum:
+            - inactive
+            - verified
+            - pending
+            - approved
+            - rejected
+            - expired
+          type: string
+        language:
+          enum:
+            - en
+            - mk
+          type: string
+      required:
+        - email
+        - password
+        - role
+        - status
+        - language
+    UpdateUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test1@doozyx.com
+        password:
+          type: string
+          minLength: 6
+        role:
+          enum:
+            - user
+            - admin
+            - approver
+            - director
+            - superAdmin
+            - archiver
+          type: string
+        status:
+          enum:
+            - inactive
+            - verified
+            - pending
+            - approved
+            - rejected
+            - expired
+          type: string
+        language:
+          enum:
+            - en
+            - mk
+          type: string
+        statusReason:
+          type: string
+    ActivateUserDto:
+      type: object
+      properties:
+        status:
+          enum:
+            - inactive
+            - verified
+            - pending
+            - approved
+            - rejected
+            - expired
+          type: string
+        statusReason:
+          type: string
+    UserStatistics:
+      type: object
+      properties:
+        inactive:
+          type: number
+        verified:
+          type: number
+        pending:
+          type: number
+        approved:
+          type: number
+        rejected:
+          type: number
+        total:
+          type: number
+      required:
+        - inactive
+        - verified
+        - pending
+        - approved
+        - rejected
+        - total
+    PageMetaDto:
+      type: object
+      properties:
+        page:
+          type: number
+        limit:
+          type: number
+        itemCount:
+          type: number
+        pageCount:
+          type: number
+        hasPreviousPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
+      required:
+        - page
+        - limit
+        - itemCount
+        - pageCount
+        - hasPreviousPage
+        - hasNextPage
+    PageDto:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+        data:
+          type: array
+          items:
+            type: string
+      required:
+        - meta
+        - data
+    FilterUserDto:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+              - user
+              - admin
+              - approver
+              - director
+              - superAdmin
+              - archiver
+        statuses:
+          type: array
+          items:
+            type: string
+            enum:
+              - inactive
+              - verified
+              - pending
+              - approved
+              - rejected
+              - expired
+        email:
+          type: string
+    SortUserDto:
+      type: object
+      properties:
+        orderBy:
+          enum:
+            - email
+            - type
+            - roleId
+            - statusId
+            - createdAt
+            - updatedAt
+            - deletedAt
+          type: string
+        order:
+          default: ASC
+          enum:
+            - ASC
+            - DESC
+          type: string
+      required:
+        - orderBy
+    QueryUserDto:
+      type: object
+      properties:
+        page:
+          type: number
+          default: 1
+          minimum: 1
+        limit:
+          type: number
+          default: 10
+          minimum: 1
+          maximum: 50
+        filter:
+          $ref: '#/components/schemas/FilterUserDto'
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortUserDto'
+    AuthEmailLoginDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@doozyx.com
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginResponseType:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+        tokenExpires:
+          type: number
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+        - token
+        - refreshToken
+        - tokenExpires
+        - user
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+        statusCode:
+          type: number
+      required:
+        - message
+        - error
+        - statusCode
+    AuthRegisterLoginDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@doozyx.com
+        password:
+          type: string
+          minLength: 6
+        language:
+          enum:
+            - en
+            - mk
+          type: string
+      required:
+        - email
+        - password
+        - language
+    AuthConfirmEmailDto:
+      type: object
+      properties:
+        hash:
+          type: string
+      required:
+        - hash
+    AuthForgotPasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+        - email
+    AuthResetPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        hash:
+          type: string
+      required:
+        - password
+        - hash
+    RefreshResponseType:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+        tokenExpires:
+          type: number
+      required:
+        - token
+        - refreshToken
+        - tokenExpires
+    AuthUpdateDto:
+      type: object
+      properties:
+        password:
+          type: string
+          minLength: 6
+        oldPassword:
+          type: string
+    FileType:
+      type: object
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+          nullable: true
+        deletedAt:
+          format: date-time
+          type: string
+          nullable: true
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - createdAt
+        - updatedAt
+        - deletedAt
+        - id
+        - name
+    CreateGuildDto:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+      required:
+        - uid
+        - name
+    Guild:
+      type: object
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+          nullable: true
+        deletedAt:
+          format: date-time
+          type: string
+          nullable: true
+        id:
+          type: number
+        uid:
+          type: string
+        name:
+          type: string
+      required:
+        - createdAt
+        - updatedAt
+        - deletedAt
+        - id
+        - uid
+        - name
