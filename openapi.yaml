@@ -583,6 +583,56 @@ paths:
                 $ref: '#/components/schemas/Channel'
       tags:
         - Channels
+  /api/v1/buffs:
+    post:
+      operationId: BuffsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBuffDto'
+      responses:
+        '201':
+          description: Create a buff
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Buff'
+      tags:
+        - Buffs
+  /api/v1/buffs/{guildUid}/{type}:
+    patch:
+      operationId: BuffsController_findAll
+      parameters:
+        - name: guildUid
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: type
+          required: true
+          in: path
+          schema:
+            enum:
+              - construction
+              - research
+              - training
+            type: string
+      responses:
+        '200':
+          description: The record has been successfully updated.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Buff'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Buffs
 info:
   title: MOEPP CITES API
   description: MOEPP CITES API docs
@@ -1115,3 +1165,57 @@ components:
         - guild
         - guildId
         - type
+    CreateBuffDto:
+      type: object
+      properties:
+        guildUid:
+          type: string
+        type:
+          enum:
+            - construction
+            - research
+            - training
+          type: string
+        member:
+          type: string
+      required:
+        - guildUid
+        - type
+        - member
+    Buff:
+      type: object
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+          nullable: true
+        deletedAt:
+          format: date-time
+          type: string
+          nullable: true
+        id:
+          type: number
+        guild:
+          $ref: '#/components/schemas/Guild'
+        guildId:
+          type: number
+        type:
+          type: string
+          enum:
+            - construction
+            - research
+            - training
+        member:
+          type: string
+      required:
+        - createdAt
+        - updatedAt
+        - deletedAt
+        - id
+        - guild
+        - guildId
+        - type
+        - member

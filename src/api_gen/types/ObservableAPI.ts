@@ -9,7 +9,9 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Buff } from '../models/Buff';
 import { Channel } from '../models/Channel';
+import { CreateBuffDto } from '../models/CreateBuffDto';
 import { CreateChannelDto } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto } from '../models/CreateIndividualUserDto';
@@ -328,6 +330,84 @@ export class ObservableAuthApi {
      */
     public authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Observable<User> {
         return this.authControllerUpdateWithHttpInfo(authUpdateDto, _options).pipe(map((apiResponse: HttpInfo<User>) => apiResponse.data));
+    }
+
+}
+
+import { BuffsApiRequestFactory, BuffsApiResponseProcessor} from "../apis/BuffsApi";
+export class ObservableBuffsApi {
+    private requestFactory: BuffsApiRequestFactory;
+    private responseProcessor: BuffsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: BuffsApiRequestFactory,
+        responseProcessor?: BuffsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new BuffsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new BuffsApiResponseProcessor();
+    }
+
+    /**
+     * @param createBuffDto
+     */
+    public buffsControllerCreateWithHttpInfo(createBuffDto: CreateBuffDto, _options?: Configuration): Observable<HttpInfo<Buff>> {
+        const requestContextPromise = this.requestFactory.buffsControllerCreate(createBuffDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.buffsControllerCreateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param createBuffDto
+     */
+    public buffsControllerCreate(createBuffDto: CreateBuffDto, _options?: Configuration): Observable<Buff> {
+        return this.buffsControllerCreateWithHttpInfo(createBuffDto, _options).pipe(map((apiResponse: HttpInfo<Buff>) => apiResponse.data));
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public buffsControllerFindAllWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Observable<HttpInfo<Array<Buff>>> {
+        const requestContextPromise = this.requestFactory.buffsControllerFindAll(guildUid, type, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.buffsControllerFindAllWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public buffsControllerFindAll(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Observable<Array<Buff>> {
+        return this.buffsControllerFindAllWithHttpInfo(guildUid, type, _options).pipe(map((apiResponse: HttpInfo<Array<Buff>>) => apiResponse.data));
     }
 
 }

@@ -60,7 +60,7 @@ async function start(): Promise<void> {
         new InfoCommand(i18nService),
         new TestCommand(i18nService),
         new RegisterChannelCommand(i18nService, buffService),
-        new RequestBuffCommand(i18nService),
+        new RequestBuffCommand(i18nService, buffService),
 
         // Message Context Commands
         new ViewDateSent(i18nService),

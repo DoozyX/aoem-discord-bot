@@ -5,7 +5,9 @@ export * from '../models/AuthForgotPasswordDto';
 export * from '../models/AuthRegisterLoginDto';
 export * from '../models/AuthResetPasswordDto';
 export * from '../models/AuthUpdateDto';
+export * from '../models/Buff';
 export * from '../models/Channel';
+export * from '../models/CreateBuffDto';
 export * from '../models/CreateChannelDto';
 export * from '../models/CreateGuildDto';
 export * from '../models/CreateIndividualUserDto';
@@ -35,7 +37,9 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto  , AuthRegisterLoginDtoLanguageEnum   } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Buff      , BuffTypeEnum    } from '../models/Buff';
 import { Channel       , ChannelTypeEnum   } from '../models/Channel';
+import { CreateBuffDto , CreateBuffDtoTypeEnum    } from '../models/CreateBuffDto';
 import { CreateChannelDto  , CreateChannelDtoTypeEnum   } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto  , CreateIndividualUserDtoRoleEnum  , CreateIndividualUserDtoStatusEnum  , CreateIndividualUserDtoLanguageEnum   } from '../models/CreateIndividualUserDto';
@@ -73,7 +77,9 @@ let primitives = [
 let enumsMap: Set<string> = new Set<string>([
     "ActivateUserDtoStatusEnum",
     "AuthRegisterLoginDtoLanguageEnum",
+    "BuffTypeEnum",
     "ChannelTypeEnum",
+    "CreateBuffDtoTypeEnum",
     "CreateChannelDtoTypeEnum",
     "CreateIndividualUserDtoRoleEnum",
     "CreateIndividualUserDtoStatusEnum",
@@ -101,7 +107,9 @@ let typeMap: {[index: string]: any} = {
     "AuthRegisterLoginDto": AuthRegisterLoginDto,
     "AuthResetPasswordDto": AuthResetPasswordDto,
     "AuthUpdateDto": AuthUpdateDto,
+    "Buff": Buff,
     "Channel": Channel,
+    "CreateBuffDto": CreateBuffDto,
     "CreateChannelDto": CreateChannelDto,
     "CreateGuildDto": CreateGuildDto,
     "CreateIndividualUserDto": CreateIndividualUserDto,

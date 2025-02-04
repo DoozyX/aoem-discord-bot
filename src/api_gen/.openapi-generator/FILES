@@ -1,6 +1,7 @@
 .gitattributes
 .gitignore
 AuthApi.md
+BuffsApi.md
 ChannelsApi.md
 FilesApi.md
 GuildsApi.md
@@ -9,6 +10,7 @@ HomeApi.md
 README.md
 UsersApi.md
 apis/AuthApi.ts
+apis/BuffsApi.ts
 apis/ChannelsApi.ts
 apis/FilesApi.ts
 apis/GuildsApi.ts
@@ -31,7 +33,9 @@ models/AuthForgotPasswordDto.ts
 models/AuthRegisterLoginDto.ts
 models/AuthResetPasswordDto.ts
 models/AuthUpdateDto.ts
+models/Buff.ts
 models/Channel.ts
+models/CreateBuffDto.ts
 models/CreateChannelDto.ts
 models/CreateGuildDto.ts
 models/CreateIndividualUserDto.ts

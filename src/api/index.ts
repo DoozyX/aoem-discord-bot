@@ -1,5 +1,6 @@
 import {
     AuthApi,
+    BuffsApi,
     ChannelsApi,
     Configuration,
     createConfiguration,
@@ -23,6 +24,7 @@ export class Api {
     public users!: UsersApi;
     public guilds!: GuildsApi;
     public channels!: ChannelsApi;
+    public buffs!: BuffsApi;
 
     public loginUser: LoginResponseType | undefined;
 
@@ -59,6 +61,7 @@ export class Api {
         this.auth = new AuthApi(config);
         this.guilds = new GuildsApi(config);
         this.channels = new ChannelsApi(config);
+        this.buffs = new BuffsApi(config);
     }
 
     public getBearerConfig(token: string): Configuration {

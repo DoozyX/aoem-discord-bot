@@ -5,11 +5,12 @@ import {
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
+import { BuffService, BuffType } from '@app/buff-queue';
 import { buffTypeOption } from '@app/buff-queue/commands/common';
 import { Command, CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
-import { InteractionUtils } from '@app/utils';
+import { InteractionUtils, isValidEnumValue } from '@app/utils';
 
 export class RequestBuffCommand implements Command {
     public name = 'request-buff';
@@ -24,12 +25,41 @@ export class RequestBuffCommand implements Command {
         options: [buffTypeOption(this.intlService, this.optionName)],
     };
 
-    constructor(private readonly intlService: IntlService) {}
+    constructor(
+        private readonly intlService: IntlService,
+        private readonly buffService: BuffService
+    ) {}
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        await InteractionUtils.send(
-            intr,
-            this.intlService.getEmbed('displayEmbeds.test', data.lang)
-        );
+        const guildId = intr.guildId;
+
+        if (!guildId) {
+            await InteractionUtils.send(intr, 'needs to be from guild');
+            return;
+        }
+
+        const buffTypeOption = intr.options.getString(this.optionName);
+        if (!buffTypeOption || !isValidEnumValue(BuffType, buffTypeOption)) {
+            await InteractionUtils.send(intr, 'invalid buff type');
+            return;
+        }
+        const buffType = buffTypeOption as BuffType;
+
+        const member = intr.member?.user.username;
+        if (!member) {
+            await InteractionUtils.send(intr, 'invalid member');
+            return;
+        }
+
+        try {
+            await this.buffService.requestBuff(guildId, buffType, member);
+
+            await InteractionUtils.send(
+                intr,
+                `Sucessfully requested for ${buffType}. Check ${buffType} channel to see the queue`
+            );
+        } catch (error) {
+            await InteractionUtils.send(intr, `Can't request buff. ${(error as Error).message}`);
+        }
     }
 }

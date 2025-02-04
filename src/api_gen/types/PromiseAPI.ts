@@ -8,7 +8,9 @@ import { AuthForgotPasswordDto } from '../models/AuthForgotPasswordDto';
 import { AuthRegisterLoginDto } from '../models/AuthRegisterLoginDto';
 import { AuthResetPasswordDto } from '../models/AuthResetPasswordDto';
 import { AuthUpdateDto } from '../models/AuthUpdateDto';
+import { Buff } from '../models/Buff';
 import { Channel } from '../models/Channel';
+import { CreateBuffDto } from '../models/CreateBuffDto';
 import { CreateChannelDto } from '../models/CreateChannelDto';
 import { CreateGuildDto } from '../models/CreateGuildDto';
 import { CreateIndividualUserDto } from '../models/CreateIndividualUserDto';
@@ -193,6 +195,59 @@ export class PromiseAuthApi {
      */
     public authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<User> {
         const result = this.api.authControllerUpdate(authUpdateDto, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableBuffsApi } from './ObservableAPI';
+
+import { BuffsApiRequestFactory, BuffsApiResponseProcessor} from "../apis/BuffsApi";
+export class PromiseBuffsApi {
+    private api: ObservableBuffsApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: BuffsApiRequestFactory,
+        responseProcessor?: BuffsApiResponseProcessor
+    ) {
+        this.api = new ObservableBuffsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param createBuffDto
+     */
+    public buffsControllerCreateWithHttpInfo(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<HttpInfo<Buff>> {
+        const result = this.api.buffsControllerCreateWithHttpInfo(createBuffDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param createBuffDto
+     */
+    public buffsControllerCreate(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<Buff> {
+        const result = this.api.buffsControllerCreate(createBuffDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public buffsControllerFindAllWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Array<Buff>>> {
+        const result = this.api.buffsControllerFindAllWithHttpInfo(guildUid, type, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public buffsControllerFindAll(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Array<Buff>> {
+        const result = this.api.buffsControllerFindAll(guildUid, type, _options);
         return result.toPromise();
     }
 
