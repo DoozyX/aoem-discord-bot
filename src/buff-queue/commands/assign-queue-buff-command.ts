@@ -1,5 +1,6 @@
 import {
     ChatInputCommandInteraction,
+    PermissionsBitField,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
@@ -31,6 +32,17 @@ export class AssignQueueBuffCommand implements Command {
     ) {}
 
     public async execute(intr: ChatInputCommandInteraction, _data: EventData): Promise<void> {
+        const isAdministrator = intr.memberPermissions?.has(
+            PermissionsBitField.Flags.Administrator
+        );
+        if (!isAdministrator) {
+            await InteractionUtils.send(
+                intr,
+                'You need administrator privileges to use this command.'
+            );
+            return;
+        }
+
         const guildId = intr.guildId;
 
         if (!guildId) {
