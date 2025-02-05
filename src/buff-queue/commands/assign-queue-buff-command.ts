@@ -1,6 +1,5 @@
 import {
     ChatInputCommandInteraction,
-    GuildMember,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
@@ -13,8 +12,8 @@ import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
 import { InteractionUtils, isValidEnumValue } from '@app/utils';
 
-export class RequestBuffCommand implements Command {
-    public name = 'request-buff';
+export class AssignQueueBuffCommand implements Command {
+    public name = 'assign-queue-buff';
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
@@ -46,27 +45,11 @@ export class RequestBuffCommand implements Command {
         }
         const buffType = buffTypeOption as BuffType;
 
-        const member = intr.member;
-        if (!member || !(member instanceof GuildMember)) {
-            await InteractionUtils.send(intr, 'invalid member');
-            return;
-        }
-
-        const displayName = member.displayName;
-
         try {
-            await this.buffService.requestBuff(guildId, buffType, displayName);
-
+            await this.buffService.popBuffMember(guildId, buffType);
             await InteractionUtils.send(
                 intr,
-                `Sucessfully requested for ${buffType}. Check ${buffType} channel to see the queue`
-            );
-
-            await this.buffService.refreshQueue(guildId, buffType);
-
-            await InteractionUtils.send(
-                intr,
-                `Successfully requested buff. Check ${buffType} channel`
+                `Successfully assigned buff. Check ${buffType} channel`
             );
         } catch (error) {
             await InteractionUtils.send(intr, `Can't request buff. ${(error as Error).message}`);

@@ -29,6 +29,10 @@
     "request-buff": {
       "name": "request-buff",
       "description": "Request buff "
+    },
+    "assign-queue-buff": {
+      "name": "assign-queue-buff",
+      "description": "Assign buff to first member in queue"
     }
   },
   "buffTypeOption": {
