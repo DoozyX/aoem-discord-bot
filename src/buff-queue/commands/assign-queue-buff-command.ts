@@ -51,8 +51,8 @@ export class AssignQueueBuffCommand implements Command {
                 intr,
                 `Successfully assigned buff. Check ${buffType} channel`
             );
-        } catch (error) {
-            await InteractionUtils.send(intr, `Can't request buff. ${(error as Error).message}`);
+        } catch {
+            await InteractionUtils.send(intr, `Can't assign buff.`);
         }
     }
 }

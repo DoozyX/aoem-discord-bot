@@ -68,10 +68,10 @@ export class BuffService {
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
 
-        const message = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
+        const queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
 
         // Send a message
-        await textChannel.send(message.length === 0 ? 'Empty queue' : message);
+        await textChannel.send(queue.length === 0 ? 'Empty queue' : `**Buff Queue**\n${queue}`);
     }
 
     private async getBuffMemberQueue(guildId: string, buffType: BuffType): Promise<string[]> {
