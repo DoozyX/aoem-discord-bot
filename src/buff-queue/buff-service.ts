@@ -6,6 +6,8 @@ import { CreateChannelDtoTypeEnum } from '@app/api_gen/models/CreateChannelDto';
 import { BuffType } from '@app/buff-queue/enums';
 
 export class BuffService {
+    private lastExtra: string | undefined;
+
     constructor(
         private api: Api,
         private client: Client
@@ -25,6 +27,8 @@ export class BuffService {
             type: buffType as unknown as CreateChannelDtoTypeEnum,
             uid: channelId,
         });
+
+        await this.refreshQueue(guildId, buffType);
     }
 
     public async requestBuff(guildId: string, buffType: BuffType, member: string): Promise<void> {
@@ -33,16 +37,18 @@ export class BuffService {
             type: buffType as unknown as CreateBuffDtoTypeEnum,
             member: member,
         });
+
+        await this.refreshQueue(guildId, buffType);
     }
 
     public async popBuffMember(guildId: string, buffType: BuffType): Promise<void> {
         const buff = await this.api.buffs.buffsControllerRemoveFirst(guildId, buffType);
 
-        const textChannel = await this.getBuffTextChannel(guildId, buffType);
-
-        await this.refreshQueue(guildId, buffType);
-
-        await textChannel.send(`Assigned buff to <@${buff.member}> at ${new Date()}`);
+        await this.refreshQueue(
+            guildId,
+            buffType,
+            `Assigned buff to <@${buff.member}> at ${new Date()}`
+        );
     }
 
     public async getBuffChannel(guildId: string, buffType: BuffType): Promise<string> {
@@ -53,25 +59,24 @@ export class BuffService {
         return response.uid;
     }
 
-    public async refreshQueue(guildId: string, buffType: BuffType): Promise<void> {
-        const textChannel = await this.getBuffTextChannel(guildId, buffType);
+    public async refreshQueue(guildId: string, buffType: BuffType, extra?: string): Promise<void> {
+        this.lastExtra = extra ?? this.lastExtra;
 
-        await this.updateQueue(textChannel, guildId, buffType);
-    }
+        const channel = await this.getBuffTextChannel(guildId, buffType);
 
-    private async updateQueue(
-        textChannel: TextChannel,
-        guildId: string,
-        buffType: BuffType
-    ): Promise<void> {
-        await this.deleteAllMessages(textChannel);
+        const messages = await channel.messages.fetch({ limit: 100 });
+        const firstMessage = messages.first();
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
-
         const queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
-
-        // Send a message
-        await textChannel.send(queue.length === 0 ? 'Empty queue' : `**Buff Queue**\n${queue}`);
+        const queueMessage = queue.length === 0 ? 'Empty queue' : `**Buff Queue**\n${queue}`;
+        const message = this.lastExtra ? `${queueMessage}\n${this.lastExtra}` : queueMessage;
+        if (messages.size > 1 || firstMessage?.author.id !== this.client.user?.id) {
+            await this.deleteAllMessages(channel);
+            await channel.send(message);
+        } else {
+            firstMessage?.edit(message);
+        }
     }
 
     private async getBuffMemberQueue(guildId: string, buffType: BuffType): Promise<string[]> {

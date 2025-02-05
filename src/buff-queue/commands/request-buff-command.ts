@@ -57,13 +57,6 @@ export class RequestBuffCommand implements Command {
 
             await InteractionUtils.send(
                 intr,
-                `Sucessfully requested for ${buffType}. Check ${buffType} channel to see the queue`
-            );
-
-            await this.buffService.refreshQueue(guildId, buffType);
-
-            await InteractionUtils.send(
-                intr,
                 `Successfully requested buff. Check ${buffType} channel`
             );
         } catch (error) {
