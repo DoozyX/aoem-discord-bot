@@ -61,6 +61,8 @@ export class RegisterChannelCommand implements ChatCommand {
         try {
             await this.buffService.registerChannel(guildId, buffType, channelId);
 
+            await this.buffService.refreshQueue(guildId, buffType);
+
             await InteractionUtils.send(intr, `Channel registered successfully for ${buffType}.`);
         } catch (error) {
             await InteractionUtils.send(

@@ -42,7 +42,7 @@ export class BuffService {
 
         await this.refreshQueue(guildId, buffType);
 
-        await textChannel.send(`Assigned buff to @${buff.member} at ${new Date()}`);
+        await textChannel.send(`Assigned buff to <@${buff.member}> at ${new Date()}`);
     }
 
     public async getBuffChannel(guildId: string, buffType: BuffType): Promise<string> {
@@ -68,7 +68,7 @@ export class BuffService {
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
 
-        const message = memberQueue.map((member, index) => `${index}. ${member}`).join('\n');
+        const message = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
 
         // Send a message
         await textChannel.send(message.length === 0 ? 'Empty queue' : message);

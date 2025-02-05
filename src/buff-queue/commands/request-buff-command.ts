@@ -46,16 +46,14 @@ export class RequestBuffCommand implements Command {
         }
         const buffType = buffTypeOption as BuffType;
 
-        const member = intr.member;
-        if (!member || !(member instanceof GuildMember)) {
+        const member = intr.member?.user.id;
+        if (!member) {
             await InteractionUtils.send(intr, 'invalid member');
             return;
         }
 
-        const displayName = member.displayName;
-
         try {
-            await this.buffService.requestBuff(guildId, buffType, displayName);
+            await this.buffService.requestBuff(guildId, buffType, member);
 
             await InteractionUtils.send(
                 intr,
