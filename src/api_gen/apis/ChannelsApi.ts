@@ -58,6 +58,44 @@ export class ChannelsApiRequestFactory extends BaseAPIRequestFactory {
         return requestContext;
     }
 
+    /**
+     * @param guildUid 
+     * @param type 
+     */
+    public async channelsControllerFindOne(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'guildUid' is not null or undefined
+        if (guildUid === null || guildUid === undefined) {
+            throw new RequiredError("ChannelsApi", "channelsControllerFindOne", "guildUid");
+        }
+
+
+        // verify required parameter 'type' is not null or undefined
+        if (type === null || type === undefined) {
+            throw new RequiredError("ChannelsApi", "channelsControllerFindOne", "type");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/channels/{guildUid}/{type}'
+            .replace('{' + 'guildUid' + '}', encodeURIComponent(String(guildUid)))
+            .replace('{' + 'type' + '}', encodeURIComponent(String(type)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
 }
 
 export class ChannelsApiResponseProcessor {
@@ -72,6 +110,35 @@ export class ChannelsApiResponseProcessor {
      public async channelsControllerCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
+            const body: Channel = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Channel", ""
+            ) as Channel;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Channel = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Channel", ""
+            ) as Channel;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to channelsControllerFindOne
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async channelsControllerFindOneWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Channel = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "Channel", ""

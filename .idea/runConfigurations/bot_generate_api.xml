@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dev:bot" type="js.build_tools.npm" nameIsGenerated="true">
+  <configuration default="false" name="bot-generate:api" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="dev:bot" />
+      <script value="generate:api" />
     </scripts>
     <node-interpreter value="project" />
     <envs />

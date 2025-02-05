@@ -34,9 +34,13 @@ async function start(): Promise<void> {
 
     // Client
     let client = new CustomClient({
-        intents: Config.client.intents.map(
-            intent => GatewayIntentBits[intent as keyof typeof GatewayIntentBits]
-        ),
+        intents: [
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.GuildMessageReactions,
+            GatewayIntentBits.DirectMessages,
+            GatewayIntentBits.DirectMessageReactions,
+        ],
         partials: Config.client.partials.map(partial => Partials[partial as keyof typeof Partials]),
         makeCache: Options.cacheWithLimits({
             // Keep default caching behavior
@@ -50,7 +54,7 @@ async function start(): Promise<void> {
 
     const i18nService = new IntlService();
     i18nService.init();
-    const buffService = new BuffService(api);
+    const buffService = new BuffService(api, client);
 
     // Commands
     let commands: Command[] = [

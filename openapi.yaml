@@ -583,6 +583,33 @@ paths:
                 $ref: '#/components/schemas/Channel'
       tags:
         - Channels
+  /api/v1/channels/{guildUid}/{type}:
+    get:
+      operationId: ChannelsController_findOne
+      parameters:
+        - name: guildUid
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: type
+          required: true
+          in: path
+          schema:
+            enum:
+              - construction
+              - research
+              - training
+            type: string
+      responses:
+        '200':
+          description: Returns the channel if exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+      tags:
+        - Channels
   /api/v1/buffs:
     post:
       operationId: BuffsController_create

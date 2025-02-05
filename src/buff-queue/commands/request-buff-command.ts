@@ -30,7 +30,7 @@ export class RequestBuffCommand implements Command {
         private readonly buffService: BuffService
     ) {}
 
-    public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
+    public async execute(intr: ChatInputCommandInteraction, _data: EventData): Promise<void> {
         const guildId = intr.guildId;
 
         if (!guildId) {
@@ -58,6 +58,8 @@ export class RequestBuffCommand implements Command {
                 intr,
                 `Sucessfully requested for ${buffType}. Check ${buffType} channel to see the queue`
             );
+
+            await this.buffService.updateQueue(intr.client, guildId, buffType);
         } catch (error) {
             await InteractionUtils.send(intr, `Can't request buff. ${(error as Error).message}`);
         }

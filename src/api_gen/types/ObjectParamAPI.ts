@@ -329,6 +329,23 @@ export interface ChannelsApiChannelsControllerCreateRequest {
     createChannelDto: CreateChannelDto
 }
 
+export interface ChannelsApiChannelsControllerFindOneRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ChannelsApichannelsControllerFindOne
+     */
+    guildUid: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
+     * @memberof ChannelsApichannelsControllerFindOne
+     */
+    type: 'construction' | 'research' | 'training'
+}
+
 export class ObjectChannelsApi {
     private api: ObservableChannelsApi
 
@@ -348,6 +365,20 @@ export class ObjectChannelsApi {
      */
     public channelsControllerCreate(param: ChannelsApiChannelsControllerCreateRequest, options?: Configuration): Promise<Channel> {
         return this.api.channelsControllerCreate(param.createChannelDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public channelsControllerFindOneWithHttpInfo(param: ChannelsApiChannelsControllerFindOneRequest, options?: Configuration): Promise<HttpInfo<Channel>> {
+        return this.api.channelsControllerFindOneWithHttpInfo(param.guildUid, param.type,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public channelsControllerFindOne(param: ChannelsApiChannelsControllerFindOneRequest, options?: Configuration): Promise<Channel> {
+        return this.api.channelsControllerFindOne(param.guildUid, param.type,  options).toPromise();
     }
 
 }

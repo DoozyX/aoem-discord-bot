@@ -286,6 +286,24 @@ export class PromiseChannelsApi {
         return result.toPromise();
     }
 
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public channelsControllerFindOneWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Channel>> {
+        const result = this.api.channelsControllerFindOneWithHttpInfo(guildUid, type, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     */
+    public channelsControllerFindOne(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Channel> {
+        const result = this.api.channelsControllerFindOne(guildUid, type, _options);
+        return result.toPromise();
+    }
+
 
 }
 
