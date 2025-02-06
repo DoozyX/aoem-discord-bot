@@ -1,4 +1,4 @@
-import { Guild } from 'discord.js';
+import { Colors, Guild, Role } from 'discord.js';
 
 import { BuffService } from '@app/buff-queue';
 import { IntlService, Logs } from '@app/intl';

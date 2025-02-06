@@ -1,6 +1,6 @@
 import {
     ChatInputCommandInteraction,
-    PermissionsBitField,
+    GuildMember,
     PermissionsString,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
@@ -32,19 +32,7 @@ export class AssignQueueBuffCommand implements Command {
     ) {}
 
     public async execute(intr: ChatInputCommandInteraction, _data: EventData): Promise<void> {
-        const isAdministrator = intr.memberPermissions?.has(
-            PermissionsBitField.Flags.Administrator
-        );
-        if (!isAdministrator) {
-            await InteractionUtils.send(
-                intr,
-                'You need administrator privileges to use this command.'
-            );
-            return;
-        }
-
         const guildId = intr.guildId;
-
         if (!guildId) {
             await InteractionUtils.send(intr, 'needs to be from guild');
             return;
@@ -58,7 +46,7 @@ export class AssignQueueBuffCommand implements Command {
         const buffType = buffTypeOption as BuffType;
 
         try {
-            await this.buffService.popBuffMember(guildId, buffType);
+            await this.buffService.popBuffMember(guildId, intr.member as GuildMember, buffType);
             await InteractionUtils.send(
                 intr,
                 `Successfully assigned buff. Check ${buffType} channel`

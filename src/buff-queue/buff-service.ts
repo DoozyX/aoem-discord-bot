@@ -1,4 +1,4 @@
-import { Client, TextChannel } from 'discord.js';
+import { Client, Colors, Guild, GuildMember, Role, TextChannel } from 'discord.js';
 
 import { Api } from '@app/api';
 import { CreateBuffDtoTypeEnum } from '@app/api_gen/models/CreateBuffDto';
@@ -8,6 +8,8 @@ import { BuffType } from '@app/buff-queue/enums';
 export class BuffService {
     private lastExtra: string | undefined;
 
+    private readonly buffRole = 'Buff Admin';
+
     constructor(
         private api: Api,
         private client: Client
@@ -15,6 +17,9 @@ export class BuffService {
 
     public async registerGuild(id: string, name: string): Promise<void> {
         await this.api.guilds.guildsControllerCreate({ uid: id, name });
+
+        const guild = await this.client.guilds.fetch(id);
+        await createRoleIfNotExists(guild, this.buffRole);
     }
 
     public async registerChannel(
@@ -41,7 +46,17 @@ export class BuffService {
         await this.refreshQueue(guildId, buffType);
     }
 
-    public async popBuffMember(guildId: string, buffType: BuffType): Promise<void> {
+    public async popBuffMember(
+        guildId: string,
+        member: GuildMember,
+        buffType: BuffType
+    ): Promise<void> {
+        if (!userHasRole(member, this.buffRole)) {
+            throw new Error(
+                'Not allowed to use this command, only member with Buff Admin can use it'
+            );
+        }
+
         const buff = await this.api.buffs.buffsControllerRemoveFirst(guildId, buffType);
 
         await this.refreshQueue(
@@ -142,4 +157,32 @@ export class BuffService {
 
         console.log(`Total messages deleted: ${deletedCount}`);
     }
+}
+
+async function createRoleIfNotExists(guild: Guild, roleName: string): Promise<Role> {
+    let role = guild.roles.cache.find(r => r.name === roleName);
+
+    if (role) {
+        return role;
+    }
+
+    // If role doesn't exist, create it
+    role = await guild.roles.create({
+        name: roleName,
+        color: Colors.Green,
+        permissions: [],
+        reason: `Role for ${roleName}`,
+    });
+
+    return role;
+}
+
+export function userHasRole(member: GuildMember, roleName: string): boolean {
+    const role = member.guild.roles.cache.find(role => role.name === roleName);
+
+    if (!role) {
+        return false;
+    }
+
+    return member.roles.cache.has(role.id);
 }
