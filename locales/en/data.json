@@ -11,28 +11,13 @@
             "value": [
               "{{CMD_LINK_HELP}} - $t(refs:chatCommands.help.description)"
             ]
-          },
-          {
-            "name": "$t(refs:fields.links)",
-            "value": [
-              "$t(refs:links.docsEmbed)",
-              "$t(refs:links.supportEmbed)"
-            ]
           }
         ]
       },
       "helpContactSupport": {
         "title": "Help - $t(refs:helpOptions.contactSupport)",
         "description": [
-          "Have a question or feedback? Join our support server at the link below!"
-        ],
-        "fields": [
-          {
-            "name": "$t(refs:fields.links)",
-            "value": [
-              "$t(refs:links.supportEmbed)"
-            ]
-          }
+          "Have a question or feedback? Please write in general chat!"
         ]
       },
       "helpCommands": {
@@ -43,21 +28,15 @@
             "value": [
               "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
               "",
-              "{{CMD_LINK_TEST}} - $t(refs:chatCommands.test.description)",
-              "{{CMD_LINK_INFO}} - $t(refs:chatCommands.info.description)"
+              "{{- CMD_LINK_INFO}} - $t(refs:chatCommands.info.description)"
             ]
           },
           {
-            "name": "Command Permissions",
+            "name": "Buffs",
             "value": [
-              "Want to restrict commands to certain roles, users, or channels? Set up permissions in the bot's integration page by going to **Server Settings** > **Integrations**, and then **Manage** for this bot."
-            ]
-          },
-          {
-            "name": "$t(refs:fields.links)",
-            "value": [
-              "$t(refs:links.docsEmbed)",
-              "$t(refs:links.supportEmbed)"
+              "Members can request buffs by using the {{- CMD_REQUEST_BUFF}} command",
+              "",
+              "Buff admins can assign buffs to first member in queue by {{- CMD_ASSIGN_QUEUE_BUFF}} command"
             ]
           }
         ]
@@ -83,11 +62,8 @@
             "name": "$t(refs:fields.links)",
             "value": [
               "$t(refs:links.sourceEmbed)",
-              "$t(refs:links.docsEmbed)",
-              "$t(refs:links.termsEmbed)",
               "$t(refs:links.voteEmbed)",
               "$t(refs:links.donateEmbed)",
-              "$t(refs:links.supportEmbed)",
               "$t(refs:links.inviteEmbed)"
             ]
           }

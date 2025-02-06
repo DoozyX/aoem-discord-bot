@@ -24,13 +24,9 @@
   },
   "links": {
     "author": "https://github.com/DoozyX",
-    "docs": "https://top.gg/",
-    "donate": "https://www.paypal.com/DoozyX",
-    "invite": "https://discord.com/",
+    "donate": "https://paypal.me/doozyx",
+    "invite": "https://discord.com/oauth2/authorize?client_id=1335111413542293557&permissions=8&integration_type=0&scope=applications.commands+bot",
     "source": "https://github.com/",
-    "stream": "https://www.twitch.tv/DoozyX",
-    "support": "https://support.discord.com/",
-    "terms": "https://github.com/",
-    "vote": "https://top.gg/"
+    "stream": "https://www.twitch.tv/DoozyX"
   }
 }

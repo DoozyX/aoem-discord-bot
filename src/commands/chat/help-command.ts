@@ -64,13 +64,6 @@ export class HelpCommand implements ChatCommand {
                 break;
             }
             case HelpOption.COMMANDS: {
-                const testCommand = await ClientUtils.findAppCommand(
-                    intr.client,
-                    this.intlService.tr('chatCommands.test.name')
-                );
-                if (!testCommand) {
-                    return;
-                }
                 const infoCommand = await ClientUtils.findAppCommand(
                     intr.client,
                     this.intlService.tr('chatCommands.info.name')
@@ -78,9 +71,24 @@ export class HelpCommand implements ChatCommand {
                 if (!infoCommand) {
                     return;
                 }
+                const requestBuffCommand = await ClientUtils.findAppCommand(
+                    intr.client,
+                    this.intlService.tr('chatCommands.request-buff.name')
+                );
+                if (!requestBuffCommand) {
+                    return;
+                }
+                const assignQueueBuffCommand = await ClientUtils.findAppCommand(
+                    intr.client,
+                    this.intlService.tr('chatCommands.assign-queue-buff.name')
+                );
+                if (!assignQueueBuffCommand) {
+                    return;
+                }
                 embed = this.intlService.getEmbed('displayEmbeds.helpCommands', data.lang, {
-                    CMD_LINK_TEST: FormatUtils.commandMention(testCommand),
                     CMD_LINK_INFO: FormatUtils.commandMention(infoCommand),
+                    CMD_REQUEST_BUFF: FormatUtils.commandMention(requestBuffCommand),
+                    CMD_ASSIGN_QUEUE_BUFF: FormatUtils.commandMention(assignQueueBuffCommand),
                 });
                 break;
             }
