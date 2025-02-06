@@ -1,4 +1,5 @@
 import { Client, Colors, Guild, GuildMember, Role, TextChannel } from 'discord.js';
+import { DateTime } from 'luxon';
 
 import { Api } from '@app/api';
 import { CreateBuffDtoTypeEnum } from '@app/api_gen/models/CreateBuffDto';
@@ -57,12 +58,18 @@ export class BuffService {
             );
         }
 
+        const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
+        const previousMember = memberQueue.length > 0 ? memberQueue[0] : undefined;
+        const previousMemberMessage = previousMember ? ` from <@${previousMember}>` : '';
+
         const buff = await this.api.buffs.buffsControllerRemoveFirst(guildId, buffType);
+
+        const currentTime = DateTime.utc().toFormat('yyyy-MM-dd HH:mm:ss');
 
         await this.refreshQueue(
             guildId,
             buffType,
-            `Assigned buff to <@${buff.member}> at ${new Date()}`
+            `Assigned buff to <@${buff.member}>${previousMemberMessage} at ${currentTime} UTC by <@${member.id}>`
         );
     }
 
@@ -84,8 +91,9 @@ export class BuffService {
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
         const queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
-        const queueMessage = queue.length === 0 ? 'Empty queue' : `**Buff Queue**\n${queue}`;
-        const message = this.lastExtra ? `${queueMessage}\n${this.lastExtra}` : queueMessage;
+        const queueMessage = queue.length === 0 ? 'Empty queue' : `# **Buff Queue**\n\n${queue}`;
+
+        const message = this.lastExtra ? `${queueMessage}\n\n\n${this.lastExtra}` : queueMessage;
         if (messages.size > 1 || firstMessage?.author.id !== this.client.user?.id) {
             await this.deleteAllMessages(channel);
             await channel.send(message);
