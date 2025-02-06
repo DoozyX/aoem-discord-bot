@@ -8,6 +8,7 @@ import { BuffType } from '@app/buff-queue/enums';
 
 export class BuffService {
     private lastExtra: string | undefined;
+    private lastAssignedMember: string | undefined;
 
     private readonly buffRole = 'Buff Admin';
 
@@ -47,10 +48,11 @@ export class BuffService {
         await this.refreshQueue(guildId, buffType);
     }
 
-    public async popBuffMember(
+    public async assignBuffMemberAt(
         guildId: string,
         member: GuildMember,
-        buffType: BuffType
+        buffType: BuffType,
+        position: number
     ): Promise<void> {
         if (!userHasRole(member, this.buffRole)) {
             throw new Error(
@@ -58,11 +60,13 @@ export class BuffService {
             );
         }
 
-        const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
-        const previousMember = memberQueue.length > 0 ? memberQueue[0] : undefined;
-        const previousMemberMessage = previousMember ? ` from <@${previousMember}>` : '';
+        const previousMemberMessage = this.lastAssignedMember
+            ? ` from <@${this.lastAssignedMember}>`
+            : '';
 
-        const buff = await this.api.buffs.buffsControllerRemoveFirst(guildId, buffType);
+        const buff = await this.api.buffs.buffsControllerRemoveAt(guildId, buffType, position);
+
+        this.lastAssignedMember = buff.member;
 
         const currentTime = DateTime.utc().toFormat('yyyy-MM-dd HH:mm:ss');
 

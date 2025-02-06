@@ -28,7 +28,7 @@ export class RemoveQueueBuffCommand implements Command {
         options: [
             buffTypeOption(this.intlService, this.buffTypeOptionName),
             {
-                name: 'position',
+                name: this.positionOptionName,
                 description: 'Remove member from buff queue at position',
                 type: ApplicationCommandOptionType.Integer,
                 required: true,

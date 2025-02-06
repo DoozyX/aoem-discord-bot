@@ -1,4 +1,5 @@
 import {
+    ApplicationCommandOptionType,
     ChatInputCommandInteraction,
     GuildMember,
     PermissionsString,
@@ -19,11 +20,20 @@ export class AssignQueueBuffCommand implements Command {
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     private optionName = this.intlService.tr('buffTypeOption.name');
+    private positionOptionName = 'position';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
         ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
-        options: [buffTypeOption(this.intlService, this.optionName)],
+        options: [
+            buffTypeOption(this.intlService, this.optionName),
+            {
+                name: this.positionOptionName,
+                description: 'Position of member from buff queue at to assign next',
+                type: ApplicationCommandOptionType.Integer,
+                required: false,
+            },
+        ],
     };
 
     constructor(
@@ -45,8 +55,15 @@ export class AssignQueueBuffCommand implements Command {
         }
         const buffType = buffTypeOption as BuffType;
 
+        const position = intr.options.getInteger(this.positionOptionName);
+
         try {
-            await this.buffService.popBuffMember(guildId, intr.member as GuildMember, buffType);
+            await this.buffService.assignBuffMemberAt(
+                guildId,
+                intr.member as GuildMember,
+                buffType,
+                position ? position - 1 : 0
+            );
             await InteractionUtils.send(
                 intr,
                 `Successfully assigned buff. Check ${buffType} channel`
