@@ -280,6 +280,30 @@ export interface BuffsApiBuffsControllerFindAllRequest {
     type: 'construction' | 'research' | 'training'
 }
 
+export interface BuffsApiBuffsControllerRemoveAtRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof BuffsApibuffsControllerRemoveAt
+     */
+    guildUid: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
+     * @memberof BuffsApibuffsControllerRemoveAt
+     */
+    type: 'construction' | 'research' | 'training'
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof BuffsApibuffsControllerRemoveAt
+     */
+    position: number
+}
+
 export interface BuffsApiBuffsControllerRemoveFirstRequest {
     /**
      * 
@@ -330,6 +354,20 @@ export class ObjectBuffsApi {
      */
     public buffsControllerFindAll(param: BuffsApiBuffsControllerFindAllRequest, options?: Configuration): Promise<Array<Buff>> {
         return this.api.buffsControllerFindAll(param.guildUid, param.type,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public buffsControllerRemoveAtWithHttpInfo(param: BuffsApiBuffsControllerRemoveAtRequest, options?: Configuration): Promise<HttpInfo<Buff>> {
+        return this.api.buffsControllerRemoveAtWithHttpInfo(param.guildUid, param.type, param.position,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public buffsControllerRemoveAt(param: BuffsApiBuffsControllerRemoveAtRequest, options?: Configuration): Promise<Buff> {
+        return this.api.buffsControllerRemoveAt(param.guildUid, param.type, param.position,  options).toPromise();
     }
 
     /**

@@ -254,6 +254,26 @@ export class PromiseBuffsApi {
     /**
      * @param guildUid
      * @param type
+     * @param position
+     */
+    public buffsControllerRemoveAtWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<HttpInfo<Buff>> {
+        const result = this.api.buffsControllerRemoveAtWithHttpInfo(guildUid, type, position, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     * @param position
+     */
+    public buffsControllerRemoveAt(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<Buff> {
+        const result = this.api.buffsControllerRemoveAt(guildUid, type, position, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
      */
     public buffsControllerRemoveFirstWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Buff>> {
         const result = this.api.buffsControllerRemoveFirstWithHttpInfo(guildUid, type, _options);

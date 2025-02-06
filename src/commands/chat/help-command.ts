@@ -6,8 +6,7 @@ import {
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
-import { ChatCommand } from '@app/commands/command';
+import { ChatCommand, CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { HelpOption } from '@app/enums';
 import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';

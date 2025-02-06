@@ -5,6 +5,7 @@ import { Api } from '@app/api';
 import { BuffService } from '@app/buff-queue';
 import { RegisterChannelCommand, RequestBuffCommand } from '@app/buff-queue/commands';
 import { AssignQueueBuffCommand } from '@app/buff-queue/commands/assign-queue-buff-command';
+import { RemoveQueueBuffCommand } from '@app/buff-queue/commands/remove-queue-buff-command';
 import { Button } from '@app/buttons';
 import { Command } from '@app/commands';
 import { DevelopmentCommand, HelpCommand, InfoCommand, TestCommand } from '@app/commands/chat';
@@ -67,6 +68,7 @@ async function start(): Promise<void> {
         new RegisterChannelCommand(i18nService, buffService),
         new RequestBuffCommand(i18nService, buffService),
         new AssignQueueBuffCommand(i18nService, buffService),
+        new RemoveQueueBuffCommand(i18nService, buffService),
 
         // Message Context Commands
         new ViewDateSent(i18nService),

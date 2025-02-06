@@ -33,6 +33,10 @@
     "assign-queue-buff": {
       "name": "assign-queue-buff",
       "description": "Assign buff to first member in queue"
+    },
+    "remove-queue-buff": {
+      "name": "remove-queue-buff",
+      "description": "Remove member from queue at position"
     }
   },
   "buffTypeOption": {

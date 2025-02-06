@@ -73,6 +73,23 @@ export class BuffService {
         );
     }
 
+    async removeBuffMember(
+        guildId: string,
+        member: GuildMember,
+        buffType: BuffType,
+        position: number
+    ): Promise<void> {
+        if (!userHasRole(member, this.buffRole)) {
+            throw new Error(
+                'Not allowed to use this command, only member with Buff Admin can use it'
+            );
+        }
+
+        await this.api.buffs.buffsControllerRemoveAt(guildId, buffType, position);
+
+        await this.refreshQueue(guildId, buffType);
+    }
+
     public async getBuffChannel(guildId: string, buffType: BuffType): Promise<string> {
         const response = await this.api.channels.channelsControllerFindOne(guildId, buffType);
         if (!response) {

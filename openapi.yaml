@@ -688,6 +688,40 @@ paths:
           description: Invalid data provided
       tags:
         - Buffs
+  /api/v1/buffs/{guildUid}/{type}/{position}:
+    delete:
+      operationId: BuffsController_removeAt
+      parameters:
+        - name: guildUid
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: type
+          required: true
+          in: path
+          schema:
+            enum:
+              - construction
+              - research
+              - training
+            type: string
+        - name: position
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The removed buff.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Buff'
+        '422':
+          description: Invalid data provided
+      tags:
+        - Buffs
 info:
   title: MOEPP CITES API
   description: MOEPP CITES API docs
