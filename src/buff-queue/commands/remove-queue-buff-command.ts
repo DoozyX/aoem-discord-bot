@@ -66,7 +66,7 @@ export class RemoveQueueBuffCommand implements Command {
                 guildId,
                 intr.member as GuildMember,
                 buffType,
-                position
+                position - 1
             );
             await InteractionUtils.send(
                 intr,
