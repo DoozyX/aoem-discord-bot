@@ -9,6 +9,7 @@ import { BuffType } from '@app/buff-queue/enums';
 export class BuffService {
     private lastExtra: string | undefined;
     private lastAssignedMember: string | undefined;
+    private buffReminders: Map<BuffType, NodeJS.Timeout> = new Map();
 
     private readonly buffRole = 'Buff Admin';
 
@@ -75,6 +76,46 @@ export class BuffService {
             buffType,
             `Assigned buff to <@${buff.member}>${previousMemberMessage} at ${currentTime} UTC by <@${member.id}>`
         );
+
+        if (this.buffReminders.has(buffType)) {
+            const timeout = this.buffReminders.get(buffType);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        }
+
+        const timeout = setTimeout(
+            async () => {
+                // const channel = await this.getBuffTextChannel(guildId, buffType);
+                // await channel.send(`${buffType} expires in 15 minutes.`);
+
+                const guild = await this.client.guilds.fetch(guildId);
+
+                const role = guild.roles.cache.find(r => r.name === this.buffRole);
+                if (!role) {
+                    console.error('invalid buff role');
+                    return;
+                }
+
+                const membersWithRole = role.members;
+
+                // eslint-disable-next-line unicorn/no-array-for-each
+                membersWithRole.forEach(async (member: GuildMember) => {
+                    try {
+                        await member.send(
+                            `Hello ${member.displayName}, this is a message for members with the '${this.buffRole}' role. ${buffType} buff can be assigned again in 15mins.`
+                        );
+                        console.log(`Sent DM to: ${member.displayName}`);
+                    } catch (error) {
+                        console.error(`Couldn't DM ${member.displayName}: ${error}`);
+                    }
+                });
+
+                this.buffReminders.delete(buffType);
+            },
+            45 * 60 * 1000
+        );
+        this.buffReminders.set(buffType, timeout);
     }
 
     async removeBuffMember(
