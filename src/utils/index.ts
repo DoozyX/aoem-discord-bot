@@ -12,3 +12,4 @@ export { ShardUtils } from './shard-utils';
 export { StringUtils } from './string-utils';
 export { ThreadUtils } from './thread-utils';
 export * from './enum-utils';
+export * from './date-utillities';

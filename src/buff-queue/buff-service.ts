@@ -1,10 +1,11 @@
 import { Client, Colors, Guild, GuildMember, Role, TextChannel } from 'discord.js';
-import { DateTime } from 'luxon';
 
 import { Api } from '@app/api';
 import { CreateBuffDtoTypeEnum } from '@app/api_gen/models/CreateBuffDto';
 import { CreateChannelDtoTypeEnum } from '@app/api_gen/models/CreateChannelDto';
+import { BuffQueueItem } from '@app/buff-queue/buff-queue-item';
 import { BuffType } from '@app/buff-queue/enums';
+import { formatDate, formatDateUnix } from '@app/utils/date-utillities';
 
 export class BuffService {
     private lastExtra: string | undefined;
@@ -44,6 +45,8 @@ export class BuffService {
             guildUid: guildId,
             type: buffType as unknown as CreateBuffDtoTypeEnum,
             member: member,
+            note: undefined,
+            time: undefined,
         });
 
         await this.refreshQueue(guildId, buffType);
@@ -69,12 +72,12 @@ export class BuffService {
 
         this.lastAssignedMember = buff.member;
 
-        const currentTime = DateTime.utc().toFormat('yyyy-MM-dd HH:mm:ss');
+        const currentTime = formatDateUnix(Date.now());
 
         await this.refreshQueue(
             guildId,
             buffType,
-            `Assigned buff to <@${buff.member}>${previousMemberMessage} at ${currentTime} UTC by <@${member.id}>`
+            `Assigned buff to <@${buff.member}>${previousMemberMessage} at ${currentTime} by <@${member.id}>`
         );
 
         if (this.buffReminders.has(buffType)) {
@@ -162,9 +165,19 @@ export class BuffService {
         }
     }
 
-    private async getBuffMemberQueue(guildId: string, buffType: BuffType): Promise<string[]> {
+    private async getBuffMemberQueue(
+        guildId: string,
+        buffType: BuffType
+    ): Promise<BuffQueueItem[]> {
         const buffsQueue = await this.api.buffs.buffsControllerFindAllV1(guildId, buffType);
-        return buffsQueue.map(buff => buff.member);
+        return buffsQueue.map(
+            buff =>
+                ({
+                    member: buff.member,
+                    note: buff.note,
+                    time: buff.time,
+                }) as BuffQueueItem
+        );
     }
 
     private async getBuffTextChannel(guildId: string, buffType: BuffType): Promise<TextChannel> {
@@ -181,12 +194,23 @@ export class BuffService {
         return channel as TextChannel;
     }
 
-    private getQueueMessage(memberQueue: string[]): string {
+    private getQueueMessage(memberQueue: BuffQueueItem[]): string {
         let title: string;
         let queue: string;
-        if (memberQueue.length > 1) {
+        if (memberQueue.length > 0) {
             title = 'Buff Queue';
-            queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
+            queue = memberQueue
+                .map((item, index) => {
+                    let message = `${index}. <@${item.member}>`;
+                    if (item.time) {
+                        message += `- ${formatDate(item.time)}`;
+                    }
+                    if (item.note) {
+                        message += `- ${formatDate(item.time)}`;
+                    }
+                    return message;
+                })
+                .join('\n');
         } else {
             title = 'Empty queue';
             queue = '';
