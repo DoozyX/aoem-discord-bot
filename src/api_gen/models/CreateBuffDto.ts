@@ -16,6 +16,8 @@ export class CreateBuffDto {
     'guildUid': string;
     'type': CreateBuffDtoTypeEnum;
     'member': string;
+    'note'?: string;
+    'time'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -37,6 +39,18 @@ export class CreateBuffDto {
         {
             "name": "member",
             "baseName": "member",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "note",
+            "baseName": "note",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "time",
+            "baseName": "time",
             "type": "string",
             "format": ""
         }    ];

@@ -1273,6 +1273,10 @@ components:
           type: string
         member:
           type: string
+        note:
+          type: string
+        time:
+          type: string
       required:
         - guildUid
         - type
@@ -1305,6 +1309,13 @@ components:
             - training
         member:
           type: string
+        note:
+          type: string
+          nullable: true
+        time:
+          format: date-time
+          type: string
+          nullable: true
       required:
         - createdAt
         - updatedAt
@@ -1314,3 +1325,5 @@ components:
         - guildId
         - type
         - member
+        - note
+        - time

@@ -22,6 +22,8 @@ export class Buff {
     'guildId': number;
     'type': BuffTypeEnum;
     'member': string;
+    'note': string | null;
+    'time': Date | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -75,6 +77,18 @@ export class Buff {
             "baseName": "member",
             "type": "string",
             "format": ""
+        },
+        {
+            "name": "note",
+            "baseName": "note",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "time",
+            "baseName": "time",
+            "type": "Date",
+            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {

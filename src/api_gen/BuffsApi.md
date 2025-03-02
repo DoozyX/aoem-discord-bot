@@ -30,6 +30,8 @@ const request: BuffsApiBuffsControllerCreateV1Request = {
     guildUid: "guildUid_example",
     type: "construction",
     member: "member_example",
+    note: "note_example",
+    time: "time_example",
   },
 };
 
