@@ -14,7 +14,7 @@ export class JobService {
         for (let job of this.jobs) {
             let jobSchedule = job.runOnce
                 ? parser
-                      .parseExpression(job.schedule, {
+                      .parse(job.schedule, {
                           currentDate: DateTime.now()
                               .plus({ seconds: job.initialDelaySecs })
                               .toJSDate(),
