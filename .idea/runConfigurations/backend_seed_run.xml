@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="backend-seed:run" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/../aoem-backend/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="seed:run" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
