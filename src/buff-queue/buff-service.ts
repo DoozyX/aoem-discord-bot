@@ -152,11 +152,8 @@ export class BuffService {
         const firstMessage = messages.first();
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
-        const queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
-        const queueMessage =
-            queue.length === 0 ? '# **Empty Queue**' : `# **Buff Queue**\n\n${queue}`;
+        const message = this.getQueueMessage(memberQueue);
 
-        const message = this.lastExtra ? `${queueMessage}\n\n\n${this.lastExtra}` : queueMessage;
         if (messages.size > 1 || firstMessage?.author.id !== this.client.user?.id) {
             await this.deleteAllMessages(channel);
             await channel.send(message);
@@ -182,6 +179,25 @@ export class BuffService {
             throw new Error('No channel found for guild');
         }
         return channel as TextChannel;
+    }
+
+    private getQueueMessage(memberQueue: string[]): string {
+        let title: string;
+        let queue: string;
+        if (memberQueue.length > 1) {
+            title = 'Buff Queue';
+            queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
+        } else {
+            title = 'Empty queue';
+            queue = '';
+        }
+
+        let queueMessage = `# **${title}**\n\n${queue}`;
+        if (this.lastExtra) {
+            queueMessage += `\n\n\n${this.lastExtra}`;
+        }
+
+        return queueMessage;
     }
 
     // TODO: move out
