@@ -4,11 +4,11 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**filesLocalControllerUploadFile**](FilesApi.md#filesLocalControllerUploadFile) | **POST** /api/v1/files/upload | 
+[**filesLocalControllerUploadFileV1**](FilesApi.md#filesLocalControllerUploadFileV1) | **POST** /api/v1/files/upload | 
 
 
-# **filesLocalControllerUploadFile**
-> FileType filesLocalControllerUploadFile()
+# **filesLocalControllerUploadFileV1**
+> FileType filesLocalControllerUploadFileV1()
 
 
 ### Example
@@ -16,17 +16,17 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, FilesApi } from '';
-import type { FilesApiFilesLocalControllerUploadFileRequest } from '';
+import type { FilesApiFilesLocalControllerUploadFileV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new FilesApi(configuration);
 
-const request: FilesApiFilesLocalControllerUploadFileRequest = {
+const request: FilesApiFilesLocalControllerUploadFileV1Request = {
   
   file: { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
 };
 
-const data = await apiInstance.filesLocalControllerUploadFile(request);
+const data = await apiInstance.filesLocalControllerUploadFileV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

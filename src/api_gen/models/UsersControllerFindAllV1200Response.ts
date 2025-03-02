@@ -10,12 +10,13 @@
  * Do not edit the class manually.
  */
 
+import { PageMetaDto } from '../models/PageMetaDto';
+import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
-export class AuthRegisterLoginDto {
-    'email': string;
-    'password': string;
-    'language': AuthRegisterLoginDtoLanguageEnum;
+export class UsersControllerFindAllV1200Response {
+    'meta': PageMetaDto;
+    'data': Array<User>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -23,34 +24,22 @@ export class AuthRegisterLoginDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "email",
-            "baseName": "email",
-            "type": "string",
-            "format": "email"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string",
+            "name": "meta",
+            "baseName": "meta",
+            "type": "PageMetaDto",
             "format": ""
         },
         {
-            "name": "language",
-            "baseName": "language",
-            "type": "AuthRegisterLoginDtoLanguageEnum",
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<User>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AuthRegisterLoginDto.attributeTypeMap;
+        return UsersControllerFindAllV1200Response.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-export enum AuthRegisterLoginDtoLanguageEnum {
-    En = 'en',
-    Mk = 'mk'
-}
-

@@ -19,9 +19,9 @@ import { ErrorResponse } from '../models/ErrorResponse';
 import { FileType } from '../models/FileType';
 import { FilterUserDto } from '../models/FilterUserDto';
 import { Guild } from '../models/Guild';
-import { HealthControllerCheck200Response } from '../models/HealthControllerCheck200Response';
-import { HealthControllerCheck200ResponseInfoValue } from '../models/HealthControllerCheck200ResponseInfoValue';
-import { HealthControllerCheck503Response } from '../models/HealthControllerCheck503Response';
+import { HealthControllerCheckV1200Response } from '../models/HealthControllerCheckV1200Response';
+import { HealthControllerCheckV1200ResponseInfoValue } from '../models/HealthControllerCheckV1200ResponseInfoValue';
+import { HealthControllerCheckV1503Response } from '../models/HealthControllerCheckV1503Response';
 import { LoginResponseType } from '../models/LoginResponseType';
 import { PageDto } from '../models/PageDto';
 import { PageMetaDto } from '../models/PageMetaDto';
@@ -31,73 +31,73 @@ import { SortUserDto } from '../models/SortUserDto';
 import { UpdateUserDto } from '../models/UpdateUserDto';
 import { User } from '../models/User';
 import { UserStatistics } from '../models/UserStatistics';
-import { UsersControllerFindAll200Response } from '../models/UsersControllerFindAll200Response';
+import { UsersControllerFindAllV1200Response } from '../models/UsersControllerFindAllV1200Response';
 
 import { ObservableAuthApi } from "./ObservableAPI";
 import { AuthApiRequestFactory, AuthApiResponseProcessor} from "../apis/AuthApi";
 
-export interface AuthApiAuthControllerConfirmEmailRequest {
+export interface AuthApiAuthControllerConfirmEmailV1Request {
     /**
      * 
      * @type AuthConfirmEmailDto
-     * @memberof AuthApiauthControllerConfirmEmail
+     * @memberof AuthApiauthControllerConfirmEmailV1
      */
     authConfirmEmailDto: AuthConfirmEmailDto
 }
 
-export interface AuthApiAuthControllerForgotPasswordRequest {
+export interface AuthApiAuthControllerForgotPasswordV1Request {
     /**
      * 
      * @type AuthForgotPasswordDto
-     * @memberof AuthApiauthControllerForgotPassword
+     * @memberof AuthApiauthControllerForgotPasswordV1
      */
     authForgotPasswordDto: AuthForgotPasswordDto
 }
 
-export interface AuthApiAuthControllerLoginRequest {
+export interface AuthApiAuthControllerLoginV1Request {
     /**
      * 
      * @type AuthEmailLoginDto
-     * @memberof AuthApiauthControllerLogin
+     * @memberof AuthApiauthControllerLoginV1
      */
     authEmailLoginDto: AuthEmailLoginDto
 }
 
-export interface AuthApiAuthControllerLogoutRequest {
+export interface AuthApiAuthControllerLogoutV1Request {
 }
 
-export interface AuthApiAuthControllerMeRequest {
+export interface AuthApiAuthControllerMeV1Request {
 }
 
-export interface AuthApiAuthControllerRefreshRequest {
+export interface AuthApiAuthControllerRefreshV1Request {
 }
 
-export interface AuthApiAuthControllerRegisterRequest {
+export interface AuthApiAuthControllerRegisterV1Request {
     /**
      * 
      * @type AuthRegisterLoginDto
-     * @memberof AuthApiauthControllerRegister
+     * @memberof AuthApiauthControllerRegisterV1
      */
     authRegisterLoginDto: AuthRegisterLoginDto
 }
 
-export interface AuthApiAuthControllerResendVerifyMailRequest {
+export interface AuthApiAuthControllerResendVerifyMailV1Request {
 }
 
-export interface AuthApiAuthControllerResetPasswordRequest {
+export interface AuthApiAuthControllerResetPasswordV1Request {
     /**
      * 
      * @type AuthResetPasswordDto
-     * @memberof AuthApiauthControllerResetPassword
+     * @memberof AuthApiauthControllerResetPasswordV1
      */
     authResetPasswordDto: AuthResetPasswordDto
 }
 
-export interface AuthApiAuthControllerUpdateRequest {
+export interface AuthApiAuthControllerUpdateV1Request {
     /**
      * 
      * @type AuthUpdateDto
-     * @memberof AuthApiauthControllerUpdate
+     * @memberof AuthApiauthControllerUpdateV1
      */
     authUpdateDto: AuthUpdateDto
 }
@@ -112,141 +112,141 @@ export class ObjectAuthApi {
     /**
      * @param param the request object
      */
-    public authControllerConfirmEmailWithHttpInfo(param: AuthApiAuthControllerConfirmEmailRequest, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerConfirmEmailWithHttpInfo(param.authConfirmEmailDto,  options).toPromise();
+    public authControllerConfirmEmailV1WithHttpInfo(param: AuthApiAuthControllerConfirmEmailV1Request, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerConfirmEmailV1WithHttpInfo(param.authConfirmEmailDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerConfirmEmail(param: AuthApiAuthControllerConfirmEmailRequest, options?: Configuration): Promise<void> {
-        return this.api.authControllerConfirmEmail(param.authConfirmEmailDto,  options).toPromise();
+    public authControllerConfirmEmailV1(param: AuthApiAuthControllerConfirmEmailV1Request, options?: Configuration): Promise<void> {
+        return this.api.authControllerConfirmEmailV1(param.authConfirmEmailDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerForgotPasswordWithHttpInfo(param: AuthApiAuthControllerForgotPasswordRequest, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerForgotPasswordWithHttpInfo(param.authForgotPasswordDto,  options).toPromise();
+    public authControllerForgotPasswordV1WithHttpInfo(param: AuthApiAuthControllerForgotPasswordV1Request, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerForgotPasswordV1WithHttpInfo(param.authForgotPasswordDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerForgotPassword(param: AuthApiAuthControllerForgotPasswordRequest, options?: Configuration): Promise<void> {
-        return this.api.authControllerForgotPassword(param.authForgotPasswordDto,  options).toPromise();
+    public authControllerForgotPasswordV1(param: AuthApiAuthControllerForgotPasswordV1Request, options?: Configuration): Promise<void> {
+        return this.api.authControllerForgotPasswordV1(param.authForgotPasswordDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerLoginWithHttpInfo(param: AuthApiAuthControllerLoginRequest, options?: Configuration): Promise<HttpInfo<LoginResponseType>> {
-        return this.api.authControllerLoginWithHttpInfo(param.authEmailLoginDto,  options).toPromise();
+    public authControllerLoginV1WithHttpInfo(param: AuthApiAuthControllerLoginV1Request, options?: Configuration): Promise<HttpInfo<LoginResponseType>> {
+        return this.api.authControllerLoginV1WithHttpInfo(param.authEmailLoginDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerLogin(param: AuthApiAuthControllerLoginRequest, options?: Configuration): Promise<LoginResponseType> {
-        return this.api.authControllerLogin(param.authEmailLoginDto,  options).toPromise();
+    public authControllerLoginV1(param: AuthApiAuthControllerLoginV1Request, options?: Configuration): Promise<LoginResponseType> {
+        return this.api.authControllerLoginV1(param.authEmailLoginDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerLogoutWithHttpInfo(param: AuthApiAuthControllerLogoutRequest = {}, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerLogoutWithHttpInfo( options).toPromise();
+    public authControllerLogoutV1WithHttpInfo(param: AuthApiAuthControllerLogoutV1Request = {}, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerLogoutV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerLogout(param: AuthApiAuthControllerLogoutRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authControllerLogout( options).toPromise();
+    public authControllerLogoutV1(param: AuthApiAuthControllerLogoutV1Request = {}, options?: Configuration): Promise<void> {
+        return this.api.authControllerLogoutV1( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerMeWithHttpInfo(param: AuthApiAuthControllerMeRequest = {}, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.authControllerMeWithHttpInfo( options).toPromise();
+    public authControllerMeV1WithHttpInfo(param: AuthApiAuthControllerMeV1Request = {}, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.authControllerMeV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerMe(param: AuthApiAuthControllerMeRequest = {}, options?: Configuration): Promise<User> {
-        return this.api.authControllerMe( options).toPromise();
+    public authControllerMeV1(param: AuthApiAuthControllerMeV1Request = {}, options?: Configuration): Promise<User> {
+        return this.api.authControllerMeV1( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerRefreshWithHttpInfo(param: AuthApiAuthControllerRefreshRequest = {}, options?: Configuration): Promise<HttpInfo<RefreshResponseType>> {
-        return this.api.authControllerRefreshWithHttpInfo( options).toPromise();
+    public authControllerRefreshV1WithHttpInfo(param: AuthApiAuthControllerRefreshV1Request = {}, options?: Configuration): Promise<HttpInfo<RefreshResponseType>> {
+        return this.api.authControllerRefreshV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerRefresh(param: AuthApiAuthControllerRefreshRequest = {}, options?: Configuration): Promise<RefreshResponseType> {
-        return this.api.authControllerRefresh( options).toPromise();
+    public authControllerRefreshV1(param: AuthApiAuthControllerRefreshV1Request = {}, options?: Configuration): Promise<RefreshResponseType> {
+        return this.api.authControllerRefreshV1( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerRegisterWithHttpInfo(param: AuthApiAuthControllerRegisterRequest, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerRegisterWithHttpInfo(param.authRegisterLoginDto,  options).toPromise();
+    public authControllerRegisterV1WithHttpInfo(param: AuthApiAuthControllerRegisterV1Request, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerRegisterV1WithHttpInfo(param.authRegisterLoginDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerRegister(param: AuthApiAuthControllerRegisterRequest, options?: Configuration): Promise<void> {
-        return this.api.authControllerRegister(param.authRegisterLoginDto,  options).toPromise();
+    public authControllerRegisterV1(param: AuthApiAuthControllerRegisterV1Request, options?: Configuration): Promise<void> {
+        return this.api.authControllerRegisterV1(param.authRegisterLoginDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerResendVerifyMailWithHttpInfo(param: AuthApiAuthControllerResendVerifyMailRequest = {}, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerResendVerifyMailWithHttpInfo( options).toPromise();
+    public authControllerResendVerifyMailV1WithHttpInfo(param: AuthApiAuthControllerResendVerifyMailV1Request = {}, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerResendVerifyMailV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerResendVerifyMail(param: AuthApiAuthControllerResendVerifyMailRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authControllerResendVerifyMail( options).toPromise();
+    public authControllerResendVerifyMailV1(param: AuthApiAuthControllerResendVerifyMailV1Request = {}, options?: Configuration): Promise<void> {
+        return this.api.authControllerResendVerifyMailV1( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerResetPasswordWithHttpInfo(param: AuthApiAuthControllerResetPasswordRequest, options?: Configuration): Promise<HttpInfo<void>> {
-        return this.api.authControllerResetPasswordWithHttpInfo(param.authResetPasswordDto,  options).toPromise();
+    public authControllerResetPasswordV1WithHttpInfo(param: AuthApiAuthControllerResetPasswordV1Request, options?: Configuration): Promise<HttpInfo<void>> {
+        return this.api.authControllerResetPasswordV1WithHttpInfo(param.authResetPasswordDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerResetPassword(param: AuthApiAuthControllerResetPasswordRequest, options?: Configuration): Promise<void> {
-        return this.api.authControllerResetPassword(param.authResetPasswordDto,  options).toPromise();
+    public authControllerResetPasswordV1(param: AuthApiAuthControllerResetPasswordV1Request, options?: Configuration): Promise<void> {
+        return this.api.authControllerResetPasswordV1(param.authResetPasswordDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerUpdateWithHttpInfo(param: AuthApiAuthControllerUpdateRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.authControllerUpdateWithHttpInfo(param.authUpdateDto,  options).toPromise();
+    public authControllerUpdateV1WithHttpInfo(param: AuthApiAuthControllerUpdateV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.authControllerUpdateV1WithHttpInfo(param.authUpdateDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public authControllerUpdate(param: AuthApiAuthControllerUpdateRequest, options?: Configuration): Promise<User> {
-        return this.api.authControllerUpdate(param.authUpdateDto,  options).toPromise();
+    public authControllerUpdateV1(param: AuthApiAuthControllerUpdateV1Request, options?: Configuration): Promise<User> {
+        return this.api.authControllerUpdateV1(param.authUpdateDto,  options).toPromise();
     }
 
 }
@@ -254,69 +254,69 @@ export class ObjectAuthApi {
 import { ObservableBuffsApi } from "./ObservableAPI";
 import { BuffsApiRequestFactory, BuffsApiResponseProcessor} from "../apis/BuffsApi";
 
-export interface BuffsApiBuffsControllerCreateRequest {
+export interface BuffsApiBuffsControllerCreateV1Request {
     /**
      * 
      * @type CreateBuffDto
-     * @memberof BuffsApibuffsControllerCreate
+     * @memberof BuffsApibuffsControllerCreateV1
      */
     createBuffDto: CreateBuffDto
 }
 
-export interface BuffsApiBuffsControllerFindAllRequest {
+export interface BuffsApiBuffsControllerFindAllV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof BuffsApibuffsControllerFindAll
+     * @memberof BuffsApibuffsControllerFindAllV1
      */
     guildUid: string
     /**
      * 
      * Defaults to: undefined
      * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
-     * @memberof BuffsApibuffsControllerFindAll
+     * @memberof BuffsApibuffsControllerFindAllV1
      */
     type: 'construction' | 'research' | 'training'
 }
 
-export interface BuffsApiBuffsControllerRemoveAtRequest {
+export interface BuffsApiBuffsControllerRemoveAtV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof BuffsApibuffsControllerRemoveAt
+     * @memberof BuffsApibuffsControllerRemoveAtV1
      */
     guildUid: string
     /**
      * 
      * Defaults to: undefined
      * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
-     * @memberof BuffsApibuffsControllerRemoveAt
+     * @memberof BuffsApibuffsControllerRemoveAtV1
      */
     type: 'construction' | 'research' | 'training'
     /**
      * 
      * Defaults to: undefined
      * @type number
-     * @memberof BuffsApibuffsControllerRemoveAt
+     * @memberof BuffsApibuffsControllerRemoveAtV1
      */
     position: number
 }
 
-export interface BuffsApiBuffsControllerRemoveFirstRequest {
+export interface BuffsApiBuffsControllerRemoveFirstV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof BuffsApibuffsControllerRemoveFirst
+     * @memberof BuffsApibuffsControllerRemoveFirstV1
      */
     guildUid: string
     /**
      * 
      * Defaults to: undefined
      * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
-     * @memberof BuffsApibuffsControllerRemoveFirst
+     * @memberof BuffsApibuffsControllerRemoveFirstV1
      */
     type: 'construction' | 'research' | 'training'
 }
@@ -331,57 +331,57 @@ export class ObjectBuffsApi {
     /**
      * @param param the request object
      */
-    public buffsControllerCreateWithHttpInfo(param: BuffsApiBuffsControllerCreateRequest, options?: Configuration): Promise<HttpInfo<Buff>> {
-        return this.api.buffsControllerCreateWithHttpInfo(param.createBuffDto,  options).toPromise();
+    public buffsControllerCreateV1WithHttpInfo(param: BuffsApiBuffsControllerCreateV1Request, options?: Configuration): Promise<HttpInfo<Buff>> {
+        return this.api.buffsControllerCreateV1WithHttpInfo(param.createBuffDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerCreate(param: BuffsApiBuffsControllerCreateRequest, options?: Configuration): Promise<Buff> {
-        return this.api.buffsControllerCreate(param.createBuffDto,  options).toPromise();
+    public buffsControllerCreateV1(param: BuffsApiBuffsControllerCreateV1Request, options?: Configuration): Promise<Buff> {
+        return this.api.buffsControllerCreateV1(param.createBuffDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerFindAllWithHttpInfo(param: BuffsApiBuffsControllerFindAllRequest, options?: Configuration): Promise<HttpInfo<Array<Buff>>> {
-        return this.api.buffsControllerFindAllWithHttpInfo(param.guildUid, param.type,  options).toPromise();
+    public buffsControllerFindAllV1WithHttpInfo(param: BuffsApiBuffsControllerFindAllV1Request, options?: Configuration): Promise<HttpInfo<Array<Buff>>> {
+        return this.api.buffsControllerFindAllV1WithHttpInfo(param.guildUid, param.type,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerFindAll(param: BuffsApiBuffsControllerFindAllRequest, options?: Configuration): Promise<Array<Buff>> {
-        return this.api.buffsControllerFindAll(param.guildUid, param.type,  options).toPromise();
+    public buffsControllerFindAllV1(param: BuffsApiBuffsControllerFindAllV1Request, options?: Configuration): Promise<Array<Buff>> {
+        return this.api.buffsControllerFindAllV1(param.guildUid, param.type,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerRemoveAtWithHttpInfo(param: BuffsApiBuffsControllerRemoveAtRequest, options?: Configuration): Promise<HttpInfo<Buff>> {
-        return this.api.buffsControllerRemoveAtWithHttpInfo(param.guildUid, param.type, param.position,  options).toPromise();
+    public buffsControllerRemoveAtV1WithHttpInfo(param: BuffsApiBuffsControllerRemoveAtV1Request, options?: Configuration): Promise<HttpInfo<Buff>> {
+        return this.api.buffsControllerRemoveAtV1WithHttpInfo(param.guildUid, param.type, param.position,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerRemoveAt(param: BuffsApiBuffsControllerRemoveAtRequest, options?: Configuration): Promise<Buff> {
-        return this.api.buffsControllerRemoveAt(param.guildUid, param.type, param.position,  options).toPromise();
+    public buffsControllerRemoveAtV1(param: BuffsApiBuffsControllerRemoveAtV1Request, options?: Configuration): Promise<Buff> {
+        return this.api.buffsControllerRemoveAtV1(param.guildUid, param.type, param.position,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerRemoveFirstWithHttpInfo(param: BuffsApiBuffsControllerRemoveFirstRequest, options?: Configuration): Promise<HttpInfo<Buff>> {
-        return this.api.buffsControllerRemoveFirstWithHttpInfo(param.guildUid, param.type,  options).toPromise();
+    public buffsControllerRemoveFirstV1WithHttpInfo(param: BuffsApiBuffsControllerRemoveFirstV1Request, options?: Configuration): Promise<HttpInfo<Buff>> {
+        return this.api.buffsControllerRemoveFirstV1WithHttpInfo(param.guildUid, param.type,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public buffsControllerRemoveFirst(param: BuffsApiBuffsControllerRemoveFirstRequest, options?: Configuration): Promise<Buff> {
-        return this.api.buffsControllerRemoveFirst(param.guildUid, param.type,  options).toPromise();
+    public buffsControllerRemoveFirstV1(param: BuffsApiBuffsControllerRemoveFirstV1Request, options?: Configuration): Promise<Buff> {
+        return this.api.buffsControllerRemoveFirstV1(param.guildUid, param.type,  options).toPromise();
     }
 
 }
@@ -389,28 +389,28 @@ export class ObjectBuffsApi {
 import { ObservableChannelsApi } from "./ObservableAPI";
 import { ChannelsApiRequestFactory, ChannelsApiResponseProcessor} from "../apis/ChannelsApi";
 
-export interface ChannelsApiChannelsControllerCreateRequest {
+export interface ChannelsApiChannelsControllerCreateV1Request {
     /**
      * 
      * @type CreateChannelDto
-     * @memberof ChannelsApichannelsControllerCreate
+     * @memberof ChannelsApichannelsControllerCreateV1
      */
     createChannelDto: CreateChannelDto
 }
 
-export interface ChannelsApiChannelsControllerFindOneRequest {
+export interface ChannelsApiChannelsControllerFindOneV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof ChannelsApichannelsControllerFindOne
+     * @memberof ChannelsApichannelsControllerFindOneV1
      */
     guildUid: string
     /**
      * 
      * Defaults to: undefined
      * @type &#39;construction&#39; | &#39;research&#39; | &#39;training&#39;
-     * @memberof ChannelsApichannelsControllerFindOne
+     * @memberof ChannelsApichannelsControllerFindOneV1
      */
     type: 'construction' | 'research' | 'training'
 }
@@ -425,29 +425,29 @@ export class ObjectChannelsApi {
     /**
      * @param param the request object
      */
-    public channelsControllerCreateWithHttpInfo(param: ChannelsApiChannelsControllerCreateRequest, options?: Configuration): Promise<HttpInfo<Channel>> {
-        return this.api.channelsControllerCreateWithHttpInfo(param.createChannelDto,  options).toPromise();
+    public channelsControllerCreateV1WithHttpInfo(param: ChannelsApiChannelsControllerCreateV1Request, options?: Configuration): Promise<HttpInfo<Channel>> {
+        return this.api.channelsControllerCreateV1WithHttpInfo(param.createChannelDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public channelsControllerCreate(param: ChannelsApiChannelsControllerCreateRequest, options?: Configuration): Promise<Channel> {
-        return this.api.channelsControllerCreate(param.createChannelDto,  options).toPromise();
+    public channelsControllerCreateV1(param: ChannelsApiChannelsControllerCreateV1Request, options?: Configuration): Promise<Channel> {
+        return this.api.channelsControllerCreateV1(param.createChannelDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public channelsControllerFindOneWithHttpInfo(param: ChannelsApiChannelsControllerFindOneRequest, options?: Configuration): Promise<HttpInfo<Channel>> {
-        return this.api.channelsControllerFindOneWithHttpInfo(param.guildUid, param.type,  options).toPromise();
+    public channelsControllerFindOneV1WithHttpInfo(param: ChannelsApiChannelsControllerFindOneV1Request, options?: Configuration): Promise<HttpInfo<Channel>> {
+        return this.api.channelsControllerFindOneV1WithHttpInfo(param.guildUid, param.type,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public channelsControllerFindOne(param: ChannelsApiChannelsControllerFindOneRequest, options?: Configuration): Promise<Channel> {
-        return this.api.channelsControllerFindOne(param.guildUid, param.type,  options).toPromise();
+    public channelsControllerFindOneV1(param: ChannelsApiChannelsControllerFindOneV1Request, options?: Configuration): Promise<Channel> {
+        return this.api.channelsControllerFindOneV1(param.guildUid, param.type,  options).toPromise();
     }
 
 }
@@ -455,12 +455,12 @@ export class ObjectChannelsApi {
 import { ObservableFilesApi } from "./ObservableAPI";
 import { FilesApiRequestFactory, FilesApiResponseProcessor} from "../apis/FilesApi";
 
-export interface FilesApiFilesLocalControllerUploadFileRequest {
+export interface FilesApiFilesLocalControllerUploadFileV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type HttpFile
-     * @memberof FilesApifilesLocalControllerUploadFile
+     * @memberof FilesApifilesLocalControllerUploadFileV1
      */
     file?: HttpFile
 }
@@ -475,15 +475,15 @@ export class ObjectFilesApi {
     /**
      * @param param the request object
      */
-    public filesLocalControllerUploadFileWithHttpInfo(param: FilesApiFilesLocalControllerUploadFileRequest = {}, options?: Configuration): Promise<HttpInfo<FileType>> {
-        return this.api.filesLocalControllerUploadFileWithHttpInfo(param.file,  options).toPromise();
+    public filesLocalControllerUploadFileV1WithHttpInfo(param: FilesApiFilesLocalControllerUploadFileV1Request = {}, options?: Configuration): Promise<HttpInfo<FileType>> {
+        return this.api.filesLocalControllerUploadFileV1WithHttpInfo(param.file,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public filesLocalControllerUploadFile(param: FilesApiFilesLocalControllerUploadFileRequest = {}, options?: Configuration): Promise<FileType> {
-        return this.api.filesLocalControllerUploadFile(param.file,  options).toPromise();
+    public filesLocalControllerUploadFileV1(param: FilesApiFilesLocalControllerUploadFileV1Request = {}, options?: Configuration): Promise<FileType> {
+        return this.api.filesLocalControllerUploadFileV1(param.file,  options).toPromise();
     }
 
 }
@@ -491,16 +491,16 @@ export class ObjectFilesApi {
 import { ObservableGuildsApi } from "./ObservableAPI";
 import { GuildsApiRequestFactory, GuildsApiResponseProcessor} from "../apis/GuildsApi";
 
-export interface GuildsApiGuildsControllerCreateRequest {
+export interface GuildsApiGuildsControllerCreateV1Request {
     /**
      * 
      * @type CreateGuildDto
-     * @memberof GuildsApiguildsControllerCreate
+     * @memberof GuildsApiguildsControllerCreateV1
      */
     createGuildDto: CreateGuildDto
 }
 
-export interface GuildsApiGuildsControllerFindAllRequest {
+export interface GuildsApiGuildsControllerFindAllV1Request {
 }
 
 export class ObjectGuildsApi {
@@ -513,29 +513,29 @@ export class ObjectGuildsApi {
     /**
      * @param param the request object
      */
-    public guildsControllerCreateWithHttpInfo(param: GuildsApiGuildsControllerCreateRequest, options?: Configuration): Promise<HttpInfo<Guild>> {
-        return this.api.guildsControllerCreateWithHttpInfo(param.createGuildDto,  options).toPromise();
+    public guildsControllerCreateV1WithHttpInfo(param: GuildsApiGuildsControllerCreateV1Request, options?: Configuration): Promise<HttpInfo<Guild>> {
+        return this.api.guildsControllerCreateV1WithHttpInfo(param.createGuildDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public guildsControllerCreate(param: GuildsApiGuildsControllerCreateRequest, options?: Configuration): Promise<Guild> {
-        return this.api.guildsControllerCreate(param.createGuildDto,  options).toPromise();
+    public guildsControllerCreateV1(param: GuildsApiGuildsControllerCreateV1Request, options?: Configuration): Promise<Guild> {
+        return this.api.guildsControllerCreateV1(param.createGuildDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public guildsControllerFindAllWithHttpInfo(param: GuildsApiGuildsControllerFindAllRequest = {}, options?: Configuration): Promise<HttpInfo<Array<Guild>>> {
-        return this.api.guildsControllerFindAllWithHttpInfo( options).toPromise();
+    public guildsControllerFindAllV1WithHttpInfo(param: GuildsApiGuildsControllerFindAllV1Request = {}, options?: Configuration): Promise<HttpInfo<Array<Guild>>> {
+        return this.api.guildsControllerFindAllV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public guildsControllerFindAll(param: GuildsApiGuildsControllerFindAllRequest = {}, options?: Configuration): Promise<Array<Guild>> {
-        return this.api.guildsControllerFindAll( options).toPromise();
+    public guildsControllerFindAllV1(param: GuildsApiGuildsControllerFindAllV1Request = {}, options?: Configuration): Promise<Array<Guild>> {
+        return this.api.guildsControllerFindAllV1( options).toPromise();
     }
 
 }
@@ -543,7 +543,7 @@ export class ObjectGuildsApi {
 import { ObservableHealthApi } from "./ObservableAPI";
 import { HealthApiRequestFactory, HealthApiResponseProcessor} from "../apis/HealthApi";
 
-export interface HealthApiHealthControllerCheckRequest {
+export interface HealthApiHealthControllerCheckV1Request {
 }
 
 export class ObjectHealthApi {
@@ -556,15 +556,15 @@ export class ObjectHealthApi {
     /**
      * @param param the request object
      */
-    public healthControllerCheckWithHttpInfo(param: HealthApiHealthControllerCheckRequest = {}, options?: Configuration): Promise<HttpInfo<HealthControllerCheck200Response>> {
-        return this.api.healthControllerCheckWithHttpInfo( options).toPromise();
+    public healthControllerCheckV1WithHttpInfo(param: HealthApiHealthControllerCheckV1Request = {}, options?: Configuration): Promise<HttpInfo<HealthControllerCheckV1200Response>> {
+        return this.api.healthControllerCheckV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public healthControllerCheck(param: HealthApiHealthControllerCheckRequest = {}, options?: Configuration): Promise<HealthControllerCheck200Response> {
-        return this.api.healthControllerCheck( options).toPromise();
+    public healthControllerCheckV1(param: HealthApiHealthControllerCheckV1Request = {}, options?: Configuration): Promise<HealthControllerCheckV1200Response> {
+        return this.api.healthControllerCheckV1( options).toPromise();
     }
 
 }
@@ -601,74 +601,74 @@ export class ObjectHomeApi {
 import { ObservableUsersApi } from "./ObservableAPI";
 import { UsersApiRequestFactory, UsersApiResponseProcessor} from "../apis/UsersApi";
 
-export interface UsersApiUsersControllerActivateRequest {
+export interface UsersApiUsersControllerActivateV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof UsersApiusersControllerActivate
+     * @memberof UsersApiusersControllerActivateV1
      */
     id: string
     /**
      * 
      * @type ActivateUserDto
-     * @memberof UsersApiusersControllerActivate
+     * @memberof UsersApiusersControllerActivateV1
      */
     activateUserDto: ActivateUserDto
 }
 
-export interface UsersApiUsersControllerCreateRequest {
-    /**
-     * 
-     * @type CreateUserDto
-     * @memberof UsersApiusersControllerCreate
-     */
-    createUserDto: CreateUserDto
-}
-
-export interface UsersApiUsersControllerCreateIndividualRequest {
+export interface UsersApiUsersControllerCreateIndividualV1Request {
     /**
      * 
      * @type CreateIndividualUserDto
-     * @memberof UsersApiusersControllerCreateIndividual
+     * @memberof UsersApiusersControllerCreateIndividualV1
      */
     createIndividualUserDto: CreateIndividualUserDto
 }
 
-export interface UsersApiUsersControllerFindAllRequest {
+export interface UsersApiUsersControllerCreateV1Request {
+    /**
+     * 
+     * @type CreateUserDto
+     * @memberof UsersApiusersControllerCreateV1
+     */
+    createUserDto: CreateUserDto
+}
+
+export interface UsersApiUsersControllerFindAllV1Request {
     /**
      * 
      * @type QueryUserDto
-     * @memberof UsersApiusersControllerFindAll
+     * @memberof UsersApiusersControllerFindAllV1
      */
     queryUserDto: QueryUserDto
 }
 
-export interface UsersApiUsersControllerFindOneRequest {
+export interface UsersApiUsersControllerFindOneV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof UsersApiusersControllerFindOne
+     * @memberof UsersApiusersControllerFindOneV1
      */
     id: string
 }
 
-export interface UsersApiUsersControllerStatisticsRequest {
+export interface UsersApiUsersControllerStatisticsV1Request {
 }
 
-export interface UsersApiUsersControllerUpdateRequest {
+export interface UsersApiUsersControllerUpdateV1Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof UsersApiusersControllerUpdate
+     * @memberof UsersApiusersControllerUpdateV1
      */
     id: string
     /**
      * 
      * @type UpdateUserDto
-     * @memberof UsersApiusersControllerUpdate
+     * @memberof UsersApiusersControllerUpdateV1
      */
     updateUserDto: UpdateUserDto
 }
@@ -683,99 +683,99 @@ export class ObjectUsersApi {
     /**
      * @param param the request object
      */
-    public usersControllerActivateWithHttpInfo(param: UsersApiUsersControllerActivateRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.usersControllerActivateWithHttpInfo(param.id, param.activateUserDto,  options).toPromise();
+    public usersControllerActivateV1WithHttpInfo(param: UsersApiUsersControllerActivateV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.usersControllerActivateV1WithHttpInfo(param.id, param.activateUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerActivate(param: UsersApiUsersControllerActivateRequest, options?: Configuration): Promise<User> {
-        return this.api.usersControllerActivate(param.id, param.activateUserDto,  options).toPromise();
+    public usersControllerActivateV1(param: UsersApiUsersControllerActivateV1Request, options?: Configuration): Promise<User> {
+        return this.api.usersControllerActivateV1(param.id, param.activateUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerCreateWithHttpInfo(param: UsersApiUsersControllerCreateRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.usersControllerCreateWithHttpInfo(param.createUserDto,  options).toPromise();
+    public usersControllerCreateIndividualV1WithHttpInfo(param: UsersApiUsersControllerCreateIndividualV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.usersControllerCreateIndividualV1WithHttpInfo(param.createIndividualUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerCreate(param: UsersApiUsersControllerCreateRequest, options?: Configuration): Promise<User> {
-        return this.api.usersControllerCreate(param.createUserDto,  options).toPromise();
+    public usersControllerCreateIndividualV1(param: UsersApiUsersControllerCreateIndividualV1Request, options?: Configuration): Promise<User> {
+        return this.api.usersControllerCreateIndividualV1(param.createIndividualUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerCreateIndividualWithHttpInfo(param: UsersApiUsersControllerCreateIndividualRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.usersControllerCreateIndividualWithHttpInfo(param.createIndividualUserDto,  options).toPromise();
+    public usersControllerCreateV1WithHttpInfo(param: UsersApiUsersControllerCreateV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.usersControllerCreateV1WithHttpInfo(param.createUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerCreateIndividual(param: UsersApiUsersControllerCreateIndividualRequest, options?: Configuration): Promise<User> {
-        return this.api.usersControllerCreateIndividual(param.createIndividualUserDto,  options).toPromise();
+    public usersControllerCreateV1(param: UsersApiUsersControllerCreateV1Request, options?: Configuration): Promise<User> {
+        return this.api.usersControllerCreateV1(param.createUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerFindAllWithHttpInfo(param: UsersApiUsersControllerFindAllRequest, options?: Configuration): Promise<HttpInfo<UsersControllerFindAll200Response>> {
-        return this.api.usersControllerFindAllWithHttpInfo(param.queryUserDto,  options).toPromise();
+    public usersControllerFindAllV1WithHttpInfo(param: UsersApiUsersControllerFindAllV1Request, options?: Configuration): Promise<HttpInfo<UsersControllerFindAllV1200Response>> {
+        return this.api.usersControllerFindAllV1WithHttpInfo(param.queryUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerFindAll(param: UsersApiUsersControllerFindAllRequest, options?: Configuration): Promise<UsersControllerFindAll200Response> {
-        return this.api.usersControllerFindAll(param.queryUserDto,  options).toPromise();
+    public usersControllerFindAllV1(param: UsersApiUsersControllerFindAllV1Request, options?: Configuration): Promise<UsersControllerFindAllV1200Response> {
+        return this.api.usersControllerFindAllV1(param.queryUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerFindOneWithHttpInfo(param: UsersApiUsersControllerFindOneRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.usersControllerFindOneWithHttpInfo(param.id,  options).toPromise();
+    public usersControllerFindOneV1WithHttpInfo(param: UsersApiUsersControllerFindOneV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.usersControllerFindOneV1WithHttpInfo(param.id,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerFindOne(param: UsersApiUsersControllerFindOneRequest, options?: Configuration): Promise<User> {
-        return this.api.usersControllerFindOne(param.id,  options).toPromise();
+    public usersControllerFindOneV1(param: UsersApiUsersControllerFindOneV1Request, options?: Configuration): Promise<User> {
+        return this.api.usersControllerFindOneV1(param.id,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerStatisticsWithHttpInfo(param: UsersApiUsersControllerStatisticsRequest = {}, options?: Configuration): Promise<HttpInfo<UserStatistics>> {
-        return this.api.usersControllerStatisticsWithHttpInfo( options).toPromise();
+    public usersControllerStatisticsV1WithHttpInfo(param: UsersApiUsersControllerStatisticsV1Request = {}, options?: Configuration): Promise<HttpInfo<UserStatistics>> {
+        return this.api.usersControllerStatisticsV1WithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerStatistics(param: UsersApiUsersControllerStatisticsRequest = {}, options?: Configuration): Promise<UserStatistics> {
-        return this.api.usersControllerStatistics( options).toPromise();
+    public usersControllerStatisticsV1(param: UsersApiUsersControllerStatisticsV1Request = {}, options?: Configuration): Promise<UserStatistics> {
+        return this.api.usersControllerStatisticsV1( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerUpdateWithHttpInfo(param: UsersApiUsersControllerUpdateRequest, options?: Configuration): Promise<HttpInfo<User>> {
-        return this.api.usersControllerUpdateWithHttpInfo(param.id, param.updateUserDto,  options).toPromise();
+    public usersControllerUpdateV1WithHttpInfo(param: UsersApiUsersControllerUpdateV1Request, options?: Configuration): Promise<HttpInfo<User>> {
+        return this.api.usersControllerUpdateV1WithHttpInfo(param.id, param.updateUserDto,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public usersControllerUpdate(param: UsersApiUsersControllerUpdateRequest, options?: Configuration): Promise<User> {
-        return this.api.usersControllerUpdate(param.id, param.updateUserDto,  options).toPromise();
+    public usersControllerUpdateV1(param: UsersApiUsersControllerUpdateV1Request, options?: Configuration): Promise<User> {
+        return this.api.usersControllerUpdateV1(param.id, param.updateUserDto,  options).toPromise();
     }
 
 }

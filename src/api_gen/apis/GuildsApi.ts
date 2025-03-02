@@ -21,12 +21,12 @@ export class GuildsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param createGuildDto 
      */
-    public async guildsControllerCreate(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<RequestContext> {
+    public async guildsControllerCreateV1(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'createGuildDto' is not null or undefined
         if (createGuildDto === null || createGuildDto === undefined) {
-            throw new RequiredError("GuildsApi", "guildsControllerCreate", "createGuildDto");
+            throw new RequiredError("GuildsApi", "guildsControllerCreateV1", "createGuildDto");
         }
 
 
@@ -60,7 +60,7 @@ export class GuildsApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async guildsControllerFindAll(_options?: Configuration): Promise<RequestContext> {
+    public async guildsControllerFindAllV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -88,10 +88,10 @@ export class GuildsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to guildsControllerCreate
+     * @params response Response returned by the server for a request to guildsControllerCreateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async guildsControllerCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Guild >> {
+     public async guildsControllerCreateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Guild >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: Guild = ObjectSerializer.deserialize(
@@ -117,10 +117,10 @@ export class GuildsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to guildsControllerFindAll
+     * @params response Response returned by the server for a request to guildsControllerFindAllV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async guildsControllerFindAllWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Guild> >> {
+     public async guildsControllerFindAllV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Guild> >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Array<Guild> = ObjectSerializer.deserialize(

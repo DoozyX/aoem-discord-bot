@@ -21,12 +21,12 @@ export class ChannelsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param createChannelDto 
      */
-    public async channelsControllerCreate(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<RequestContext> {
+    public async channelsControllerCreateV1(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'createChannelDto' is not null or undefined
         if (createChannelDto === null || createChannelDto === undefined) {
-            throw new RequiredError("ChannelsApi", "channelsControllerCreate", "createChannelDto");
+            throw new RequiredError("ChannelsApi", "channelsControllerCreateV1", "createChannelDto");
         }
 
 
@@ -62,18 +62,18 @@ export class ChannelsApiRequestFactory extends BaseAPIRequestFactory {
      * @param guildUid 
      * @param type 
      */
-    public async channelsControllerFindOne(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
+    public async channelsControllerFindOneV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'guildUid' is not null or undefined
         if (guildUid === null || guildUid === undefined) {
-            throw new RequiredError("ChannelsApi", "channelsControllerFindOne", "guildUid");
+            throw new RequiredError("ChannelsApi", "channelsControllerFindOneV1", "guildUid");
         }
 
 
         // verify required parameter 'type' is not null or undefined
         if (type === null || type === undefined) {
-            throw new RequiredError("ChannelsApi", "channelsControllerFindOne", "type");
+            throw new RequiredError("ChannelsApi", "channelsControllerFindOneV1", "type");
         }
 
 
@@ -104,10 +104,10 @@ export class ChannelsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to channelsControllerCreate
+     * @params response Response returned by the server for a request to channelsControllerCreateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async channelsControllerCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
+     public async channelsControllerCreateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: Channel = ObjectSerializer.deserialize(
@@ -133,10 +133,10 @@ export class ChannelsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to channelsControllerFindOne
+     * @params response Response returned by the server for a request to channelsControllerFindOneV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async channelsControllerFindOneWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
+     public async channelsControllerFindOneV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Channel >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Channel = ObjectSerializer.deserialize(

@@ -4,12 +4,12 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**channelsControllerCreate**](ChannelsApi.md#channelsControllerCreate) | **POST** /api/v1/channels | 
-[**channelsControllerFindOne**](ChannelsApi.md#channelsControllerFindOne) | **GET** /api/v1/channels/{guildUid}/{type} | 
+[**channelsControllerCreateV1**](ChannelsApi.md#channelsControllerCreateV1) | **POST** /api/v1/channels | 
+[**channelsControllerFindOneV1**](ChannelsApi.md#channelsControllerFindOneV1) | **GET** /api/v1/channels/{guildUid}/{type} | 
 
 
-# **channelsControllerCreate**
-> Channel channelsControllerCreate(createChannelDto)
+# **channelsControllerCreateV1**
+> Channel channelsControllerCreateV1(createChannelDto)
 
 
 ### Example
@@ -17,12 +17,12 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, ChannelsApi } from '';
-import type { ChannelsApiChannelsControllerCreateRequest } from '';
+import type { ChannelsApiChannelsControllerCreateV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new ChannelsApi(configuration);
 
-const request: ChannelsApiChannelsControllerCreateRequest = {
+const request: ChannelsApiChannelsControllerCreateV1Request = {
   
   createChannelDto: {
     uid: "uid_example",
@@ -31,7 +31,7 @@ const request: ChannelsApiChannelsControllerCreateRequest = {
   },
 };
 
-const data = await apiInstance.channelsControllerCreate(request);
+const data = await apiInstance.channelsControllerCreateV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -64,8 +64,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **channelsControllerFindOne**
-> Channel channelsControllerFindOne()
+# **channelsControllerFindOneV1**
+> Channel channelsControllerFindOneV1()
 
 
 ### Example
@@ -73,19 +73,19 @@ No authorization required
 
 ```typescript
 import { createConfiguration, ChannelsApi } from '';
-import type { ChannelsApiChannelsControllerFindOneRequest } from '';
+import type { ChannelsApiChannelsControllerFindOneV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new ChannelsApi(configuration);
 
-const request: ChannelsApiChannelsControllerFindOneRequest = {
+const request: ChannelsApiChannelsControllerFindOneV1Request = {
   
   guildUid: "guildUid_example",
   
   type: "construction",
 };
 
-const data = await apiInstance.channelsControllerFindOne(request);
+const data = await apiInstance.channelsControllerFindOneV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

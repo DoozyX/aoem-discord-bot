@@ -4,11 +4,11 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**healthControllerCheck**](HealthApi.md#healthControllerCheck) | **GET** /api/v1/health | 
+[**healthControllerCheckV1**](HealthApi.md#healthControllerCheckV1) | **GET** /api/v1/health | 
 
 
-# **healthControllerCheck**
-> HealthControllerCheck200Response healthControllerCheck()
+# **healthControllerCheckV1**
+> HealthControllerCheckV1200Response healthControllerCheckV1()
 
 
 ### Example
@@ -22,7 +22,7 @@ const apiInstance = new HealthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.healthControllerCheck(request);
+const data = await apiInstance.healthControllerCheckV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -33,7 +33,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**HealthControllerCheck200Response**
+**HealthControllerCheckV1200Response**
 
 ### Authorization
 

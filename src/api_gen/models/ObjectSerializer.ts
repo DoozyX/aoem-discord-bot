@@ -16,9 +16,9 @@ export * from '../models/ErrorResponse';
 export * from '../models/FileType';
 export * from '../models/FilterUserDto';
 export * from '../models/Guild';
-export * from '../models/HealthControllerCheck200Response';
-export * from '../models/HealthControllerCheck200ResponseInfoValue';
-export * from '../models/HealthControllerCheck503Response';
+export * from '../models/HealthControllerCheckV1200Response';
+export * from '../models/HealthControllerCheckV1200ResponseInfoValue';
+export * from '../models/HealthControllerCheckV1503Response';
 export * from '../models/LoginResponseType';
 export * from '../models/PageDto';
 export * from '../models/PageMetaDto';
@@ -28,7 +28,7 @@ export * from '../models/SortUserDto';
 export * from '../models/UpdateUserDto';
 export * from '../models/User';
 export * from '../models/UserStatistics';
-export * from '../models/UsersControllerFindAll200Response';
+export * from '../models/UsersControllerFindAllV1200Response';
 
 import { ActivateUserDto, ActivateUserDtoStatusEnum    } from '../models/ActivateUserDto';
 import { AuthConfirmEmailDto } from '../models/AuthConfirmEmailDto';
@@ -48,9 +48,9 @@ import { ErrorResponse } from '../models/ErrorResponse';
 import { FileType } from '../models/FileType';
 import { FilterUserDto, FilterUserDtoRolesEnum  , FilterUserDtoStatusesEnum    } from '../models/FilterUserDto';
 import { Guild } from '../models/Guild';
-import { HealthControllerCheck200Response } from '../models/HealthControllerCheck200Response';
-import { HealthControllerCheck200ResponseInfoValue } from '../models/HealthControllerCheck200ResponseInfoValue';
-import { HealthControllerCheck503Response } from '../models/HealthControllerCheck503Response';
+import { HealthControllerCheckV1200Response } from '../models/HealthControllerCheckV1200Response';
+import { HealthControllerCheckV1200ResponseInfoValue } from '../models/HealthControllerCheckV1200ResponseInfoValue';
+import { HealthControllerCheckV1503Response } from '../models/HealthControllerCheckV1503Response';
 import { LoginResponseType } from '../models/LoginResponseType';
 import { PageDto } from '../models/PageDto';
 import { PageMetaDto } from '../models/PageMetaDto';
@@ -60,7 +60,7 @@ import { SortUserDto, SortUserDtoOrderByEnum  , SortUserDtoOrderEnum   } from '.
 import { UpdateUserDto  , UpdateUserDtoRoleEnum  , UpdateUserDtoStatusEnum  , UpdateUserDtoLanguageEnum    } from '../models/UpdateUserDto';
 import { User     , UserRoleEnum  , UserStatusEnum   , UserLanguageEnum   } from '../models/User';
 import { UserStatistics } from '../models/UserStatistics';
-import { UsersControllerFindAll200Response } from '../models/UsersControllerFindAll200Response';
+import { UsersControllerFindAllV1200Response } from '../models/UsersControllerFindAllV1200Response';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -118,9 +118,9 @@ let typeMap: {[index: string]: any} = {
     "FileType": FileType,
     "FilterUserDto": FilterUserDto,
     "Guild": Guild,
-    "HealthControllerCheck200Response": HealthControllerCheck200Response,
-    "HealthControllerCheck200ResponseInfoValue": HealthControllerCheck200ResponseInfoValue,
-    "HealthControllerCheck503Response": HealthControllerCheck503Response,
+    "HealthControllerCheckV1200Response": HealthControllerCheckV1200Response,
+    "HealthControllerCheckV1200ResponseInfoValue": HealthControllerCheckV1200ResponseInfoValue,
+    "HealthControllerCheckV1503Response": HealthControllerCheckV1503Response,
     "LoginResponseType": LoginResponseType,
     "PageDto": PageDto,
     "PageMetaDto": PageMetaDto,
@@ -130,7 +130,7 @@ let typeMap: {[index: string]: any} = {
     "UpdateUserDto": UpdateUserDto,
     "User": User,
     "UserStatistics": UserStatistics,
-    "UsersControllerFindAll200Response": UsersControllerFindAll200Response,
+    "UsersControllerFindAllV1200Response": UsersControllerFindAllV1200Response,
 }
 
 type MimeTypeDescriptor = {

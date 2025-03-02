@@ -19,7 +19,7 @@ export class BuffService {
     ) {}
 
     public async registerGuild(id: string, name: string): Promise<void> {
-        await this.api.guilds.guildsControllerCreate({ uid: id, name });
+        await this.api.guilds.guildsControllerCreateV1({ uid: id, name });
 
         const guild = await this.client.guilds.fetch(id);
         await createRoleIfNotExists(guild, this.buffRole);
@@ -30,7 +30,7 @@ export class BuffService {
         buffType: BuffType,
         channelId: string
     ): Promise<void> {
-        await this.api.channels.channelsControllerCreate({
+        await this.api.channels.channelsControllerCreateV1({
             guildUid: guildId,
             type: buffType as unknown as CreateChannelDtoTypeEnum,
             uid: channelId,
@@ -40,7 +40,7 @@ export class BuffService {
     }
 
     public async requestBuff(guildId: string, buffType: BuffType, member: string): Promise<void> {
-        await this.api.buffs.buffsControllerCreate({
+        await this.api.buffs.buffsControllerCreateV1({
             guildUid: guildId,
             type: buffType as unknown as CreateBuffDtoTypeEnum,
             member: member,
@@ -65,7 +65,7 @@ export class BuffService {
             ? ` from <@${this.lastAssignedMember}>`
             : '';
 
-        const buff = await this.api.buffs.buffsControllerRemoveAt(guildId, buffType, position);
+        const buff = await this.api.buffs.buffsControllerRemoveAtV1(guildId, buffType, position);
 
         this.lastAssignedMember = buff.member;
 
@@ -130,13 +130,13 @@ export class BuffService {
             );
         }
 
-        await this.api.buffs.buffsControllerRemoveAt(guildId, buffType, position);
+        await this.api.buffs.buffsControllerRemoveAtV1(guildId, buffType, position);
 
         await this.refreshQueue(guildId, buffType);
     }
 
     public async getBuffChannel(guildId: string, buffType: BuffType): Promise<string> {
-        const response = await this.api.channels.channelsControllerFindOne(guildId, buffType);
+        const response = await this.api.channels.channelsControllerFindOneV1(guildId, buffType);
         if (!response) {
             throw new Error('Could not find channel ' + guildId);
         }
@@ -153,7 +153,8 @@ export class BuffService {
 
         const memberQueue = await this.getBuffMemberQueue(guildId, buffType);
         const queue = memberQueue.map((member, index) => `${index}. <@${member}>`).join('\n');
-        const queueMessage = queue.length === 0 ? 'Empty queue' : `# **Buff Queue**\n\n${queue}`;
+        const queueMessage =
+            queue.length === 0 ? '# **Empty Queue**' : `# **Buff Queue**\n\n${queue}`;
 
         const message = this.lastExtra ? `${queueMessage}\n\n\n${this.lastExtra}` : queueMessage;
         if (messages.size > 1 || firstMessage?.author.id !== this.client.user?.id) {
@@ -165,7 +166,7 @@ export class BuffService {
     }
 
     private async getBuffMemberQueue(guildId: string, buffType: BuffType): Promise<string[]> {
-        const buffsQueue = await this.api.buffs.buffsControllerFindAll(guildId, buffType);
+        const buffsQueue = await this.api.buffs.buffsControllerFindAllV1(guildId, buffType);
         return buffsQueue.map(buff => buff.member);
     }
 

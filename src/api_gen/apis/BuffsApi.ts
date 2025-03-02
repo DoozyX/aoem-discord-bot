@@ -21,12 +21,12 @@ export class BuffsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param createBuffDto 
      */
-    public async buffsControllerCreate(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<RequestContext> {
+    public async buffsControllerCreateV1(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'createBuffDto' is not null or undefined
         if (createBuffDto === null || createBuffDto === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerCreate", "createBuffDto");
+            throw new RequiredError("BuffsApi", "buffsControllerCreateV1", "createBuffDto");
         }
 
 
@@ -62,18 +62,18 @@ export class BuffsApiRequestFactory extends BaseAPIRequestFactory {
      * @param guildUid 
      * @param type 
      */
-    public async buffsControllerFindAll(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
+    public async buffsControllerFindAllV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'guildUid' is not null or undefined
         if (guildUid === null || guildUid === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerFindAll", "guildUid");
+            throw new RequiredError("BuffsApi", "buffsControllerFindAllV1", "guildUid");
         }
 
 
         // verify required parameter 'type' is not null or undefined
         if (type === null || type === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerFindAll", "type");
+            throw new RequiredError("BuffsApi", "buffsControllerFindAllV1", "type");
         }
 
 
@@ -101,24 +101,24 @@ export class BuffsApiRequestFactory extends BaseAPIRequestFactory {
      * @param type 
      * @param position 
      */
-    public async buffsControllerRemoveAt(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<RequestContext> {
+    public async buffsControllerRemoveAtV1(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'guildUid' is not null or undefined
         if (guildUid === null || guildUid === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerRemoveAt", "guildUid");
+            throw new RequiredError("BuffsApi", "buffsControllerRemoveAtV1", "guildUid");
         }
 
 
         // verify required parameter 'type' is not null or undefined
         if (type === null || type === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerRemoveAt", "type");
+            throw new RequiredError("BuffsApi", "buffsControllerRemoveAtV1", "type");
         }
 
 
         // verify required parameter 'position' is not null or undefined
         if (position === null || position === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerRemoveAt", "position");
+            throw new RequiredError("BuffsApi", "buffsControllerRemoveAtV1", "position");
         }
 
 
@@ -146,18 +146,18 @@ export class BuffsApiRequestFactory extends BaseAPIRequestFactory {
      * @param guildUid 
      * @param type 
      */
-    public async buffsControllerRemoveFirst(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
+    public async buffsControllerRemoveFirstV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'guildUid' is not null or undefined
         if (guildUid === null || guildUid === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerRemoveFirst", "guildUid");
+            throw new RequiredError("BuffsApi", "buffsControllerRemoveFirstV1", "guildUid");
         }
 
 
         // verify required parameter 'type' is not null or undefined
         if (type === null || type === undefined) {
-            throw new RequiredError("BuffsApi", "buffsControllerRemoveFirst", "type");
+            throw new RequiredError("BuffsApi", "buffsControllerRemoveFirstV1", "type");
         }
 
 
@@ -188,10 +188,10 @@ export class BuffsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to buffsControllerCreate
+     * @params response Response returned by the server for a request to buffsControllerCreateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async buffsControllerCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
+     public async buffsControllerCreateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: Buff = ObjectSerializer.deserialize(
@@ -217,10 +217,10 @@ export class BuffsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to buffsControllerFindAll
+     * @params response Response returned by the server for a request to buffsControllerFindAllV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async buffsControllerFindAllWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Buff> >> {
+     public async buffsControllerFindAllV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Buff> >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Array<Buff> = ObjectSerializer.deserialize(
@@ -249,10 +249,10 @@ export class BuffsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to buffsControllerRemoveAt
+     * @params response Response returned by the server for a request to buffsControllerRemoveAtV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async buffsControllerRemoveAtWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
+     public async buffsControllerRemoveAtV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Buff = ObjectSerializer.deserialize(
@@ -281,10 +281,10 @@ export class BuffsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to buffsControllerRemoveFirst
+     * @params response Response returned by the server for a request to buffsControllerRemoveFirstV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async buffsControllerRemoveFirstWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
+     public async buffsControllerRemoveFirstV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<Buff >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Buff = ObjectSerializer.deserialize(

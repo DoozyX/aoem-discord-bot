@@ -29,12 +29,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authConfirmEmailDto 
      */
-    public async authControllerConfirmEmail(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerConfirmEmailV1(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authConfirmEmailDto' is not null or undefined
         if (authConfirmEmailDto === null || authConfirmEmailDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerConfirmEmail", "authConfirmEmailDto");
+            throw new RequiredError("AuthApi", "authControllerConfirmEmailV1", "authConfirmEmailDto");
         }
 
 
@@ -69,12 +69,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authForgotPasswordDto 
      */
-    public async authControllerForgotPassword(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerForgotPasswordV1(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authForgotPasswordDto' is not null or undefined
         if (authForgotPasswordDto === null || authForgotPasswordDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerForgotPassword", "authForgotPasswordDto");
+            throw new RequiredError("AuthApi", "authControllerForgotPasswordV1", "authForgotPasswordDto");
         }
 
 
@@ -109,12 +109,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authEmailLoginDto 
      */
-    public async authControllerLogin(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerLoginV1(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authEmailLoginDto' is not null or undefined
         if (authEmailLoginDto === null || authEmailLoginDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerLogin", "authEmailLoginDto");
+            throw new RequiredError("AuthApi", "authControllerLoginV1", "authEmailLoginDto");
         }
 
 
@@ -148,7 +148,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async authControllerLogout(_options?: Configuration): Promise<RequestContext> {
+    public async authControllerLogoutV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -176,7 +176,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async authControllerMe(_options?: Configuration): Promise<RequestContext> {
+    public async authControllerMeV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -204,7 +204,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async authControllerRefresh(_options?: Configuration): Promise<RequestContext> {
+    public async authControllerRefreshV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -233,12 +233,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authRegisterLoginDto 
      */
-    public async authControllerRegister(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerRegisterV1(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authRegisterLoginDto' is not null or undefined
         if (authRegisterLoginDto === null || authRegisterLoginDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerRegister", "authRegisterLoginDto");
+            throw new RequiredError("AuthApi", "authControllerRegisterV1", "authRegisterLoginDto");
         }
 
 
@@ -272,7 +272,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async authControllerResendVerifyMail(_options?: Configuration): Promise<RequestContext> {
+    public async authControllerResendVerifyMailV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -301,12 +301,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authResetPasswordDto 
      */
-    public async authControllerResetPassword(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerResetPasswordV1(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authResetPasswordDto' is not null or undefined
         if (authResetPasswordDto === null || authResetPasswordDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerResetPassword", "authResetPasswordDto");
+            throw new RequiredError("AuthApi", "authControllerResetPasswordV1", "authResetPasswordDto");
         }
 
 
@@ -341,12 +341,12 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param authUpdateDto 
      */
-    public async authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<RequestContext> {
+    public async authControllerUpdateV1(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'authUpdateDto' is not null or undefined
         if (authUpdateDto === null || authUpdateDto === undefined) {
-            throw new RequiredError("AuthApi", "authControllerUpdate", "authUpdateDto");
+            throw new RequiredError("AuthApi", "authControllerUpdateV1", "authUpdateDto");
         }
 
 
@@ -392,10 +392,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerConfirmEmail
+     * @params response Response returned by the server for a request to authControllerConfirmEmailV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerConfirmEmailWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerConfirmEmailV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("204", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -431,10 +431,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerForgotPassword
+     * @params response Response returned by the server for a request to authControllerForgotPasswordV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerForgotPasswordWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerForgotPasswordV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("204", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -463,10 +463,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerLogin
+     * @params response Response returned by the server for a request to authControllerLoginV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerLoginWithHttpInfo(response: ResponseContext): Promise<HttpInfo<LoginResponseType >> {
+     public async authControllerLoginV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<LoginResponseType >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: LoginResponseType = ObjectSerializer.deserialize(
@@ -506,10 +506,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerLogout
+     * @params response Response returned by the server for a request to authControllerLogoutV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerLogoutWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerLogoutV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("204", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -531,10 +531,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerMe
+     * @params response Response returned by the server for a request to authControllerMeV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerMeWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async authControllerMeV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
@@ -560,10 +560,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerRefresh
+     * @params response Response returned by the server for a request to authControllerRefreshV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerRefreshWithHttpInfo(response: ResponseContext): Promise<HttpInfo<RefreshResponseType >> {
+     public async authControllerRefreshV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<RefreshResponseType >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: RefreshResponseType = ObjectSerializer.deserialize(
@@ -596,10 +596,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerRegister
+     * @params response Response returned by the server for a request to authControllerRegisterV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerRegisterWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerRegisterV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -628,10 +628,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerResendVerifyMail
+     * @params response Response returned by the server for a request to authControllerResendVerifyMailV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerResendVerifyMailWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerResendVerifyMailV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -660,10 +660,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerResetPassword
+     * @params response Response returned by the server for a request to authControllerResetPasswordV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerResetPasswordWithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
+     public async authControllerResetPasswordV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<void >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("204", response.httpStatusCode)) {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
@@ -699,10 +699,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerUpdate
+     * @params response Response returned by the server for a request to authControllerUpdateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async authControllerUpdateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(

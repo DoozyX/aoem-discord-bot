@@ -4,20 +4,20 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authControllerConfirmEmail**](AuthApi.md#authControllerConfirmEmail) | **POST** /api/v1/auth/email/confirm | 
-[**authControllerForgotPassword**](AuthApi.md#authControllerForgotPassword) | **POST** /api/v1/auth/forgot/password | 
-[**authControllerLogin**](AuthApi.md#authControllerLogin) | **POST** /api/v1/auth/email/login | 
-[**authControllerLogout**](AuthApi.md#authControllerLogout) | **POST** /api/v1/auth/logout | 
-[**authControllerMe**](AuthApi.md#authControllerMe) | **GET** /api/v1/auth/me | 
-[**authControllerRefresh**](AuthApi.md#authControllerRefresh) | **POST** /api/v1/auth/refresh | 
-[**authControllerRegister**](AuthApi.md#authControllerRegister) | **POST** /api/v1/auth/email/register | 
-[**authControllerResendVerifyMail**](AuthApi.md#authControllerResendVerifyMail) | **POST** /api/v1/auth/email/resend-verify-mail | 
-[**authControllerResetPassword**](AuthApi.md#authControllerResetPassword) | **POST** /api/v1/auth/reset/password | 
-[**authControllerUpdate**](AuthApi.md#authControllerUpdate) | **PATCH** /api/v1/auth/me | 
+[**authControllerConfirmEmailV1**](AuthApi.md#authControllerConfirmEmailV1) | **POST** /api/v1/auth/email/confirm | 
+[**authControllerForgotPasswordV1**](AuthApi.md#authControllerForgotPasswordV1) | **POST** /api/v1/auth/forgot/password | 
+[**authControllerLoginV1**](AuthApi.md#authControllerLoginV1) | **POST** /api/v1/auth/email/login | 
+[**authControllerLogoutV1**](AuthApi.md#authControllerLogoutV1) | **POST** /api/v1/auth/logout | 
+[**authControllerMeV1**](AuthApi.md#authControllerMeV1) | **GET** /api/v1/auth/me | 
+[**authControllerRefreshV1**](AuthApi.md#authControllerRefreshV1) | **POST** /api/v1/auth/refresh | 
+[**authControllerRegisterV1**](AuthApi.md#authControllerRegisterV1) | **POST** /api/v1/auth/email/register | 
+[**authControllerResendVerifyMailV1**](AuthApi.md#authControllerResendVerifyMailV1) | **POST** /api/v1/auth/email/resend-verify-mail | 
+[**authControllerResetPasswordV1**](AuthApi.md#authControllerResetPasswordV1) | **POST** /api/v1/auth/reset/password | 
+[**authControllerUpdateV1**](AuthApi.md#authControllerUpdateV1) | **PATCH** /api/v1/auth/me | 
 
 
-# **authControllerConfirmEmail**
-> void authControllerConfirmEmail(authConfirmEmailDto)
+# **authControllerConfirmEmailV1**
+> void authControllerConfirmEmailV1(authConfirmEmailDto)
 
 
 ### Example
@@ -25,19 +25,19 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerConfirmEmailRequest } from '';
+import type { AuthApiAuthControllerConfirmEmailV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerConfirmEmailRequest = {
+const request: AuthApiAuthControllerConfirmEmailV1Request = {
   
   authConfirmEmailDto: {
     hash: "hash_example",
   },
 };
 
-const data = await apiInstance.authControllerConfirmEmail(request);
+const data = await apiInstance.authControllerConfirmEmailV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -72,8 +72,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerForgotPassword**
-> void authControllerForgotPassword(authForgotPasswordDto)
+# **authControllerForgotPasswordV1**
+> void authControllerForgotPasswordV1(authForgotPasswordDto)
 
 
 ### Example
@@ -81,19 +81,19 @@ No authorization required
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerForgotPasswordRequest } from '';
+import type { AuthApiAuthControllerForgotPasswordV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerForgotPasswordRequest = {
+const request: AuthApiAuthControllerForgotPasswordV1Request = {
   
   authForgotPasswordDto: {
     email: "email_example",
   },
 };
 
-const data = await apiInstance.authControllerForgotPassword(request);
+const data = await apiInstance.authControllerForgotPasswordV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -127,8 +127,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerLogin**
-> LoginResponseType authControllerLogin(authEmailLoginDto)
+# **authControllerLoginV1**
+> LoginResponseType authControllerLoginV1(authEmailLoginDto)
 
 
 ### Example
@@ -136,12 +136,12 @@ No authorization required
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerLoginRequest } from '';
+import type { AuthApiAuthControllerLoginV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerLoginRequest = {
+const request: AuthApiAuthControllerLoginV1Request = {
   
   authEmailLoginDto: {
     email: "user@doozyx.com",
@@ -149,7 +149,7 @@ const request: AuthApiAuthControllerLoginRequest = {
   },
 };
 
-const data = await apiInstance.authControllerLogin(request);
+const data = await apiInstance.authControllerLoginV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -184,8 +184,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerLogout**
-> void authControllerLogout()
+# **authControllerLogoutV1**
+> void authControllerLogoutV1()
 
 
 ### Example
@@ -199,7 +199,7 @@ const apiInstance = new AuthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.authControllerLogout(request);
+const data = await apiInstance.authControllerLogoutV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -229,8 +229,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerMe**
-> User authControllerMe()
+# **authControllerMeV1**
+> User authControllerMeV1()
 
 
 ### Example
@@ -244,7 +244,7 @@ const apiInstance = new AuthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.authControllerMe(request);
+const data = await apiInstance.authControllerMeV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -274,8 +274,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerRefresh**
-> RefreshResponseType authControllerRefresh()
+# **authControllerRefreshV1**
+> RefreshResponseType authControllerRefreshV1()
 
 
 ### Example
@@ -289,7 +289,7 @@ const apiInstance = new AuthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.authControllerRefresh(request);
+const data = await apiInstance.authControllerRefreshV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -320,8 +320,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerRegister**
-> void authControllerRegister(authRegisterLoginDto)
+# **authControllerRegisterV1**
+> void authControllerRegisterV1(authRegisterLoginDto)
 
 
 ### Example
@@ -329,12 +329,12 @@ This endpoint does not need any parameter.
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerRegisterRequest } from '';
+import type { AuthApiAuthControllerRegisterV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerRegisterRequest = {
+const request: AuthApiAuthControllerRegisterV1Request = {
   
   authRegisterLoginDto: {
     email: "user@doozyx.com",
@@ -343,7 +343,7 @@ const request: AuthApiAuthControllerRegisterRequest = {
   },
 };
 
-const data = await apiInstance.authControllerRegister(request);
+const data = await apiInstance.authControllerRegisterV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -377,8 +377,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerResendVerifyMail**
-> void authControllerResendVerifyMail()
+# **authControllerResendVerifyMailV1**
+> void authControllerResendVerifyMailV1()
 
 
 ### Example
@@ -392,7 +392,7 @@ const apiInstance = new AuthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.authControllerResendVerifyMail(request);
+const data = await apiInstance.authControllerResendVerifyMailV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -423,8 +423,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerResetPassword**
-> void authControllerResetPassword(authResetPasswordDto)
+# **authControllerResetPasswordV1**
+> void authControllerResetPasswordV1(authResetPasswordDto)
 
 
 ### Example
@@ -432,12 +432,12 @@ This endpoint does not need any parameter.
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerResetPasswordRequest } from '';
+import type { AuthApiAuthControllerResetPasswordV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerResetPasswordRequest = {
+const request: AuthApiAuthControllerResetPasswordV1Request = {
   
   authResetPasswordDto: {
     password: "password_example",
@@ -445,7 +445,7 @@ const request: AuthApiAuthControllerResetPasswordRequest = {
   },
 };
 
-const data = await apiInstance.authControllerResetPassword(request);
+const data = await apiInstance.authControllerResetPasswordV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -480,8 +480,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **authControllerUpdate**
-> User authControllerUpdate(authUpdateDto)
+# **authControllerUpdateV1**
+> User authControllerUpdateV1(authUpdateDto)
 
 
 ### Example
@@ -489,12 +489,12 @@ No authorization required
 
 ```typescript
 import { createConfiguration, AuthApi } from '';
-import type { AuthApiAuthControllerUpdateRequest } from '';
+import type { AuthApiAuthControllerUpdateV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
 
-const request: AuthApiAuthControllerUpdateRequest = {
+const request: AuthApiAuthControllerUpdateV1Request = {
   
   authUpdateDto: {
     password: "password_example",
@@ -502,7 +502,7 @@ const request: AuthApiAuthControllerUpdateRequest = {
   },
 };
 
-const data = await apiInstance.authControllerUpdate(request);
+const data = await apiInstance.authControllerUpdateV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

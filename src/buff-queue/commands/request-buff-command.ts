@@ -59,8 +59,8 @@ export class RequestBuffCommand implements Command {
                 intr,
                 `Successfully requested buff. Check ${buffType} channel`
             );
-        } catch (error) {
-            await InteractionUtils.send(intr, `Can't request buff. ${(error as Error).message}`);
+        } catch {
+            await InteractionUtils.send(intr, `Can't request buff.`);
         }
     }
 }

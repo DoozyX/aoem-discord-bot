@@ -28,7 +28,7 @@ export class CreateUserDto {
             "name": "email",
             "baseName": "email",
             "type": "string",
-            "format": ""
+            "format": "email"
         },
         {
             "name": "password",

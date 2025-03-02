@@ -4,14 +4,14 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**buffsControllerCreate**](BuffsApi.md#buffsControllerCreate) | **POST** /api/v1/buffs | 
-[**buffsControllerFindAll**](BuffsApi.md#buffsControllerFindAll) | **PATCH** /api/v1/buffs/{guildUid}/{type} | 
-[**buffsControllerRemoveAt**](BuffsApi.md#buffsControllerRemoveAt) | **DELETE** /api/v1/buffs/{guildUid}/{type}/{position} | 
-[**buffsControllerRemoveFirst**](BuffsApi.md#buffsControllerRemoveFirst) | **DELETE** /api/v1/buffs/{guildUid}/{type} | 
+[**buffsControllerCreateV1**](BuffsApi.md#buffsControllerCreateV1) | **POST** /api/v1/buffs | 
+[**buffsControllerFindAllV1**](BuffsApi.md#buffsControllerFindAllV1) | **PATCH** /api/v1/buffs/{guildUid}/{type} | 
+[**buffsControllerRemoveAtV1**](BuffsApi.md#buffsControllerRemoveAtV1) | **DELETE** /api/v1/buffs/{guildUid}/{type}/{position} | 
+[**buffsControllerRemoveFirstV1**](BuffsApi.md#buffsControllerRemoveFirstV1) | **DELETE** /api/v1/buffs/{guildUid}/{type} | 
 
 
-# **buffsControllerCreate**
-> Buff buffsControllerCreate(createBuffDto)
+# **buffsControllerCreateV1**
+> Buff buffsControllerCreateV1(createBuffDto)
 
 
 ### Example
@@ -19,12 +19,12 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, BuffsApi } from '';
-import type { BuffsApiBuffsControllerCreateRequest } from '';
+import type { BuffsApiBuffsControllerCreateV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BuffsApi(configuration);
 
-const request: BuffsApiBuffsControllerCreateRequest = {
+const request: BuffsApiBuffsControllerCreateV1Request = {
   
   createBuffDto: {
     guildUid: "guildUid_example",
@@ -33,7 +33,7 @@ const request: BuffsApiBuffsControllerCreateRequest = {
   },
 };
 
-const data = await apiInstance.buffsControllerCreate(request);
+const data = await apiInstance.buffsControllerCreateV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -66,8 +66,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **buffsControllerFindAll**
-> Array<Buff> buffsControllerFindAll()
+# **buffsControllerFindAllV1**
+> Array<Buff> buffsControllerFindAllV1()
 
 
 ### Example
@@ -75,19 +75,19 @@ No authorization required
 
 ```typescript
 import { createConfiguration, BuffsApi } from '';
-import type { BuffsApiBuffsControllerFindAllRequest } from '';
+import type { BuffsApiBuffsControllerFindAllV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BuffsApi(configuration);
 
-const request: BuffsApiBuffsControllerFindAllRequest = {
+const request: BuffsApiBuffsControllerFindAllV1Request = {
   
   guildUid: "guildUid_example",
   
   type: "construction",
 };
 
-const data = await apiInstance.buffsControllerFindAll(request);
+const data = await apiInstance.buffsControllerFindAllV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -122,8 +122,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **buffsControllerRemoveAt**
-> Buff buffsControllerRemoveAt()
+# **buffsControllerRemoveAtV1**
+> Buff buffsControllerRemoveAtV1()
 
 
 ### Example
@@ -131,12 +131,12 @@ No authorization required
 
 ```typescript
 import { createConfiguration, BuffsApi } from '';
-import type { BuffsApiBuffsControllerRemoveAtRequest } from '';
+import type { BuffsApiBuffsControllerRemoveAtV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BuffsApi(configuration);
 
-const request: BuffsApiBuffsControllerRemoveAtRequest = {
+const request: BuffsApiBuffsControllerRemoveAtV1Request = {
   
   guildUid: "guildUid_example",
   
@@ -145,7 +145,7 @@ const request: BuffsApiBuffsControllerRemoveAtRequest = {
   position: 3.14,
 };
 
-const data = await apiInstance.buffsControllerRemoveAt(request);
+const data = await apiInstance.buffsControllerRemoveAtV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -181,8 +181,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **buffsControllerRemoveFirst**
-> Buff buffsControllerRemoveFirst()
+# **buffsControllerRemoveFirstV1**
+> Buff buffsControllerRemoveFirstV1()
 
 
 ### Example
@@ -190,19 +190,19 @@ No authorization required
 
 ```typescript
 import { createConfiguration, BuffsApi } from '';
-import type { BuffsApiBuffsControllerRemoveFirstRequest } from '';
+import type { BuffsApiBuffsControllerRemoveFirstV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BuffsApi(configuration);
 
-const request: BuffsApiBuffsControllerRemoveFirstRequest = {
+const request: BuffsApiBuffsControllerRemoveFirstV1Request = {
   
   guildUid: "guildUid_example",
   
   type: "construction",
 };
 
-const data = await apiInstance.buffsControllerRemoveFirst(request);
+const data = await apiInstance.buffsControllerRemoveFirstV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

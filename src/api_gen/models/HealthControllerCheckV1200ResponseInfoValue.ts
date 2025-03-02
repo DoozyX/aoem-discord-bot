@@ -12,10 +12,8 @@
 
 import { HttpFile } from '../http/http';
 
-export class AuthRegisterLoginDto {
-    'email': string;
-    'password': string;
-    'language': AuthRegisterLoginDtoLanguageEnum;
+export class HealthControllerCheckV1200ResponseInfoValue {
+    'status': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -23,34 +21,16 @@ export class AuthRegisterLoginDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "email",
-            "baseName": "email",
+            "name": "status",
+            "baseName": "status",
             "type": "string",
-            "format": "email"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "language",
-            "baseName": "language",
-            "type": "AuthRegisterLoginDtoLanguageEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AuthRegisterLoginDto.attributeTypeMap;
+        return HealthControllerCheckV1200ResponseInfoValue.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-export enum AuthRegisterLoginDtoLanguageEnum {
-    En = 'en',
-    Mk = 'mk'
-}
-

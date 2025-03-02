@@ -4,12 +4,12 @@ All URIs are relative to *https://aoem-api.doozyx.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**guildsControllerCreate**](GuildsApi.md#guildsControllerCreate) | **POST** /api/v1/guilds | 
-[**guildsControllerFindAll**](GuildsApi.md#guildsControllerFindAll) | **GET** /api/v1/guilds | 
+[**guildsControllerCreateV1**](GuildsApi.md#guildsControllerCreateV1) | **POST** /api/v1/guilds | 
+[**guildsControllerFindAllV1**](GuildsApi.md#guildsControllerFindAllV1) | **GET** /api/v1/guilds | 
 
 
-# **guildsControllerCreate**
-> Guild guildsControllerCreate(createGuildDto)
+# **guildsControllerCreateV1**
+> Guild guildsControllerCreateV1(createGuildDto)
 
 
 ### Example
@@ -17,12 +17,12 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, GuildsApi } from '';
-import type { GuildsApiGuildsControllerCreateRequest } from '';
+import type { GuildsApiGuildsControllerCreateV1Request } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new GuildsApi(configuration);
 
-const request: GuildsApiGuildsControllerCreateRequest = {
+const request: GuildsApiGuildsControllerCreateV1Request = {
   
   createGuildDto: {
     uid: "uid_example",
@@ -30,7 +30,7 @@ const request: GuildsApiGuildsControllerCreateRequest = {
   },
 };
 
-const data = await apiInstance.guildsControllerCreate(request);
+const data = await apiInstance.guildsControllerCreateV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -63,8 +63,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **guildsControllerFindAll**
-> Array<Guild> guildsControllerFindAll()
+# **guildsControllerFindAllV1**
+> Array<Guild> guildsControllerFindAllV1()
 
 
 ### Example
@@ -78,7 +78,7 @@ const apiInstance = new GuildsApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.guildsControllerFindAll(request);
+const data = await apiInstance.guildsControllerFindAllV1(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

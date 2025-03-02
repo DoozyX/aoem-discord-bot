@@ -17,7 +17,7 @@ import { QueryUserDto } from '../models/QueryUserDto';
 import { UpdateUserDto } from '../models/UpdateUserDto';
 import { User } from '../models/User';
 import { UserStatistics } from '../models/UserStatistics';
-import { UsersControllerFindAll200Response } from '../models/UsersControllerFindAll200Response';
+import { UsersControllerFindAllV1200Response } from '../models/UsersControllerFindAllV1200Response';
 
 /**
  * no description
@@ -28,18 +28,18 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
      * @param id 
      * @param activateUserDto 
      */
-    public async usersControllerActivate(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<RequestContext> {
+    public async usersControllerActivateV1(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerActivate", "id");
+            throw new RequiredError("UsersApi", "usersControllerActivateV1", "id");
         }
 
 
         // verify required parameter 'activateUserDto' is not null or undefined
         if (activateUserDto === null || activateUserDto === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerActivate", "activateUserDto");
+            throw new RequiredError("UsersApi", "usersControllerActivateV1", "activateUserDto");
         }
 
 
@@ -79,60 +79,14 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param createUserDto 
-     */
-    public async usersControllerCreate(createUserDto: CreateUserDto, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'createUserDto' is not null or undefined
-        if (createUserDto === null || createUserDto === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerCreate", "createUserDto");
-        }
-
-
-        // Path Params
-        const localVarPath = '/api/v1/users';
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["bearer"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
      * @param createIndividualUserDto 
      */
-    public async usersControllerCreateIndividual(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<RequestContext> {
+    public async usersControllerCreateIndividualV1(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'createIndividualUserDto' is not null or undefined
         if (createIndividualUserDto === null || createIndividualUserDto === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerCreateIndividual", "createIndividualUserDto");
+            throw new RequiredError("UsersApi", "usersControllerCreateIndividualV1", "createIndividualUserDto");
         }
 
 
@@ -171,14 +125,60 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * @param createUserDto 
+     */
+    public async usersControllerCreateV1(createUserDto: CreateUserDto, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'createUserDto' is not null or undefined
+        if (createUserDto === null || createUserDto === undefined) {
+            throw new RequiredError("UsersApi", "usersControllerCreateV1", "createUserDto");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/users';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * @param queryUserDto 
      */
-    public async usersControllerFindAll(queryUserDto: QueryUserDto, _options?: Configuration): Promise<RequestContext> {
+    public async usersControllerFindAllV1(queryUserDto: QueryUserDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'queryUserDto' is not null or undefined
         if (queryUserDto === null || queryUserDto === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerFindAll", "queryUserDto");
+            throw new RequiredError("UsersApi", "usersControllerFindAllV1", "queryUserDto");
         }
 
 
@@ -219,12 +219,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param id 
      */
-    public async usersControllerFindOne(id: string, _options?: Configuration): Promise<RequestContext> {
+    public async usersControllerFindOneV1(id: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerFindOne", "id");
+            throw new RequiredError("UsersApi", "usersControllerFindOneV1", "id");
         }
 
 
@@ -254,7 +254,7 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async usersControllerStatistics(_options?: Configuration): Promise<RequestContext> {
+    public async usersControllerStatisticsV1(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -284,18 +284,18 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
      * @param id 
      * @param updateUserDto 
      */
-    public async usersControllerUpdate(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<RequestContext> {
+    public async usersControllerUpdateV1(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerUpdate", "id");
+            throw new RequiredError("UsersApi", "usersControllerUpdateV1", "id");
         }
 
 
         // verify required parameter 'updateUserDto' is not null or undefined
         if (updateUserDto === null || updateUserDto === undefined) {
-            throw new RequiredError("UsersApi", "usersControllerUpdate", "updateUserDto");
+            throw new RequiredError("UsersApi", "usersControllerUpdateV1", "updateUserDto");
         }
 
 
@@ -342,10 +342,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerActivate
+     * @params response Response returned by the server for a request to usersControllerActivateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerActivateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async usersControllerActivateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
@@ -374,10 +374,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerCreate
+     * @params response Response returned by the server for a request to usersControllerCreateIndividualV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async usersControllerCreateIndividualV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
@@ -406,10 +406,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerCreateIndividual
+     * @params response Response returned by the server for a request to usersControllerCreateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerCreateIndividualWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async usersControllerCreateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
@@ -438,25 +438,25 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerFindAll
+     * @params response Response returned by the server for a request to usersControllerFindAllV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerFindAllWithHttpInfo(response: ResponseContext): Promise<HttpInfo<UsersControllerFindAll200Response >> {
+     public async usersControllerFindAllV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<UsersControllerFindAllV1200Response >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: UsersControllerFindAll200Response = ObjectSerializer.deserialize(
+            const body: UsersControllerFindAllV1200Response = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "UsersControllerFindAll200Response", ""
-            ) as UsersControllerFindAll200Response;
+                "UsersControllerFindAllV1200Response", ""
+            ) as UsersControllerFindAllV1200Response;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: UsersControllerFindAll200Response = ObjectSerializer.deserialize(
+            const body: UsersControllerFindAllV1200Response = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "UsersControllerFindAll200Response", ""
-            ) as UsersControllerFindAll200Response;
+                "UsersControllerFindAllV1200Response", ""
+            ) as UsersControllerFindAllV1200Response;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -467,10 +467,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerFindOne
+     * @params response Response returned by the server for a request to usersControllerFindOneV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerFindOneWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async usersControllerFindOneV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
@@ -496,10 +496,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerStatistics
+     * @params response Response returned by the server for a request to usersControllerStatisticsV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerStatisticsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<UserStatistics >> {
+     public async usersControllerStatisticsV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<UserStatistics >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: UserStatistics = ObjectSerializer.deserialize(
@@ -525,10 +525,10 @@ export class UsersApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to usersControllerUpdate
+     * @params response Response returned by the server for a request to usersControllerUpdateV1
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async usersControllerUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async usersControllerUpdateV1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(

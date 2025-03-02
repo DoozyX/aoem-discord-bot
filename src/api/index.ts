@@ -47,7 +47,7 @@ export class Api {
     }
 
     public async login({ email, password }: AuthCredentials): Promise<void> {
-        const authResponse = await this.auth.authControllerLogin({ email, password });
+        const authResponse = await this.auth.authControllerLoginV1({ email, password });
         this.loginUser = authResponse;
 
         const authConfig = this.getBearerConfig(authResponse.token);

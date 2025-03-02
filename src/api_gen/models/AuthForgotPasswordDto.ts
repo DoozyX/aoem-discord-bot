@@ -24,7 +24,7 @@ export class AuthForgotPasswordDto {
             "name": "email",
             "baseName": "email",
             "type": "string",
-            "format": ""
+            "format": "email"
         }    ];
 
     static getAttributeTypeMap() {

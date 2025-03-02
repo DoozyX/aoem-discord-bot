@@ -44,9 +44,9 @@ models/ErrorResponse.ts
 models/FileType.ts
 models/FilterUserDto.ts
 models/Guild.ts
-models/HealthControllerCheck200Response.ts
-models/HealthControllerCheck200ResponseInfoValue.ts
-models/HealthControllerCheck503Response.ts
+models/HealthControllerCheckV1200Response.ts
+models/HealthControllerCheckV1200ResponseInfoValue.ts
+models/HealthControllerCheckV1503Response.ts
 models/LoginResponseType.ts
 models/ObjectSerializer.ts
 models/PageDto.ts
@@ -57,7 +57,7 @@ models/SortUserDto.ts
 models/UpdateUserDto.ts
 models/User.ts
 models/UserStatistics.ts
-models/UsersControllerFindAll200Response.ts
+models/UsersControllerFindAllV1200Response.ts
 models/all.ts
 package.json
 rxjsStub.ts

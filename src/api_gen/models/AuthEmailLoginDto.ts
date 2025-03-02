@@ -25,7 +25,7 @@ export class AuthEmailLoginDto {
             "name": "email",
             "baseName": "email",
             "type": "string",
-            "format": ""
+            "format": "email"
         },
         {
             "name": "password",

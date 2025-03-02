@@ -2,7 +2,7 @@ openapi: 3.0.0
 paths:
   /api/v1/users:
     post:
-      operationId: UsersController_create
+      operationId: UsersController_create_v1
       parameters: []
       requestBody:
         required: true
@@ -19,13 +19,13 @@ paths:
                 $ref: '#/components/schemas/User'
         '422':
           description: Invalid data provided
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/users/individual:
     post:
-      operationId: UsersController_createIndividual
+      operationId: UsersController_createIndividual_v1
       parameters: []
       requestBody:
         required: true
@@ -42,13 +42,13 @@ paths:
                 $ref: '#/components/schemas/User'
         '422':
           description: Invalid data provided
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/users/{id}:
     patch:
-      operationId: UsersController_update
+      operationId: UsersController_update_v1
       parameters:
         - name: id
           required: true
@@ -70,12 +70,12 @@ paths:
                 $ref: '#/components/schemas/User'
         '422':
           description: Invalid data provided
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
     get:
-      operationId: UsersController_findOne
+      operationId: UsersController_findOne_v1
       parameters:
         - name: id
           required: true
@@ -89,13 +89,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/users/{id}/activate:
     patch:
-      operationId: UsersController_activate
+      operationId: UsersController_activate_v1
       parameters:
         - name: id
           required: true
@@ -117,13 +117,13 @@ paths:
                 $ref: '#/components/schemas/User'
         '422':
           description: Invalid data provided
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/users/statistics:
     get:
-      operationId: UsersController_statistics
+      operationId: UsersController_statistics_v1
       parameters: []
       responses:
         '200':
@@ -132,13 +132,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserStatistics'
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/users/all:
     post:
-      operationId: UsersController_findAll
+      operationId: UsersController_findAll_v1
       parameters: []
       requestBody:
         required: true
@@ -159,13 +159,13 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/User'
-      tags:
-        - Users
       security:
         - bearer: []
+      tags:
+        - Users
   /api/v1/auth/email/login:
     post:
-      operationId: AuthController_login
+      operationId: AuthController_login_v1
       parameters: []
       requestBody:
         required: true
@@ -196,7 +196,7 @@ paths:
         - Auth
   /api/v1/auth/email/register:
     post:
-      operationId: AuthController_register
+      operationId: AuthController_register_v1
       parameters: []
       requestBody:
         required: true
@@ -217,7 +217,7 @@ paths:
         - Auth
   /api/v1/auth/email/resend-verify-mail:
     post:
-      operationId: AuthController_resendVerifyMail
+      operationId: AuthController_resendVerifyMail_v1
       parameters: []
       responses:
         '200':
@@ -228,13 +228,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      tags:
-        - Auth
       security:
         - bearer: []
+      tags:
+        - Auth
   /api/v1/auth/email/confirm:
     post:
-      operationId: AuthController_confirmEmail
+      operationId: AuthController_confirmEmail_v1
       parameters: []
       requestBody:
         required: true
@@ -261,7 +261,7 @@ paths:
         - Auth
   /api/v1/auth/forgot/password:
     post:
-      operationId: AuthController_forgotPassword
+      operationId: AuthController_forgotPassword_v1
       parameters: []
       requestBody:
         required: true
@@ -282,7 +282,7 @@ paths:
         - Auth
   /api/v1/auth/reset/password:
     post:
-      operationId: AuthController_resetPassword
+      operationId: AuthController_resetPassword_v1
       parameters: []
       requestBody:
         required: true
@@ -309,7 +309,7 @@ paths:
         - Auth
   /api/v1/auth/me:
     get:
-      operationId: AuthController_me
+      operationId: AuthController_me_v1
       parameters: []
       responses:
         '200':
@@ -318,12 +318,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-      tags:
-        - Auth
       security:
         - bearer: []
+      tags:
+        - Auth
     patch:
-      operationId: AuthController_update
+      operationId: AuthController_update_v1
       parameters: []
       requestBody:
         required: true
@@ -344,13 +344,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      tags:
-        - Auth
       security:
         - bearer: []
+      tags:
+        - Auth
   /api/v1/auth/refresh:
     post:
-      operationId: AuthController_refresh
+      operationId: AuthController_refresh_v1
       parameters: []
       responses:
         '200':
@@ -365,24 +365,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      tags:
-        - Auth
       security:
         - bearer: []
+      tags:
+        - Auth
   /api/v1/auth/logout:
     post:
-      operationId: AuthController_logout
+      operationId: AuthController_logout_v1
       parameters: []
       responses:
         '204':
           description: Logout successful
-      tags:
-        - Auth
       security:
         - bearer: []
+      tags:
+        - Auth
   /api/v1/files/upload:
     post:
-      operationId: FilesLocalController_uploadFile
+      operationId: FilesLocalController_uploadFile_v1
       parameters: []
       requestBody:
         required: true
@@ -407,10 +407,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      tags:
-        - Files
       security:
         - bearer: []
+      tags:
+        - Files
   /:
     get:
       operationId: HomeController_appInfo
@@ -422,7 +422,7 @@ paths:
         - Home
   /api/v1/health:
     get:
-      operationId: HealthController_check
+      operationId: HealthController_check_v1
       parameters: []
       responses:
         '200':
@@ -533,7 +533,7 @@ paths:
         - Health
   /api/v1/guilds:
     post:
-      operationId: GuildsController_create
+      operationId: GuildsController_create_v1
       parameters: []
       requestBody:
         required: true
@@ -551,7 +551,7 @@ paths:
       tags:
         - Guilds
     get:
-      operationId: GuildsController_findAll
+      operationId: GuildsController_findAll_v1
       parameters: []
       responses:
         '200':
@@ -566,7 +566,7 @@ paths:
         - Guilds
   /api/v1/channels:
     post:
-      operationId: ChannelsController_create
+      operationId: ChannelsController_create_v1
       parameters: []
       requestBody:
         required: true
@@ -585,7 +585,7 @@ paths:
         - Channels
   /api/v1/channels/{guildUid}/{type}:
     get:
-      operationId: ChannelsController_findOne
+      operationId: ChannelsController_findOne_v1
       parameters:
         - name: guildUid
           required: true
@@ -612,7 +612,7 @@ paths:
         - Channels
   /api/v1/buffs:
     post:
-      operationId: BuffsController_create
+      operationId: BuffsController_create_v1
       parameters: []
       requestBody:
         required: true
@@ -631,7 +631,7 @@ paths:
         - Buffs
   /api/v1/buffs/{guildUid}/{type}:
     patch:
-      operationId: BuffsController_findAll
+      operationId: BuffsController_findAll_v1
       parameters:
         - name: guildUid
           required: true
@@ -661,7 +661,7 @@ paths:
       tags:
         - Buffs
     delete:
-      operationId: BuffsController_removeFirst
+      operationId: BuffsController_removeFirst_v1
       parameters:
         - name: guildUid
           required: true
@@ -690,7 +690,7 @@ paths:
         - Buffs
   /api/v1/buffs/{guildUid}/{type}/{position}:
     delete:
-      operationId: BuffsController_removeAt
+      operationId: BuffsController_removeAt_v1
       parameters:
         - name: guildUid
           required: true
@@ -745,6 +745,7 @@ components:
       properties:
         email:
           type: string
+          format: email
         password:
           type: string
         role:
@@ -835,6 +836,7 @@ components:
       properties:
         email:
           type: string
+          format: email
         password:
           type: string
         role:
@@ -871,6 +873,7 @@ components:
       properties:
         email:
           type: string
+          format: email
           example: test1@doozyx.com
         password:
           type: string
@@ -1041,6 +1044,7 @@ components:
       properties:
         email:
           type: string
+          format: email
           example: user@doozyx.com
         password:
           type: string
@@ -1081,6 +1085,7 @@ components:
       properties:
         email:
           type: string
+          format: email
           example: user@doozyx.com
         password:
           type: string
@@ -1106,6 +1111,7 @@ components:
       properties:
         email:
           type: string
+          format: email
       required:
         - email
     AuthResetPasswordDto:

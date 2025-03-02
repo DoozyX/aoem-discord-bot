@@ -19,9 +19,9 @@ import { ErrorResponse } from '../models/ErrorResponse';
 import { FileType } from '../models/FileType';
 import { FilterUserDto } from '../models/FilterUserDto';
 import { Guild } from '../models/Guild';
-import { HealthControllerCheck200Response } from '../models/HealthControllerCheck200Response';
-import { HealthControllerCheck200ResponseInfoValue } from '../models/HealthControllerCheck200ResponseInfoValue';
-import { HealthControllerCheck503Response } from '../models/HealthControllerCheck503Response';
+import { HealthControllerCheckV1200Response } from '../models/HealthControllerCheckV1200Response';
+import { HealthControllerCheckV1200ResponseInfoValue } from '../models/HealthControllerCheckV1200ResponseInfoValue';
+import { HealthControllerCheckV1503Response } from '../models/HealthControllerCheckV1503Response';
 import { LoginResponseType } from '../models/LoginResponseType';
 import { PageDto } from '../models/PageDto';
 import { PageMetaDto } from '../models/PageMetaDto';
@@ -31,7 +31,7 @@ import { SortUserDto } from '../models/SortUserDto';
 import { UpdateUserDto } from '../models/UpdateUserDto';
 import { User } from '../models/User';
 import { UserStatistics } from '../models/UserStatistics';
-import { UsersControllerFindAll200Response } from '../models/UsersControllerFindAll200Response';
+import { UsersControllerFindAllV1200Response } from '../models/UsersControllerFindAllV1200Response';
 import { ObservableAuthApi } from './ObservableAPI';
 
 import { AuthApiRequestFactory, AuthApiResponseProcessor} from "../apis/AuthApi";
@@ -49,152 +49,152 @@ export class PromiseAuthApi {
     /**
      * @param authConfirmEmailDto
      */
-    public authControllerConfirmEmailWithHttpInfo(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerConfirmEmailWithHttpInfo(authConfirmEmailDto, _options);
+    public authControllerConfirmEmailV1WithHttpInfo(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerConfirmEmailV1WithHttpInfo(authConfirmEmailDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authConfirmEmailDto
      */
-    public authControllerConfirmEmail(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<void> {
-        const result = this.api.authControllerConfirmEmail(authConfirmEmailDto, _options);
+    public authControllerConfirmEmailV1(authConfirmEmailDto: AuthConfirmEmailDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authControllerConfirmEmailV1(authConfirmEmailDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authForgotPasswordDto
      */
-    public authControllerForgotPasswordWithHttpInfo(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerForgotPasswordWithHttpInfo(authForgotPasswordDto, _options);
+    public authControllerForgotPasswordV1WithHttpInfo(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerForgotPasswordV1WithHttpInfo(authForgotPasswordDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authForgotPasswordDto
      */
-    public authControllerForgotPassword(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<void> {
-        const result = this.api.authControllerForgotPassword(authForgotPasswordDto, _options);
+    public authControllerForgotPasswordV1(authForgotPasswordDto: AuthForgotPasswordDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authControllerForgotPasswordV1(authForgotPasswordDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authEmailLoginDto
      */
-    public authControllerLoginWithHttpInfo(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<HttpInfo<LoginResponseType>> {
-        const result = this.api.authControllerLoginWithHttpInfo(authEmailLoginDto, _options);
+    public authControllerLoginV1WithHttpInfo(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<HttpInfo<LoginResponseType>> {
+        const result = this.api.authControllerLoginV1WithHttpInfo(authEmailLoginDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authEmailLoginDto
      */
-    public authControllerLogin(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<LoginResponseType> {
-        const result = this.api.authControllerLogin(authEmailLoginDto, _options);
+    public authControllerLoginV1(authEmailLoginDto: AuthEmailLoginDto, _options?: Configuration): Promise<LoginResponseType> {
+        const result = this.api.authControllerLoginV1(authEmailLoginDto, _options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerLogoutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerLogoutWithHttpInfo(_options);
+    public authControllerLogoutV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerLogoutV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerLogout(_options?: Configuration): Promise<void> {
-        const result = this.api.authControllerLogout(_options);
+    public authControllerLogoutV1(_options?: Configuration): Promise<void> {
+        const result = this.api.authControllerLogoutV1(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerMeWithHttpInfo(_options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.authControllerMeWithHttpInfo(_options);
+    public authControllerMeV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.authControllerMeV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerMe(_options?: Configuration): Promise<User> {
-        const result = this.api.authControllerMe(_options);
+    public authControllerMeV1(_options?: Configuration): Promise<User> {
+        const result = this.api.authControllerMeV1(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerRefreshWithHttpInfo(_options?: Configuration): Promise<HttpInfo<RefreshResponseType>> {
-        const result = this.api.authControllerRefreshWithHttpInfo(_options);
+    public authControllerRefreshV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<RefreshResponseType>> {
+        const result = this.api.authControllerRefreshV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerRefresh(_options?: Configuration): Promise<RefreshResponseType> {
-        const result = this.api.authControllerRefresh(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param authRegisterLoginDto
-     */
-    public authControllerRegisterWithHttpInfo(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerRegisterWithHttpInfo(authRegisterLoginDto, _options);
+    public authControllerRefreshV1(_options?: Configuration): Promise<RefreshResponseType> {
+        const result = this.api.authControllerRefreshV1(_options);
         return result.toPromise();
     }
 
     /**
      * @param authRegisterLoginDto
      */
-    public authControllerRegister(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<void> {
-        const result = this.api.authControllerRegister(authRegisterLoginDto, _options);
+    public authControllerRegisterV1WithHttpInfo(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerRegisterV1WithHttpInfo(authRegisterLoginDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param authRegisterLoginDto
+     */
+    public authControllerRegisterV1(authRegisterLoginDto: AuthRegisterLoginDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authControllerRegisterV1(authRegisterLoginDto, _options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerResendVerifyMailWithHttpInfo(_options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerResendVerifyMailWithHttpInfo(_options);
+    public authControllerResendVerifyMailV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerResendVerifyMailV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public authControllerResendVerifyMail(_options?: Configuration): Promise<void> {
-        const result = this.api.authControllerResendVerifyMail(_options);
+    public authControllerResendVerifyMailV1(_options?: Configuration): Promise<void> {
+        const result = this.api.authControllerResendVerifyMailV1(_options);
         return result.toPromise();
     }
 
     /**
      * @param authResetPasswordDto
      */
-    public authControllerResetPasswordWithHttpInfo(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<HttpInfo<void>> {
-        const result = this.api.authControllerResetPasswordWithHttpInfo(authResetPasswordDto, _options);
+    public authControllerResetPasswordV1WithHttpInfo(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<HttpInfo<void>> {
+        const result = this.api.authControllerResetPasswordV1WithHttpInfo(authResetPasswordDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authResetPasswordDto
      */
-    public authControllerResetPassword(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<void> {
-        const result = this.api.authControllerResetPassword(authResetPasswordDto, _options);
+    public authControllerResetPasswordV1(authResetPasswordDto: AuthResetPasswordDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authControllerResetPasswordV1(authResetPasswordDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authUpdateDto
      */
-    public authControllerUpdateWithHttpInfo(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.authControllerUpdateWithHttpInfo(authUpdateDto, _options);
+    public authControllerUpdateV1WithHttpInfo(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.authControllerUpdateV1WithHttpInfo(authUpdateDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param authUpdateDto
      */
-    public authControllerUpdate(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<User> {
-        const result = this.api.authControllerUpdate(authUpdateDto, _options);
+    public authControllerUpdateV1(authUpdateDto: AuthUpdateDto, _options?: Configuration): Promise<User> {
+        const result = this.api.authControllerUpdateV1(authUpdateDto, _options);
         return result.toPromise();
     }
 
@@ -220,16 +220,16 @@ export class PromiseBuffsApi {
     /**
      * @param createBuffDto
      */
-    public buffsControllerCreateWithHttpInfo(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<HttpInfo<Buff>> {
-        const result = this.api.buffsControllerCreateWithHttpInfo(createBuffDto, _options);
+    public buffsControllerCreateV1WithHttpInfo(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<HttpInfo<Buff>> {
+        const result = this.api.buffsControllerCreateV1WithHttpInfo(createBuffDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param createBuffDto
      */
-    public buffsControllerCreate(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<Buff> {
-        const result = this.api.buffsControllerCreate(createBuffDto, _options);
+    public buffsControllerCreateV1(createBuffDto: CreateBuffDto, _options?: Configuration): Promise<Buff> {
+        const result = this.api.buffsControllerCreateV1(createBuffDto, _options);
         return result.toPromise();
     }
 
@@ -237,8 +237,8 @@ export class PromiseBuffsApi {
      * @param guildUid
      * @param type
      */
-    public buffsControllerFindAllWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Array<Buff>>> {
-        const result = this.api.buffsControllerFindAllWithHttpInfo(guildUid, type, _options);
+    public buffsControllerFindAllV1WithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Array<Buff>>> {
+        const result = this.api.buffsControllerFindAllV1WithHttpInfo(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -246,18 +246,8 @@ export class PromiseBuffsApi {
      * @param guildUid
      * @param type
      */
-    public buffsControllerFindAll(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Array<Buff>> {
-        const result = this.api.buffsControllerFindAll(guildUid, type, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param guildUid
-     * @param type
-     * @param position
-     */
-    public buffsControllerRemoveAtWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<HttpInfo<Buff>> {
-        const result = this.api.buffsControllerRemoveAtWithHttpInfo(guildUid, type, position, _options);
+    public buffsControllerFindAllV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Array<Buff>> {
+        const result = this.api.buffsControllerFindAllV1(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -266,8 +256,18 @@ export class PromiseBuffsApi {
      * @param type
      * @param position
      */
-    public buffsControllerRemoveAt(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<Buff> {
-        const result = this.api.buffsControllerRemoveAt(guildUid, type, position, _options);
+    public buffsControllerRemoveAtV1WithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<HttpInfo<Buff>> {
+        const result = this.api.buffsControllerRemoveAtV1WithHttpInfo(guildUid, type, position, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param guildUid
+     * @param type
+     * @param position
+     */
+    public buffsControllerRemoveAtV1(guildUid: string, type: 'construction' | 'research' | 'training', position: number, _options?: Configuration): Promise<Buff> {
+        const result = this.api.buffsControllerRemoveAtV1(guildUid, type, position, _options);
         return result.toPromise();
     }
 
@@ -275,8 +275,8 @@ export class PromiseBuffsApi {
      * @param guildUid
      * @param type
      */
-    public buffsControllerRemoveFirstWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Buff>> {
-        const result = this.api.buffsControllerRemoveFirstWithHttpInfo(guildUid, type, _options);
+    public buffsControllerRemoveFirstV1WithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Buff>> {
+        const result = this.api.buffsControllerRemoveFirstV1WithHttpInfo(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -284,8 +284,8 @@ export class PromiseBuffsApi {
      * @param guildUid
      * @param type
      */
-    public buffsControllerRemoveFirst(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Buff> {
-        const result = this.api.buffsControllerRemoveFirst(guildUid, type, _options);
+    public buffsControllerRemoveFirstV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Buff> {
+        const result = this.api.buffsControllerRemoveFirstV1(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -311,16 +311,16 @@ export class PromiseChannelsApi {
     /**
      * @param createChannelDto
      */
-    public channelsControllerCreateWithHttpInfo(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<HttpInfo<Channel>> {
-        const result = this.api.channelsControllerCreateWithHttpInfo(createChannelDto, _options);
+    public channelsControllerCreateV1WithHttpInfo(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<HttpInfo<Channel>> {
+        const result = this.api.channelsControllerCreateV1WithHttpInfo(createChannelDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param createChannelDto
      */
-    public channelsControllerCreate(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<Channel> {
-        const result = this.api.channelsControllerCreate(createChannelDto, _options);
+    public channelsControllerCreateV1(createChannelDto: CreateChannelDto, _options?: Configuration): Promise<Channel> {
+        const result = this.api.channelsControllerCreateV1(createChannelDto, _options);
         return result.toPromise();
     }
 
@@ -328,8 +328,8 @@ export class PromiseChannelsApi {
      * @param guildUid
      * @param type
      */
-    public channelsControllerFindOneWithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Channel>> {
-        const result = this.api.channelsControllerFindOneWithHttpInfo(guildUid, type, _options);
+    public channelsControllerFindOneV1WithHttpInfo(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<HttpInfo<Channel>> {
+        const result = this.api.channelsControllerFindOneV1WithHttpInfo(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -337,8 +337,8 @@ export class PromiseChannelsApi {
      * @param guildUid
      * @param type
      */
-    public channelsControllerFindOne(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Channel> {
-        const result = this.api.channelsControllerFindOne(guildUid, type, _options);
+    public channelsControllerFindOneV1(guildUid: string, type: 'construction' | 'research' | 'training', _options?: Configuration): Promise<Channel> {
+        const result = this.api.channelsControllerFindOneV1(guildUid, type, _options);
         return result.toPromise();
     }
 
@@ -364,16 +364,16 @@ export class PromiseFilesApi {
     /**
      * @param [file]
      */
-    public filesLocalControllerUploadFileWithHttpInfo(file?: HttpFile, _options?: Configuration): Promise<HttpInfo<FileType>> {
-        const result = this.api.filesLocalControllerUploadFileWithHttpInfo(file, _options);
+    public filesLocalControllerUploadFileV1WithHttpInfo(file?: HttpFile, _options?: Configuration): Promise<HttpInfo<FileType>> {
+        const result = this.api.filesLocalControllerUploadFileV1WithHttpInfo(file, _options);
         return result.toPromise();
     }
 
     /**
      * @param [file]
      */
-    public filesLocalControllerUploadFile(file?: HttpFile, _options?: Configuration): Promise<FileType> {
-        const result = this.api.filesLocalControllerUploadFile(file, _options);
+    public filesLocalControllerUploadFileV1(file?: HttpFile, _options?: Configuration): Promise<FileType> {
+        const result = this.api.filesLocalControllerUploadFileV1(file, _options);
         return result.toPromise();
     }
 
@@ -399,30 +399,30 @@ export class PromiseGuildsApi {
     /**
      * @param createGuildDto
      */
-    public guildsControllerCreateWithHttpInfo(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<HttpInfo<Guild>> {
-        const result = this.api.guildsControllerCreateWithHttpInfo(createGuildDto, _options);
+    public guildsControllerCreateV1WithHttpInfo(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<HttpInfo<Guild>> {
+        const result = this.api.guildsControllerCreateV1WithHttpInfo(createGuildDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param createGuildDto
      */
-    public guildsControllerCreate(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<Guild> {
-        const result = this.api.guildsControllerCreate(createGuildDto, _options);
+    public guildsControllerCreateV1(createGuildDto: CreateGuildDto, _options?: Configuration): Promise<Guild> {
+        const result = this.api.guildsControllerCreateV1(createGuildDto, _options);
         return result.toPromise();
     }
 
     /**
      */
-    public guildsControllerFindAllWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<Guild>>> {
-        const result = this.api.guildsControllerFindAllWithHttpInfo(_options);
+    public guildsControllerFindAllV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<Guild>>> {
+        const result = this.api.guildsControllerFindAllV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public guildsControllerFindAll(_options?: Configuration): Promise<Array<Guild>> {
-        const result = this.api.guildsControllerFindAll(_options);
+    public guildsControllerFindAllV1(_options?: Configuration): Promise<Array<Guild>> {
+        const result = this.api.guildsControllerFindAllV1(_options);
         return result.toPromise();
     }
 
@@ -447,15 +447,15 @@ export class PromiseHealthApi {
 
     /**
      */
-    public healthControllerCheckWithHttpInfo(_options?: Configuration): Promise<HttpInfo<HealthControllerCheck200Response>> {
-        const result = this.api.healthControllerCheckWithHttpInfo(_options);
+    public healthControllerCheckV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<HealthControllerCheckV1200Response>> {
+        const result = this.api.healthControllerCheckV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public healthControllerCheck(_options?: Configuration): Promise<HealthControllerCheck200Response> {
-        const result = this.api.healthControllerCheck(_options);
+    public healthControllerCheckV1(_options?: Configuration): Promise<HealthControllerCheckV1200Response> {
+        const result = this.api.healthControllerCheckV1(_options);
         return result.toPromise();
     }
 
@@ -515,8 +515,8 @@ export class PromiseUsersApi {
      * @param id
      * @param activateUserDto
      */
-    public usersControllerActivateWithHttpInfo(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.usersControllerActivateWithHttpInfo(id, activateUserDto, _options);
+    public usersControllerActivateV1WithHttpInfo(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.usersControllerActivateV1WithHttpInfo(id, activateUserDto, _options);
         return result.toPromise();
     }
 
@@ -524,86 +524,86 @@ export class PromiseUsersApi {
      * @param id
      * @param activateUserDto
      */
-    public usersControllerActivate(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<User> {
-        const result = this.api.usersControllerActivate(id, activateUserDto, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param createUserDto
-     */
-    public usersControllerCreateWithHttpInfo(createUserDto: CreateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.usersControllerCreateWithHttpInfo(createUserDto, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param createUserDto
-     */
-    public usersControllerCreate(createUserDto: CreateUserDto, _options?: Configuration): Promise<User> {
-        const result = this.api.usersControllerCreate(createUserDto, _options);
+    public usersControllerActivateV1(id: string, activateUserDto: ActivateUserDto, _options?: Configuration): Promise<User> {
+        const result = this.api.usersControllerActivateV1(id, activateUserDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param createIndividualUserDto
      */
-    public usersControllerCreateIndividualWithHttpInfo(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.usersControllerCreateIndividualWithHttpInfo(createIndividualUserDto, _options);
+    public usersControllerCreateIndividualV1WithHttpInfo(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.usersControllerCreateIndividualV1WithHttpInfo(createIndividualUserDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param createIndividualUserDto
      */
-    public usersControllerCreateIndividual(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<User> {
-        const result = this.api.usersControllerCreateIndividual(createIndividualUserDto, _options);
+    public usersControllerCreateIndividualV1(createIndividualUserDto: CreateIndividualUserDto, _options?: Configuration): Promise<User> {
+        const result = this.api.usersControllerCreateIndividualV1(createIndividualUserDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param createUserDto
+     */
+    public usersControllerCreateV1WithHttpInfo(createUserDto: CreateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.usersControllerCreateV1WithHttpInfo(createUserDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param createUserDto
+     */
+    public usersControllerCreateV1(createUserDto: CreateUserDto, _options?: Configuration): Promise<User> {
+        const result = this.api.usersControllerCreateV1(createUserDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param queryUserDto
      */
-    public usersControllerFindAllWithHttpInfo(queryUserDto: QueryUserDto, _options?: Configuration): Promise<HttpInfo<UsersControllerFindAll200Response>> {
-        const result = this.api.usersControllerFindAllWithHttpInfo(queryUserDto, _options);
+    public usersControllerFindAllV1WithHttpInfo(queryUserDto: QueryUserDto, _options?: Configuration): Promise<HttpInfo<UsersControllerFindAllV1200Response>> {
+        const result = this.api.usersControllerFindAllV1WithHttpInfo(queryUserDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param queryUserDto
      */
-    public usersControllerFindAll(queryUserDto: QueryUserDto, _options?: Configuration): Promise<UsersControllerFindAll200Response> {
-        const result = this.api.usersControllerFindAll(queryUserDto, _options);
+    public usersControllerFindAllV1(queryUserDto: QueryUserDto, _options?: Configuration): Promise<UsersControllerFindAllV1200Response> {
+        const result = this.api.usersControllerFindAllV1(queryUserDto, _options);
         return result.toPromise();
     }
 
     /**
      * @param id
      */
-    public usersControllerFindOneWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.usersControllerFindOneWithHttpInfo(id, _options);
+    public usersControllerFindOneV1WithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.usersControllerFindOneV1WithHttpInfo(id, _options);
         return result.toPromise();
     }
 
     /**
      * @param id
      */
-    public usersControllerFindOne(id: string, _options?: Configuration): Promise<User> {
-        const result = this.api.usersControllerFindOne(id, _options);
+    public usersControllerFindOneV1(id: string, _options?: Configuration): Promise<User> {
+        const result = this.api.usersControllerFindOneV1(id, _options);
         return result.toPromise();
     }
 
     /**
      */
-    public usersControllerStatisticsWithHttpInfo(_options?: Configuration): Promise<HttpInfo<UserStatistics>> {
-        const result = this.api.usersControllerStatisticsWithHttpInfo(_options);
+    public usersControllerStatisticsV1WithHttpInfo(_options?: Configuration): Promise<HttpInfo<UserStatistics>> {
+        const result = this.api.usersControllerStatisticsV1WithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public usersControllerStatistics(_options?: Configuration): Promise<UserStatistics> {
-        const result = this.api.usersControllerStatistics(_options);
+    public usersControllerStatisticsV1(_options?: Configuration): Promise<UserStatistics> {
+        const result = this.api.usersControllerStatisticsV1(_options);
         return result.toPromise();
     }
 
@@ -611,8 +611,8 @@ export class PromiseUsersApi {
      * @param id
      * @param updateUserDto
      */
-    public usersControllerUpdateWithHttpInfo(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
-        const result = this.api.usersControllerUpdateWithHttpInfo(id, updateUserDto, _options);
+    public usersControllerUpdateV1WithHttpInfo(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<HttpInfo<User>> {
+        const result = this.api.usersControllerUpdateV1WithHttpInfo(id, updateUserDto, _options);
         return result.toPromise();
     }
 
@@ -620,8 +620,8 @@ export class PromiseUsersApi {
      * @param id
      * @param updateUserDto
      */
-    public usersControllerUpdate(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<User> {
-        const result = this.api.usersControllerUpdate(id, updateUserDto, _options);
+    public usersControllerUpdateV1(id: string, updateUserDto: UpdateUserDto, _options?: Configuration): Promise<User> {
+        const result = this.api.usersControllerUpdateV1(id, updateUserDto, _options);
         return result.toPromise();
     }
 
