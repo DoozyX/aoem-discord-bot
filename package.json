@@ -52,7 +52,7 @@
     "form-data": "^4.0.2",
     "i18next": "^24.2.2",
     "luxon": "3.5.0",
-    "node-fetch": "2.7.0",
+    "node-fetch": "3.3.2",
     "node-schedule": "2.1.1",
     "pino": "9.6.0",
     "pino-pretty": "13.0.0",
