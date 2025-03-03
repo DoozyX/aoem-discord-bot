@@ -50,6 +50,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
 }
 
 export const server1 = new ServerConfiguration<{  }>("https://aoem-api.doozyx.com", {  })
-export const server2 = new ServerConfiguration<{  }>("http://localhost:8000", {  })
+export const server2 = new ServerConfiguration<{  }>("http://localhost:8001", {  })
 
 export const servers = [server1, server2];

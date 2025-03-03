@@ -19,6 +19,7 @@
     "format:fix": "prettier --write .",
     "clean": "git clean -xdf --exclude=\"/config/**/*\"",
     "clean:dry": "git clean -xdf --exclude=\"/config/**/*\" --dry-run",
+    "build:api": "cd src/api_gen && yarn build && cd ../..",
     "build": "tsc --project tsconfig.json",
     "commands:view": "ts-node -r tsconfig-paths/register src/start-bot.ts commands view",
     "commands:register": "ts-node -r tsconfig-paths/register src/start-bot.ts commands register",
