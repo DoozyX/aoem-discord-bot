@@ -32,6 +32,7 @@
     "dev:bot": "ts-node-dev -r tsconfig-paths/register src/start-bot.ts",
     "start:pm2": "yarn run pm2:start",
     "pm2:start": "pm2 start process.json",
+    "pm2:restart": "pm2 restart process.json",
     "pm2:stop": "pm2 stop process.json",
     "pm2:delete": "pm2 delete process.json",
     "generate:api": "openapi-generator-cli generate -i ./openapi.yaml -g typescript -o src/api_gen/ --enable-post-process-file --additional-properties=platform=node && cd src/api_gen && yarn"
