@@ -40,13 +40,18 @@ export class BuffService {
         await this.refreshQueue(guildId, buffType);
     }
 
-    public async requestBuff(guildId: string, buffType: BuffType, member: string): Promise<void> {
+    public async requestBuff(
+        guildId: string,
+        buffType: BuffType,
+        member: string,
+        date: Date | null
+    ): Promise<void> {
         await this.api.buffs.buffsControllerCreateV1({
             guildUid: guildId,
             type: buffType as unknown as CreateBuffDtoTypeEnum,
             member: member,
             note: undefined,
-            time: undefined,
+            time: date?.toISOString() ?? undefined,
         });
 
         await this.refreshQueue(guildId, buffType);

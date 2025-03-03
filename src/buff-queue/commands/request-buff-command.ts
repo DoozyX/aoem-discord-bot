@@ -1,4 +1,5 @@
 import {
+    ApplicationCommandOptionType,
     ChatInputCommandInteraction,
     GuildMember,
     PermissionsString,
@@ -11,7 +12,7 @@ import { buffTypeOption } from '@app/buff-queue/commands/common';
 import { Command, CommandDeferType, getBaseChatCommandMetadata } from '@app/commands';
 import { IntlService } from '@app/intl';
 import { EventData } from '@app/models/internal-models';
-import { InteractionUtils, isValidEnumValue } from '@app/utils';
+import { InteractionUtils, isValidEnumValue, parseDate } from '@app/utils';
 
 export class RequestBuffCommand implements Command {
     public name = 'request-buff';
@@ -19,11 +20,27 @@ export class RequestBuffCommand implements Command {
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     private optionName = this.intlService.tr('buffTypeOption.name');
+    private dateOptionName = 'date';
+    private timeOptionName = 'time';
     public metadata: RESTPostAPIChatInputApplicationCommandsJSONBody = {
         ...getBaseChatCommandMetadata(this.intlService, this.name),
         dm_permission: true,
         default_member_permissions: undefined,
-        options: [buffTypeOption(this.intlService, this.optionName)],
+        options: [
+            buffTypeOption(this.intlService, this.optionName),
+            {
+                name: this.dateOptionName,
+                description: 'Date (YYYY-MM-DD)',
+                type: ApplicationCommandOptionType.String,
+                required: false,
+            },
+            {
+                name: this.timeOptionName,
+                description: 'Time (HH:mm or H)',
+                type: ApplicationCommandOptionType.String,
+                required: false,
+            },
+        ],
     };
 
     constructor(
@@ -52,8 +69,21 @@ export class RequestBuffCommand implements Command {
             return;
         }
 
+        const dateOption = intr.options.getString('date');
+        const timeOption = intr.options.getString('time');
+
+        let date: Date | null = null;
         try {
-            await this.buffService.requestBuff(guildId, buffType, member);
+            date = parseDate(dateOption, timeOption);
+        } catch (error) {
+            await InteractionUtils.send(
+                intr,
+                `invalid date/time: ${error instanceof Error ? error.message : 'Invalid input'}`
+            );
+        }
+
+        try {
+            await this.buffService.requestBuff(guildId, buffType, member, date);
 
             await InteractionUtils.send(
                 intr,
