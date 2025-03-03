@@ -1,7 +1,7 @@
 {
     "apps": [
         {
-            "name": "my-bot",
+            "name": "aoem-bot",
             "script": "src/start-manager.ts",
             "interpreter": "ts-node",
             "node_args": ["--require", "tsconfig-paths/register", "--enable-source-maps"],
