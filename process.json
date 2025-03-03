@@ -1,11 +1,20 @@
 {
     "apps": [
         {
-            "name": "aoem-bot",
-            "script": "src/start-manager.ts",
-            "interpreter": "ts-node",
-            "node_args": ["--require", "tsconfig-paths/register", "--enable-source-maps"],
-            "restart_delay": 10000
+            "name": "aoem-discord-bot",
+            "script": "ts-node",
+            "args": "-r tsconfig-paths/register src/start-bot.ts",
+            "watch": false,
+            "instances": 1,
+            "exec_mode": "fork",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "max_memory_restart": "1G",
+            "error_file": "logs/err.log",
+            "out_file": "logs/out.log",
+            "merge_logs": true,
+            "log_date_format": "YYYY-MM-DD HH:mm:ss"
         }
     ]
 }
